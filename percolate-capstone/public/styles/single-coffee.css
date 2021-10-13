@@ -1,0 +1,14 @@
+.single-coffee {
+  display: flex;
+  flex-direction: column;
+}
+
+.single-coffee-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.single-coffee-container img {
+  width: 200px;
+  height: 200px;
+}

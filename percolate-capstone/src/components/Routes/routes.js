@@ -1,17 +1,19 @@
-import React from "react";
+import React, { Component } from "react";
+import { Route, Switch } from "react-router";
+import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
+import LoginPage from "../Login";
 // import AllBusinesses from "./components/businesses/allBusinesses/AllBusinesses";
 // import LoginPage from "./components/Login";
-import Routes from "./components/Routes/Routes";
 
-function App() {
-  return (
-    <div>
-      {/* <Navbar /> */}
-      <div id="singlepage">
-        <Routes />
-      </div>
-    </div>
-  );
+class Routes extends Component {
+  render() {
+    return (
+      <Switch>
+        <Route path="/login" component={LoginPage} />
+        <Route path="/all-business" component={AllBusinesses} />
+      </Switch>
+    );
+  }
 }
 
-export default App;
+export default Routes;

@@ -1,15 +1,14 @@
 import React from "react";
-import AllBusinesses from "./components/businesses/allBusinesses/AllBusinesses";
-import LoginPage from "./components/Login";
+// import AllBusinesses from "./components/businesses/allBusinesses/AllBusinesses";
+// import LoginPage from "./components/Login";
+import Routes from "./components/Routes/Routes";
 
 function App() {
   return (
     <div>
       {/* <Navbar /> */}
       <div id="singlepage">
-        {/* <Routes /> */}hey
-        <LoginPage />
-        <AllBusinesses />
+        <Routes />
       </div>
     </div>
   );

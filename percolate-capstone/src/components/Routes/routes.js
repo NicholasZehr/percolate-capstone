@@ -1,18 +1,17 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { Route, Switch, withRouter } from "react-router-dom";
-import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
-import LoginPage from "../Login";
+import React from "react";
+// import AllBusinesses from "./components/businesses/allBusinesses/AllBusinesses";
+// import LoginPage from "./components/Login";
+import Routes from "./components/Routes/Routes";
 
-class Routes extends Component {
-  render() {
-    return (
-      <Switch>
-        <Route path="/all-business" component={AllBusinesses} />
-        <Route path="/login" component={LoginPage} />
-      </Switch>
-    );
-  }
+function App() {
+  return (
+    <div>
+      {/* <Navbar /> */}
+      <div id="singlepage">
+        <Routes />
+      </div>
+    </div>
+  );
 }
 
-export default Routes;
+export default App;

@@ -1,0 +1,139 @@
+.login {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-image: url('../background.jpeg');
+  background-size: cover;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  align-content: center;
+  display: flex;
+  flex-flow: column;
+}
+.nav {
+  display: flex;
+  justify-content: space-around;
+}
+#navContent {
+  color: #7f4b3a;
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-around;
+}
+#blank {
+  flex-grow: 4;
+}
+.loginbodyBox {
+  display: flex;
+  justify-content: space-around;
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  flex-flow: column;
+
+}
+.loginbody {
+  position: relative;
+  left: 25%;
+  top: 12.5%;
+  background-color: white;
+  width: 50%;
+  height: 50%;
+  border: gray solid 0.5px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+.welcome {
+  font-family: Comfortaa;
+  font-size: 58px;
+
+  background-image: linear-gradient(45deg, #364958, #b6a4a4);
+  background-size: 100%;
+  background-repeat: repeat;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -moz-background-clip: text;
+  -moz-text-fill-color: transparent;
+
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: rgb(255, 255, 255);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.bottomBar {
+  background-color: #3b6064;
+  height: 30%;
+  flex-grow: 1;
+}
+#bottomText {
+  position: relative;
+  font-size: 48px;
+  font-family: Sofia;
+  line-height: 57px;
+  color: white;
+  top: 35%;
+}
+.signin {
+  position:relative;
+  background: #3B6064;
+  color: white;
+  width: 25vw;
+  height: 35px;
+  font-size: 20px;
+  border-radius: 5px;
+  text-align: center;
+  align-self: center;
+}
+.signin:hover {
+  background: #2c484b;
+}
+.signup {
+  background-color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  margin: 5px;
+  width: 25vw;
+  height: 35px;
+  font-size: 20px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 5px;
+}
+.signup:hover {
+  background-color: rgb(202, 202, 202);
+}
+.error {
+  width: 100px;
+  height: 10px;
+  color: red;
+  font-size: 10px;
+}
+.errorLogin {
+  color: red;
+  font-size: 13px;
+  align-self: center;
+}
+.email {
+  width: 25vw;
+  height: 30px;
+}
+.emailBox {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  height: 30px;
+}
+.signupBox {
+  width: 405px;
+  text-align: left;
+}
+.signupTitle {
+  width: 405px;
+  text-align: center;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  row-gap: 20px;
+}

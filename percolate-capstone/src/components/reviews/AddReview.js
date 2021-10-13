@@ -1,186 +1,175 @@
-import React, { useState } from 'react';
-import { useHistory } from 'react-router';
+/*eslint jsx-quotes: ["error", "prefer-single"]*/
+import React from 'react';
+import { connect } from 'react-redux';
+import { editSingleStudent } from '../redux/singleStudent';
 
-class AddReview extends React.Component {
+export class EditStudent extends React.Component {
   constructor() {
     super();
-    this.state = { errors: '', review: {} };
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      imageUrl: '',
+      gpa: 0.0,
+      error: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.validateInput = this.validateInput.bind(this);
   }
-  attemptSubmit() {
-    //* Check for errors using state
-    const errors = checkValidity(this.state);
-    this.setState(errors);
-    //* If there are errors
-    if (Object.values(errors).length > 0) return false;
-    //* Async function to make update request
-    //^ Make initial check before request to see if Token even exists
-    async function updateProduct() {
-      try {
-        //* Make attempt to update
-        // TODO create product
-        //^ Send token from local storage for analysis
-        await axios.put(`/api/products/`, state, {
-          headers: {
-            authorization: token,
-          },
-        });
-        //* Catch errors
-      } catch (error) {
-        errors.error = 'Failed to update product';
-        return false;
-      }
-    }
 
-    //* Update product
-    updateProduct();
+  componentDidMount() {
+    this.setState({
+      id: this.props.student.id,
+      firstName: this.props.student.firstName,
+      lastName: this.props.student.lastName,
+      email: this.props.student.email,
+      imageUrl: this.props.student.imageUrl,
+      gpa: this.props.student.gpa,
+    });
+  }
+
+  componentDidUpdate(prevProps) {
+    const form = document.getElementById('form_student_new');
+    if (this.state.error && !form.classList.contains('form-student-error')) {
+      form.classList.add('form-student-error');
+    }
+    if (prevProps.student.id !== this.props.student.id) {
+      this.setState({
+        id: this.props.student.id,
+        firstName: this.props.student.firstName,
+        lastName: this.props.student.lastName,
+        email: this.props.student.email,
+        imageUrl: this.props.student.imageUrl,
+        gpa: this.props.student.gpa,
+      });
+    }
+  }
+
+  validateInput(firstName, lastName, email) {
+    if (!firstName || !lastName || !email) {
+      this.setState({
+        error: 'You must provide a first name, last name, and e-mail address.',
+      });
+      return false;
+    }
     return true;
   }
 
-  //* Update item in state
-  updateState(target, value) {
-    const newState = {
-      ...this.state,
-      [target]: value,
+  handleSubmit(event) {
+    event.preventDefault();
+    let editedStudent = {
+      id: this.state.id,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      email: this.state.email,
+      gpa: this.state.gpa,
+      imageUrl: this.state.imageUrl,
     };
-    this.setState(newState);
+    if (!editedStudent.imageUrl) {
+      editedStudent = {
+        id: editedStudent.id,
+        firstName: editedStudent.firstName,
+        lastName: editedStudent.lastName,
+        address: editedStudent.address,
+        description: editedStudent.description,
+      };
+    }
+    if (
+      this.validateInput(
+        editedStudent.firstName,
+        editedStudent.lastName,
+        editedStudent.email
+      )
+    ) {
+      this.props.editSingleStudent(editedStudent);
+    }
   }
+
+  handleChange(event) {
+    this.setState({ [event.target.name]: event.target.value });
+  }
+
   render() {
+    const student = this.state;
     return (
-      <div className='form_product_edit_container'>
-        <form id='form_product_edit'>
-          <span>Create Product</span>
-          <img
-            className='smallimg'
-            src={state.imageUrl}
-            alt='Waiting for image!'
+      <form
+        id='form_student_new'
+        className='form-student-new'
+        onSubmit={this.handleSubmit}
+      >
+        <div className='form-input-submit-group'>
+          {this.state.error ? (
+            <h3 className='error-label'>{this.state.error}</h3>
+          ) : null}
+          <label htmlFor='firstName'>First Name</label>
+          <input
+            className='form-text-box'
+            type='text'
+            name='firstName'
+            value={student.firstName}
+            placeholder='First Name'
+            onChange={this.handleChange}
+            onSelect={this.handleChange}
           />
-          <label htmlFor='productName'>Product Name</label>
-          <div className='product-edit-input'>
-            <input
-              className={`form-text-box${errors.name ? '-error' : ''}`}
-              type='text'
-              name='productName'
-              value={state.name}
-              placeholder='Product Name'
-              onChange={(event) => updateState('name', event.target.value)}
-            />
-          </div>
-          <label htmlFor='productDesc'>Product Description</label>
-          <div className='product-edit-input'>
-            <textarea
-              className={`form-text-box${errors.description ? '-error' : ''}`}
-              type='text'
-              name='productDesc'
-              value={state.description}
-              placeholder='Product Description'
-              onChange={(event) =>
-                updateState('description', event.target.value)
-              }
-            />
-          </div>
-          <label htmlFor='price'>Product Price</label>
-          <div className='product-edit-input'>
-            <input
-              className={`form-text-box-small${errors.price ? '-error' : ''}`}
-              type='number'
-              step='1'
-              min='1'
-              name='price'
-              value={getMoney(state.price)}
-              placeholder='Product Price'
-              onChange={(event) => updateState('price', event.target.value)}
-            />
-          </div>
-          <label htmlFor='stock'>Number in Stock</label>
-          <div className='product-edit-input'>
-            <input
-              className={`form-text-box-small${errors.stock ? '-error' : ''}`}
-              type='number'
-              step='1'
-              min='1'
-              name='stock'
-              value={state.stock}
-              placeholder='Stock Qty'
-              onChange={(event) => updateState('stock', event.target.value)}
-            />
-          </div>
+          <label htmlFor='lastName'>Last Name</label>
+          <input
+            className='form-text-box'
+            type='text'
+            name='lastName'
+            value={student.lastName}
+            placeholder='Last Name'
+            onChange={this.handleChange}
+            onSelect={this.handleChange}
+          />
+          <label htmlFor='email'>Email</label>
+          <input
+            className='form-text-box'
+            type='text'
+            name='email'
+            value={student.email}
+            placeholder='E-mail'
+            onChange={this.handleChange}
+            onSelect={this.handleChange}
+          />
           <label htmlFor='imageUrl'>Image Url</label>
-          <div className='product-edit-input'>
-            <input
-              className={`form-text-box${errors.imageUrl ? '-error' : ''}`}
-              type='text'
-              name='imageUrl'
-              value={state.imageUrl}
-              placeholder='Image URL'
-              onChange={(event) => updateState('imageUrl', event.target.value)}
-            />
-          </div>
-          <div className='product-edit-input'>
-            <button
-              className='submit-button'
-              onClick={async (event) => {
-                event.preventDefault();
-                const pass = await attemptSubmit();
-                // TODO: props input of prior url
-                if (pass) history.push('/home');
-              }}
-            >
-              Submit
-            </button>
-            <button
-              className='submit-button'
-              onClick={(event) => {
-                event.preventDefault();
-                // TODO: props input of prior url
-                history.push('/home');
-              }}
-            >
-              Cancel
-            </button>
-          </div>
-          <div className='product-edit-error-container'>
-            {getErrorMessages(errors)}
-          </div>
-        </form>
-      </div>
+          <input
+            className='form-text-box'
+            type='text'
+            name='imageUrl'
+            value={student.imageUrl}
+            placeholder='Image URL'
+            onChange={this.handleChange}
+            onSelect={this.handleChange}
+          />
+          <label htmlFor='gpa'>GPA</label>
+          <input
+            className='form-text-box'
+            type='text'
+            name='gpa'
+            value={student.gpa}
+            placeholder='GPA'
+            onChange={this.handleChange}
+            onSelect={this.handleChange}
+          />
+          <button className='submit-button' type='submit'>
+            Submit Edit
+          </button>
+        </div>
+      </form>
     );
   }
 }
-//* Check validity and get error message
-function checkValidity(state) {
-  //* destructure state
-  const { name, description, stock, price, imageUrl } = state;
-  const errors = [];
 
-  //* Check if name is valid
-  if (name.length <= 0) errors.name = 'You must provide a product name!';
-  //* Check if description is vaild
-  if (description.length <= 0)
-    errors.description = 'You must provide a product description!';
-  //* Check if stock is valid
-  if (isNaN(stock)) errors.stock = 'Stock input must be a number!';
-  else if (parseInt(stock) <= 0) errors.stock = 'Stock cannot be zero!';
-  //* Check if price is valid
-  if (isNaN(price)) errors.price = 'Price input must be a number!';
-  else if (parseInt(price) <= 0) errors.price = 'Price cannot be zero!';
-  //* Check if imageUrl is valid
-  if (imageUrl.length <= 0) errors.imageUrl = 'You must provide a imageUrl!';
-  //* Return errors
-  return errors;
-}
+const mapState = (state) => {
+  return {
+    student: state.singleStudent,
+  };
+};
 
-//* get error messages
-function getErrorMessages(errors) {
-  const errs = Object.values(errors);
-  if (errs.length !== 0)
-    return errs.map((x, index) => {
-      return (
-        <span className='zoomable' key={index}>
-          {x}
-        </span>
-      );
-    });
-  return <></>;
-}
+const mapDispatch = (dispatch) => ({
+  editSingleStudent: (student) => dispatch(editSingleStudent(student)),
+});
 
-export default AddReview;
+export default connect(mapState, mapDispatch)(EditStudent);

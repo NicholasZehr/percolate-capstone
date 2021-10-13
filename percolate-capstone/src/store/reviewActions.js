@@ -14,7 +14,7 @@ export const _addReview = (review) => ({
 export const addReview = (review) => {
   return async (dispatch) => {
     try {
-      const response = await addDoc(collection(db, 'reviews'));
+      const response = await addDoc(collection(db, 'reviews'), review);
       dispatch(_addReview(response));
       console.log('add review response:', response);
     } catch (error) {

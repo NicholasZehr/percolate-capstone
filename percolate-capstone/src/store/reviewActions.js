@@ -12,7 +12,7 @@ export const _addReview = (review) => ({
 // ------------------ Thunk creators -----------------------
 
 export const addReview = (review) => {
-  return async (dispatch) => {
+  return async (dispatch, review) => {
     try {
       const response = await addDoc(collection(db, 'reviews'), review);
       dispatch(_addReview(response));

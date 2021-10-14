@@ -16,7 +16,7 @@ export class AddReview extends React.Component {
       username: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSubmit = this.handleChange.bind(this);
   }
 
   componentDidUpdate(prevProps) {}
@@ -33,7 +33,10 @@ export class AddReview extends React.Component {
       userId: review.userId ? review.userId : null,
       username: review.username ? review.username : null,
     };
-    console.log(this);
+    console.log(newReview);
+    console.log(this.props);
+    console.log(addReview);
+    this.props.addR(newReview);
   }
 
   handleChange(event) {
@@ -82,10 +85,12 @@ export class AddReview extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  addReview(review) {
+const mapState = () => ({});
+const mapDispatch = (dispatch) => ({
+  addR: (review) => {
+    console.log('Made it to dispatch');
     dispatch(addReview(review));
   },
 });
 
-export default connect(null, mapDispatchToProps)(AddReview);
+export default connect(mapState, mapDispatch)(AddReview);

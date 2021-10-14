@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { authenticate, logout } from '../store';
+import { authenticate} from '../store';
 // import 'simplebar/dist/simplebar.min.css'
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -14,9 +14,6 @@ const LoginPage = () => {
     const password = evt.target.password.value;
     await dispatch(authenticate(username, password, formName));
   };
-  const signout = async () => {
-    logout()
-  }
 
   return (
     <div className='login'>
@@ -63,12 +60,10 @@ const LoginPage = () => {
                   Log In
                 </button>
               </div>
-              <Link to='/signup'>
+              <Link className='emailBox'to='/signup'>
                 <button className='signup'>Create your account</button>
               </Link>
             </form>
-
-            <button onClick={signout}> sign out</button>
           </div>
           <h1 className='welcome'>Welcome to Percolate</h1>
         </div>

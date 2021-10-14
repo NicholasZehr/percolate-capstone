@@ -1,7 +1,7 @@
 /*eslint jsx-quotes: ["error", "prefer-single"]*/
 import React from 'react';
 import { connect } from 'react-redux';
-import { editSingleStudent } from '../redux/singleStudent';
+import { addReview } from '../../store/reviewActions';
 
 export class EditStudent extends React.Component {
   constructor() {
@@ -12,7 +12,7 @@ export class EditStudent extends React.Component {
       email: '',
       imageUrl: '',
       gpa: 0.0,
-      error: '',
+      error: [],
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -162,14 +162,8 @@ export class EditStudent extends React.Component {
   }
 }
 
-const mapState = (state) => {
-  return {
-    student: state.singleStudent,
-  };
-};
-
 const mapDispatch = (dispatch) => ({
-  editSingleStudent: (student) => dispatch(editSingleStudent(student)),
+  addReview: (review) => dispatch(addReview(review)),
 });
 
-export default connect(mapState, mapDispatch)(EditStudent);
+export default connect(null, mapDispatch)(EditStudent);

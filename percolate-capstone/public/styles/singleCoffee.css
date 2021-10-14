@@ -1,6 +1,7 @@
 .single-coffee {
   display: flex;
   flex-direction: column;
+
 }
 
 .single-coffee-container {
@@ -8,7 +9,7 @@
   flex-direction: row;
 }
 
-.single-coffee-container img {
-  width: 200px;
-  height: 200px;
+#single-coffee-img {
+  max-width: 200px;
+  max-height: 200px;
 }

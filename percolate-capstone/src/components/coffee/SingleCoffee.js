@@ -3,17 +3,16 @@ import { connect } from "react-redux";
 import { fetchSingleCoffee } from "../../store/singleCoffee";
 
 class SingleCoffee extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
-    this.props.fetchCoffee();
-    console.log("componenet mounted");
+    const id = "AHmZ4UjEsZb4atwmhPM3";
+    this.props.fetchCoffee(id);
+    console.log("component moutned");
   }
 
   render() {
-    console.log("props", this.props.singleCoffee);
+    console.log("props", this.props);
+    //const singleCoffee = this.props.singleCoffee;
+
     const { name, brandName, photoUrl, roast } = this.props.singleCoffee;
     return (
       <div className="single-coffee">
@@ -21,7 +20,7 @@ class SingleCoffee extends Component {
         <h3>{brandName}</h3>
         <div className="single-coffee-container">
           <div className="single-coffee-image">
-            <img src={photoUrl} />
+            <img id="single-coffee-img" src={photoUrl} />
           </div>
           <div className="single-coffee-info">
             <p>{roast}</p>
@@ -40,7 +39,7 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchCoffee: () => dispatch(fetchSingleCoffee()),
+    fetchCoffee: (id) => dispatch(fetchSingleCoffee(id)),
   };
 };
 

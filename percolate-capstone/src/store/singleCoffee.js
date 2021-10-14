@@ -21,18 +21,16 @@ const getSingleCoffee = (coffee) => {
 
 // thunk
 
-const fetchSingleCoffee = () => {
+const fetchSingleCoffee = (id) => {
   return async (dispatch) => {
     try {
-      const docRef = query(
-        collection(db, "coffees"),
-        where("brandName", "==", `Superlost`),
-        where("name", "==", "Supernova")
-      );
-      const response = await getDocs(docRef);
-      let oneCoffee = null;
-      response.forEach((coffee) => (oneCoffee = coffee.data()));
-      dispatch(getSingleCoffee(oneCoffee));
+      const docRef = doc(db, "coffees", id);
+      const docSnap = await getDoc(docRef);
+
+      console.log("snap", docSnap.data());
+      const singleCoffee = docSnap.data();
+
+      dispatch(getSingleCoffee(singleCoffee));
     } catch (error) {
       return `Error ${error.message} fetch single coffee thunk`;
     }

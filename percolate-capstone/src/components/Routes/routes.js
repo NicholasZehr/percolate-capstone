@@ -3,6 +3,7 @@ import { Route, Switch } from "react-router";
 import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
 import SingleCoffee from "../coffee/SingleCoffee";
 import LoginPage from "../Login";
+import Navbar from "../Navbar";
 import Signup from "../Signup";
 // import AllBusinesses from "./components/businesses/allBusinesses/AllBusinesses";
 // import LoginPage from "./components/Login";
@@ -10,13 +11,16 @@ import Signup from "../Signup";
 class Routes extends Component {
   render() {
     return (
-      <Switch>
-        <Route path="/all-business" component={AllBusinesses} />
-        <Route path="/coffees/singleCoffee" component={SingleCoffee} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/all-business" component={AllBusinesses} />
-      </Switch>
+      <>
+        <Navbar />
+        <Switch>
+          <Route path="/all-business" component={AllBusinesses} />
+          <Route path="/coffees/singleCoffee" component={SingleCoffee} />
+          <Route path="/login" component={LoginPage} />
+          <Route path="/signup" component={Signup} />
+          <Route path="/all-business" component={AllBusinesses} />
+        </Switch>
+      </>
     );
   }
 }

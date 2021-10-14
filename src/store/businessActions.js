@@ -21,7 +21,7 @@ export const fetchBusinesses = () => {
     try {
       const response = await getDocs(collection(db, 'businesses'));
       let businesses = []
-      response.forEach(business=>businesses.push(business.data()))
+      response.forEach(business=>businesses.push(business))
       dispatch(_fetchBusinesses(businesses))
       console.log('businesses fetch response:', businesses)
     } catch (error) {
@@ -35,7 +35,8 @@ export const fetchBusiness = businessId=> {
   return async dispatch => {
     try {
       const response = await getDoc(doc(db, 'businesses', businessId));
-      dispatch(_fetchBusiness(response.data()))
+      dispatch(_fetchBusiness(response))
+      console.log('fetch was called: ',response)
     } catch (error) {
       console.log('Failed to fetch single business')
       return

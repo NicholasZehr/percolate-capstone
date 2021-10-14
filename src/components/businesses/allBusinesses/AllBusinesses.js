@@ -18,7 +18,7 @@ class Businesses extends Component {
       return (
         <div>
           {this.props.businesses.businesses.map((business) => (
-            <div>{business.name}</div>
+            <div>{business.data().name} {business.id}</div>
           ))}
         </div>
       );

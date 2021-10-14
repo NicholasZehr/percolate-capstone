@@ -1,64 +1,53 @@
+
 import history from '../history';
 import {
   getAuth,
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
   signOut,
-  setPersistence,
-  browserSessionPersistence,
 } from 'firebase/auth';
-import { collection, doc, setDoc } from 'firebase/firestore';
-import db from '../firebase';
+const TOKEN = 'token'
 
-const TOKEN = 'token';
+/**
+ * ACTION TYPES
+ */
+const SET_AUTH = 'SET_AUTH'
 
-const SET_AUTH = 'SET_AUTH';
+/**
+ * ACTION CREATORS
+ */
+const setAuth = auth => ({ type: SET_AUTH, auth })
 
-const setAuth = (auth) => ({ type: SET_AUTH, auth });
+/**
+ * THUNK CREATORS
+ */
 
-export const me = () => async (dispatch) => {
-  const auth = getAuth()
-  auth.onAuthStateChanged(function (user) {
-    if (user) {
-      // User is signed in.
-      console.log('signed in', user)
-      dispatch(setAuth(user))
-    } else {
-      console.log('not signed in')
+export const authenticate =
+  (username, password) => async (dispatch) => {
+    try {
+      const auth = getAuth()
+      const response = await signInWithEmailAndPassword(auth, username, password);
+      window.localStorage.setItem(TOKEN, response.user.accessToken);
+    } catch (authError) {
+      return dispatch(setAuth({ error: authError }));
     }
-  });
-};
-export const authenticate = (username, password) => async (dispatch) => {
-  const auth = getAuth();
-  try {
-    signOut(auth);
-    await signInWithEmailAndPassword(auth, username, password);
-    dispatch(me())
-  } catch (authError) {
-    return dispatch(setAuth({ error: authError }));
-  }
-};
-export const authenticateSignup = (user) => async (dispatch) => {
-  try { 
-    const auth = getAuth()
-    signOut(auth);
-    const response = await createUserWithEmailAndPassword(auth, user.email, user.password);
-    const users = collection(db, 'Users')
-    await setDoc(doc(users, response.user.uid), {
-      firstName: user.firstName,
-      lastName: user.lastName,
-      username: user.username,
-    });
-  } catch (error) {
-    console.log(error)
-    return dispatch(setAuth({error}))
-  }
+  };
+export const authenticateSignup = (user, method) => async (dispatch) => {
+
 };
 
 export const logout = () => {
   const auth = getAuth();
-  window.localStorage.removeItem(TOKEN);
+  window.localStorage.removeItem(TOKEN)
   signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      console.log('you signed out')
+    })
+    .catch((error) => {
+      // An error happened.
+      console.log(error)
+    });
   return {
     type: SET_AUTH,
     auth: {},

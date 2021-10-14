@@ -13,6 +13,7 @@ class Routes extends Component {
         <Route path='/login' component={LoginPage} />
         <Route path='/signup' component={Signup} />
         <Route path='/all-business' component={AllBusinesses} />
+        <Route path='/singleBusiness' component={Business} />
       </Switch>
     );
   }

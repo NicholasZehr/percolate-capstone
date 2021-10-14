@@ -13,6 +13,7 @@ export default function businesssesReducer(state = initialState, action) {
     case FETCH_BUSINESSES:
       return { ...state, businesses: action.businesses }
     case FETCH_BUSINESS:
+      console.log('reducer',action.business)
       return { ...state, business: action.business }
     default:
       return state

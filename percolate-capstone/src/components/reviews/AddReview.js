@@ -6,85 +6,35 @@ import { addReview } from '../../store/reviewActions';
 export class EditStudent extends React.Component {
   constructor() {
     super();
+    this.errors = [];
     this.state = {
-      firstName: '',
-      lastName: '',
-      email: '',
-      imageUrl: '',
-      gpa: 0.0,
-      error: [],
+      businessId: '',
+      coffeeId: '',
+      rating: 0.0,
+      reviewContent: '',
+      userId: '',
+      username: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.validateInput = this.validateInput.bind(this);
   }
 
-  componentDidMount() {
-    this.setState({
-      id: this.props.student.id,
-      firstName: this.props.student.firstName,
-      lastName: this.props.student.lastName,
-      email: this.props.student.email,
-      imageUrl: this.props.student.imageUrl,
-      gpa: this.props.student.gpa,
-    });
-  }
-
-  componentDidUpdate(prevProps) {
-    const form = document.getElementById('form_student_new');
-    if (this.state.error && !form.classList.contains('form-student-error')) {
-      form.classList.add('form-student-error');
-    }
-    if (prevProps.student.id !== this.props.student.id) {
-      this.setState({
-        id: this.props.student.id,
-        firstName: this.props.student.firstName,
-        lastName: this.props.student.lastName,
-        email: this.props.student.email,
-        imageUrl: this.props.student.imageUrl,
-        gpa: this.props.student.gpa,
-      });
-    }
-  }
-
-  validateInput(firstName, lastName, email) {
-    if (!firstName || !lastName || !email) {
-      this.setState({
-        error: 'You must provide a first name, last name, and e-mail address.',
-      });
-      return false;
-    }
-    return true;
-  }
+  componentDidUpdate(prevProps) {}
 
   handleSubmit(event) {
+    const { ...review } = this.state;
     event.preventDefault();
-    let editedStudent = {
-      id: this.state.id,
-      firstName: this.state.firstName,
-      lastName: this.state.lastName,
-      email: this.state.email,
-      gpa: this.state.gpa,
-      imageUrl: this.state.imageUrl,
+    let newReview = {
+      businessId: review.businessId ? review.businessId : null,
+      coffeeId: review.coffeeId ? review.coffeeId : null,
+      likeCount: 0,
+      rating: review.rating,
+      reviewContent: review.reviewContent,
+      userId: review.userId,
+      username: review.userId,
     };
-    if (!editedStudent.imageUrl) {
-      editedStudent = {
-        id: editedStudent.id,
-        firstName: editedStudent.firstName,
-        lastName: editedStudent.lastName,
-        address: editedStudent.address,
-        description: editedStudent.description,
-      };
-    }
-    if (
-      this.validateInput(
-        editedStudent.firstName,
-        editedStudent.lastName,
-        editedStudent.email
-      )
-    ) {
-      this.props.editSingleStudent(editedStudent);
-    }
+    this.props.addReview(newReview);
   }
 
   handleChange(event) {

@@ -23,24 +23,21 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
  * THUNK CREATORS
  */
 export const me = () => async (dispatch) => {
-  const token = window.localStorage.getItem(TOKEN);
   const auth = getAuth()
-  const response = await setPersistence(auth, browserSessionPersistence)
-  // if (token) {
-  //   const res = await axios.get('/auth/me', {
-  //     headers: {
-  //       authorization: token,
-  //     },
-  //   });
-
-  //   return dispatch(setAuth(res.data));
-  // } else return dispatch(setAuth({}));
+  auth.onAuthStateChanged(function (user) {
+    if (user) {
+      // User is signed in.
+      console.log('signed in', user)
+      dispatch(setAuth(user))
+    } else {
+      console.log('not signed in')
+    }
+  });
 };
 export const authenticate = (username, password) => async (dispatch) => {
   try {
     const auth = getAuth();
     const response = await signInWithEmailAndPassword(auth, username, password);
-    window.localStorage.setItem(TOKEN, response.user.accessToken);
     dispatch(me())
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
@@ -52,14 +49,6 @@ export const logout = () => {
   const auth = getAuth();
   window.localStorage.removeItem(TOKEN);
   signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-      console.log('you signed out');
-    })
-    .catch((error) => {
-      // An error happened.
-      console.log(error);
-    });
   return {
     type: SET_AUTH,
     auth: {},

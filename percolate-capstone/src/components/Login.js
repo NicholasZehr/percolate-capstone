@@ -5,7 +5,7 @@ import { authenticate, logout } from '../store';
 // import 'simplebar/dist/simplebar.min.css'
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.id);
+  const isLoggedIn = useSelector((state) => state.auth.accessToken);
   const auth = useSelector((state) => state.auth);
   const handleSubmit = async (evt) => {
     evt.preventDefault();

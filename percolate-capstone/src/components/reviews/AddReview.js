@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addReview } from '../../store/reviewActions';
 
-export class AddReview extends React.Component {
+class AddReview extends React.Component {
   constructor() {
     super();
     this.errors = [];
@@ -16,7 +16,7 @@ export class AddReview extends React.Component {
       username: '',
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   componentDidUpdate(prevProps) {}
@@ -87,10 +87,7 @@ export class AddReview extends React.Component {
 
 const mapState = () => ({});
 const mapDispatch = (dispatch) => ({
-  addR: (review) => {
-    console.log('Made it to dispatch');
-    dispatch(addReview(review));
-  },
+  addR: (review) => dispatch(addReview(review)),
 });
 
 export default connect(mapState, mapDispatch)(AddReview);

@@ -45,66 +45,36 @@ export class EditStudent extends React.Component {
     const student = this.state;
     return (
       <form
-        id='form_student_new'
-        className='form-student-new'
+        id='form_review_new'
+        className='form-review-new'
         onSubmit={this.handleSubmit}
       >
         <div className='form-input-submit-group'>
           {this.state.error ? (
-            <h3 className='error-label'>{this.state.error}</h3>
+            <ul className='error-label'>
+              {this.error.map((error) => (
+                <li>{error}</li>
+              ))}
+            </ul>
           ) : null}
-          <label htmlFor='firstName'>First Name</label>
+          <label htmlFor='rating'>Rating</label>
+          <input
+            className='form-text-box'
+            type='number'
+            name='Rating'
+            placeholder={0.0}
+            onChange={this.handleChange}
+          />
+          <label htmlFor='reviewContent'>Review Comments</label>
           <input
             className='form-text-box'
             type='text'
-            name='firstName'
-            value={student.firstName}
-            placeholder='First Name'
+            name='reviewContent'
+            placeholder='Your comment here...'
             onChange={this.handleChange}
-            onSelect={this.handleChange}
           />
-          <label htmlFor='lastName'>Last Name</label>
-          <input
-            className='form-text-box'
-            type='text'
-            name='lastName'
-            value={student.lastName}
-            placeholder='Last Name'
-            onChange={this.handleChange}
-            onSelect={this.handleChange}
-          />
-          <label htmlFor='email'>Email</label>
-          <input
-            className='form-text-box'
-            type='text'
-            name='email'
-            value={student.email}
-            placeholder='E-mail'
-            onChange={this.handleChange}
-            onSelect={this.handleChange}
-          />
-          <label htmlFor='imageUrl'>Image Url</label>
-          <input
-            className='form-text-box'
-            type='text'
-            name='imageUrl'
-            value={student.imageUrl}
-            placeholder='Image URL'
-            onChange={this.handleChange}
-            onSelect={this.handleChange}
-          />
-          <label htmlFor='gpa'>GPA</label>
-          <input
-            className='form-text-box'
-            type='text'
-            name='gpa'
-            value={student.gpa}
-            placeholder='GPA'
-            onChange={this.handleChange}
-            onSelect={this.handleChange}
-          />
-          <button className='submit-button' type='submit'>
-            Submit Edit
+          <button className='review-submit-button' type='submit'>
+            Submit Review
           </button>
         </div>
       </form>

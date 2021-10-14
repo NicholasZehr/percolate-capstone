@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { addReview } from '../../store/reviewActions';
 
-export class EditStudent extends React.Component {
+export class AddReview extends React.Component {
   constructor() {
     super();
     this.errors = [];
@@ -17,7 +17,6 @@ export class EditStudent extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.validateInput = this.validateInput.bind(this);
   }
 
   componentDidUpdate(prevProps) {}
@@ -31,10 +30,10 @@ export class EditStudent extends React.Component {
       likeCount: 0,
       rating: review.rating,
       reviewContent: review.reviewContent,
-      userId: review.userId,
-      username: review.userId,
+      userId: review.userId ? review.userId : null,
+      username: review.username ? review.username : null,
     };
-    this.props.addReview(newReview);
+    console.log(this);
   }
 
   handleChange(event) {
@@ -42,7 +41,6 @@ export class EditStudent extends React.Component {
   }
 
   render() {
-    const student = this.state;
     return (
       <form
         id='form_review_new'
@@ -61,8 +59,10 @@ export class EditStudent extends React.Component {
           <input
             className='form-text-box'
             type='number'
-            name='Rating'
+            name='rating'
             placeholder={0.0}
+            min='0'
+            max='5'
             onChange={this.handleChange}
           />
           <label htmlFor='reviewContent'>Review Comments</label>
@@ -82,8 +82,10 @@ export class EditStudent extends React.Component {
   }
 }
 
-const mapDispatch = (dispatch) => ({
-  addReview: (review) => dispatch(addReview(review)),
+const mapDispatchToProps = (dispatch) => ({
+  addReview(review) {
+    dispatch(addReview(review));
+  },
 });
 
-export default connect(null, mapDispatch)(EditStudent);
+export default connect(null, mapDispatchToProps)(AddReview);

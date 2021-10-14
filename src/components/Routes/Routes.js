@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router";
 import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
-import LoginPage from "../Login";
-import Signup from '../Signup';
+import LoginPage from "../loginSignup/Login";
+import Signup from '../loginSignup/Signup';
 // import AllBusinesses from "./components/businesses/allBusinesses/AllBusinesses";
 // import LoginPage from "./components/Login";
 

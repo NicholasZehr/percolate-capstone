@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { authenticate} from '../store';
+import { authenticate} from '../../store';
 // import 'simplebar/dist/simplebar.min.css'
 const LoginPage = () => {
   const dispatch = useDispatch();

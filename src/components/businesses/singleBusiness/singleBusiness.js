@@ -16,7 +16,7 @@ class Business extends Component {
   render() {
     console.log("render business", this.props.business);
     const business = this.props.business;
-    if (!business) {
+    if (!business.name) {
       return <h2>loading..</h2>;
     }
 
@@ -33,18 +33,20 @@ class Business extends Component {
           <div>
             Business:
             {business.name}
-            {/* <div>
+            {
+            <div>
               Location:
               {Object.values(business.location).map((item) => (
                 <h1>{item}</h1>
               ))}
-            </div> */}
+            </div>
+            }
             <div>
               Contact Info: <br />
               {business.phone} <br />
               {business.email}
             </div>
-            {/* {business.followers.length} followers */}
+            {business.followers.length} followers
           </div>
         </div>
       </div>

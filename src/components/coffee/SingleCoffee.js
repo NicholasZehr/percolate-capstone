@@ -16,6 +16,7 @@ class SingleCoffee extends Component {
     const id = "AHmZ4UjEsZb4atwmhPM3";
     const { name, brandName, photoUrl, roast } = this.props.singleCoffee;
     return (
+
       <>
         <div className="single-coffee">
           <h2>{name}</h2>

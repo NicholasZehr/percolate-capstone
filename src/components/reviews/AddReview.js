@@ -2,6 +2,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addReview } from "../../store/reviewActions";
+import ReviewPane from "./ReviewPane";
 
 class AddReview extends React.Component {
   constructor() {
@@ -25,16 +26,16 @@ class AddReview extends React.Component {
     const { ...review } = this.state;
     event.preventDefault();
     let newReview = {
-      businessId: this.props.businessId ? review.businessId : null,
-      coffeeId: this.props.coffeeId ? review.coffeeId : null,
+      businessId: this.props.businessId ? this.props.businessId : null,
+      coffeeId: this.props.coffeeId ? this.props.coffeeId : null,
       likeCount: 0,
       rating: review.rating,
       reviewContent: review.reviewContent,
       userId: review.userId ? review.userId : null,
       username: review.username ? review.username : null,
     };
-    console.log(newReview);
-    console.log(this.props);
+    console.log("lballelsid newReview", newReview);
+    console.log("Props to you", this.props);
     console.log(addReview);
     this.props.addR(newReview);
   }
@@ -45,42 +46,45 @@ class AddReview extends React.Component {
 
   render() {
     return (
-      <form
-        id='form_review_new'
-        className='form-review-new'
-        onSubmit={this.handleSubmit}
-      >
-        <div className='form-input-submit-group'>
-          {this.state.error ? (
-            <ul className='error-label'>
-              {this.error.map((error) => (
-                <li>{error}</li>
-              ))}
-            </ul>
-          ) : null}
-          <label htmlFor='rating'>Rating</label>
-          <input
-            className='form-text-box'
-            type='number'
-            name='rating'
-            placeholder={0.0}
-            min='0'
-            max='5'
-            onChange={this.handleChange}
-          />
-          <label htmlFor='reviewContent'>Review Comments</label>
-          <input
-            className='form-text-box'
-            type='text'
-            name='reviewContent'
-            placeholder='Your comment here...'
-            onChange={this.handleChange}
-          />
-          <button className='review-submit-button' type='submit'>
-            Submit Review
-          </button>
-        </div>
-      </form>
+      <div>
+        <ReviewPane />
+        <form
+          id='form_review_new'
+          className='form-review-new'
+          onSubmit={this.handleSubmit}
+        >
+          <div className='form-input-submit-group'>
+            {this.state.error ? (
+              <ul className='error-label'>
+                {this.error.map((error) => (
+                  <li>{error}</li>
+                ))}
+              </ul>
+            ) : null}
+            <label htmlFor='rating'>Rating</label>
+            <input
+              className='form-text-box'
+              type='number'
+              name='rating'
+              placeholder={0.0}
+              min='0'
+              max='5'
+              onChange={this.handleChange}
+            />
+            <label htmlFor='reviewContent'>Review Comments</label>
+            <input
+              className='form-text-box'
+              type='text'
+              name='reviewContent'
+              placeholder='Your comment here...'
+              onChange={this.handleChange}
+            />
+            <button className='review-submit-button' type='submit'>
+              Submit Review
+            </button>
+          </div>
+        </form>
+      </div>
     );
   }
 }

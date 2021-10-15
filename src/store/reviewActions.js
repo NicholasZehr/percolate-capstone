@@ -1,6 +1,6 @@
-import { ADD_REVIEW } from './reviewReducer';
-import { collection, addDoc } from 'firebase/firestore';
-import db from '../firebase';
+import { ADD_REVIEW } from "./reviewReducer";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import db from "../firebase";
 
 // ------------------ Actions creators --------------------
 
@@ -14,12 +14,26 @@ export const _addReview = (review) => ({
 export const addReview = (review) => {
   return async (dispatch) => {
     try {
-      const response = await addDoc(collection(db, 'reviews'), review);
-      dispatch(_addReview(response));
-      console.log('add review response:', response);
+      await addDoc(collection(db, "reviews"), review);
+      dispatch(_addReview(review));
+      console.log("add review:", review);
     } catch (error) {
-      console.log('Failed to add review');
+      console.error(error);
+      console.log("Failed to add review");
       return;
+    }
+  };
+};
+
+export const fetchReviews = (type, id) => {
+  return async (dispatch) => {
+    try {
+      console.log(`${type}Id`, id);
+      const q = query(collection(db, "reviews"), where(`${type}Id`, "==", id));
+      const docSnap = await getDocs(q);
+      docSnap.forEach((doc) => doc.data());
+    } catch (error) {
+      console.error(error);
     }
   };
 };

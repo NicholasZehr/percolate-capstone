@@ -7,21 +7,21 @@ import Signup from "../loginSignup/Signup";
 import Business from "../businesses/singleBusiness/singleBusiness";
 import SingleUserPage from "../user/SinglePageUser";
 import SingleCoffee from "../coffee/SingleCoffee";
+import ReviewPane from "../reviews/ReviewPane";
 // import AllBusinesses from "./components/businesses/allBusinesses/AllBusinesses";
 // import LoginPage from "./components/Login";
-
 
 class Routes extends Component {
   render() {
     return (
       <Switch>
-        <Route path="/review/add" component={AddReview} />
-        <Route path="/login" component={LoginPage} />
-        <Route path="/signup" component={Signup} />
-        <Route path="/businesses" component={AllBusinesses} />
-        <Route path="/business" component={Business} />
-        <Route path="/users/:id" component={SingleUserPage} />
-        <Route exact path="/coffee/:coffeeId" component={SingleCoffee} />
+        <Route path='/reviewPane' component={ReviewPane} />
+        <Route path='/login' component={LoginPage} />
+        <Route path='/signup' component={Signup} />
+        <Route path='/businesses' component={AllBusinesses} />
+        <Route path='/business' component={Business} />
+        <Route path='/users/:id' component={SingleUserPage} />
+        <Route exact path='/coffee/:coffeeId' component={SingleCoffee} />
       </Switch>
     );
   }

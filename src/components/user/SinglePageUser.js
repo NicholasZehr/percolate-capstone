@@ -3,19 +3,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { fetchUser } from '../../store/Actions/usersActions';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const SingleUserPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   // componentDidMount here
-  const userId = useSelector((state) => state.auth.uid);
-  useEffect(() => {
-    async function fetchData() {
-      //* Fetch the user using it's id
-      await dispatch(fetchUser(userId));
-    }
-    fetchData();
-  }, []);
+  // const user = getAuth().currentUser
+  // console.log(user)
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     //* Fetch the user using it's id
+  //     await dispatch(fetchUser(user.uid));
+  //   }
+  //   fetchData();
+  // }, []);
 
   return (
     <div className="singleUserPageBox">

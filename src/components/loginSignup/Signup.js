@@ -46,8 +46,8 @@ const Signup = () => {
       email: evt.target.email.value,
       firstName: evt.target.firstName.value,
       lastName: evt.target.lastName.value,
-      username: evt.target.username.value,
       password: evt.target.password.value,
+      photoURL: evt.target.photoURL.value,
     };
     dispatch(authenticateSignup(user, formName));
   };
@@ -55,7 +55,6 @@ const Signup = () => {
     let errors = {
       firstName: '',
       lastName: '',
-      username: '',
       password: '',
       email: '',
     };
@@ -65,11 +64,7 @@ const Signup = () => {
     if (!userInput.user.lastName) {
       errors.lastName = 'put your last name !';
     }
-    if (!userInput.user.username) {
-      errors.username = 'How can you login without username?';
-    } else if (userInput.user.username in usernames) {
-      errors.username = 'user already exist!';
-    }
+
     if (!userInput.user.password) {
       errors.password = '????? please write your password.';
     }
@@ -135,13 +130,13 @@ const Signup = () => {
               <div className='emailBox'>
                 <input
                   className='email'
-                  name='username'
+                  name='photoURL'
                   type='text'
                   onChange={handleChange}
-                  placeholder='Username'
+                  placeholder='picture URL'
                 />
                 {userInput.errors != '' && (
-                  <span className='error'>{userInput.errors.username}</span>
+                  <span className='error'></span>
                 )}
               </div>
               <div className='emailBox'>

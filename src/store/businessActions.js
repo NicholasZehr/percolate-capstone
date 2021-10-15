@@ -1,45 +1,46 @@
-import { FETCH_BUSINESS, FETCH_BUSINESSES } from './businessesReducer'
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
-import db from '../firebase';
+import { FETCH_BUSINESS, FETCH_BUSINESSES } from "./businessesReducer";
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import db from "../firebase";
 
 // ------------------ Actions creators --------------------
 
-export const _fetchBusinesses = businesses => ({
+export const _fetchBusinesses = (businesses) => ({
   type: FETCH_BUSINESSES,
-  businesses
-})
+  businesses,
+});
 
-export const _fetchBusiness = business => ({
+export const _fetchBusiness = (business) => ({
   type: FETCH_BUSINESS,
-  business
-})
+  business,
+});
 
 // ------------------ Thunk creators -----------------------
 
 export const fetchBusinesses = () => {
-  return async dispatch => {
+  return async (dispatch) => {
     try {
-      const response = await getDocs(collection(db, 'businesses'));
-      let businesses = []
-      response.forEach(business=>businesses.push(business))
-      dispatch(_fetchBusinesses(businesses))
-      console.log('businesses fetch response:', businesses)
+      const response = await getDocs(collection(db, "businesses"));
+      let businesses = [];
+      response.forEach((business) => businesses.push(business));
+      dispatch(_fetchBusinesses(businesses));
+      console.log("businesses fetch response:", businesses);
     } catch (error) {
-      console.log('Failed to fetch all businesses')
-      return
+      console.log("Failed to fetch all businesses");
+      return;
     }
-  }
-}
+  };
+};
 
-export const fetchBusiness = businessId=> {
-  return async dispatch => {
+export const fetchBusiness = (businessId) => {
+  return async (dispatch) => {
     try {
-      const response = await getDoc(doc(db, 'businesses', businessId));
-      dispatch(_fetchBusiness(response))
-      console.log('fetch was called: ',response)
+      const docRef = doc(db, "businesses", businessId);
+      const docSnap = await getDoc(docRef);
+      const singleBusiness = docSnap.data();
+      dispatch(_fetchBusiness(singleBusiness));
     } catch (error) {
-      console.log('Failed to fetch single business')
-      return
+      console.log("Failed to fetch single business");
+      return;
     }
-  }
-}
+  };
+};

@@ -17,8 +17,8 @@ class Routes extends Component {
         <Route path='/review/add' component={AddReview} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={Signup} />
-        <Route path="/all-business" component={AllBusinesses} />
-        <Route path="/singleBusiness" component={Business} />
+        <Route path="/businesses" component={AllBusinesses} />
+        <Route path="/business" component={Business} />
         <Route path="/users/:id" component={SingleUserPage} />
       </Switch>
     );

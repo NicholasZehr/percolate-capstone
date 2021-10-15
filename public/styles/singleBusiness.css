@@ -1,0 +1,20 @@
+.single-business{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+}
+
+.business-info{
+  width: 80%;
+  display:flex;
+  flex-direction: row;
+}
+
+.cover-img{
+  top: 20px;
+
+}
+.pro-pic{
+  margin: 10px 10px 10px 10px;
+}

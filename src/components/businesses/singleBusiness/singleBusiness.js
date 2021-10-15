@@ -10,15 +10,22 @@ class Business extends Component {
 
   componentDidMount() {
     this.props.fetchBusiness('07jxOivhASHm1AQVWVqf');
-    console.log(this.props.business)
+    console.log(this.props.business);
   }
 
   render() {
+
       const business = this.props.business.data()
-      console.log(business)
 
       return (
-        <div>
+        <div class="single-business">
+          <div class="business-info">
+          <div class="cover-img">
+              <img alt="Cover Pic" src={business.coverImageUrl} />
+              </div>
+              <div class = "pro-pic">
+              <img alt="Profile Pic"src={business.imageUrl} />
+              </div>
             <div>Business:
               {business.name}
               <div>
@@ -31,11 +38,9 @@ class Business extends Component {
               {business.email}
               </div>
               {business.followers.length} followers
-              <img alt="Cover Pic" src={business.coverImageUrl} />
-              <img alt="Profile Pic"src={business.imageUrl} />
-
-            </div>
+          </div>
         </div>
+      </div>
       );
       }
 }

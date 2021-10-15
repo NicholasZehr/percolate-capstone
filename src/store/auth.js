@@ -21,7 +21,7 @@ export const me = () => async (dispatch) => {
   auth.onAuthStateChanged(function (user) {
     if (user) {
       // User is signed in.
-      console.log('signed in', user)
+      console.log('signed in')
       dispatch(setAuth(user))
     } else {
       console.log('not signed in')
@@ -47,7 +47,7 @@ export const authenticateSignup = (user) => async (dispatch) => {
     await setDoc(doc(users, response.user.uid), {
       firstName: user.firstName,
       lastName: user.lastName,
-      username: user.username,
+      email: user.email,
     });
   } catch (error) {
     console.log(error)
@@ -57,7 +57,6 @@ export const authenticateSignup = (user) => async (dispatch) => {
 
 export const logout = () => {
   const auth = getAuth();
-  window.localStorage.removeItem(TOKEN);
   signOut(auth)
   return {
     type: SET_AUTH,
@@ -71,7 +70,7 @@ export const logout = () => {
 export default function (state = {}, action) {
   switch (action.type) {
     case SET_AUTH: {
-      return { ...action.auth, loaded: true };
+      return { ...action.auth};
     }
     default:
       return state;

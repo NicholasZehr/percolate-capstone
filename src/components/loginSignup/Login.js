@@ -9,10 +9,9 @@ const LoginPage = () => {
   const auth = useSelector((state) => state.auth);
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const formName = evt.target.name;
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    await dispatch(authenticate(username, password, formName));
+    await dispatch(authenticate(username, password));
   };
 
   return (
@@ -26,7 +25,7 @@ const LoginPage = () => {
         <div id='blank'></div>
       </div>
       {isLoggedIn ? (
-        <Redirect to='/home' />
+        <Redirect to={`users/${auth.uid}`} />
       ) : (
         <div className='loginbodyBox'>
           <div className='loginbody'>
@@ -38,7 +37,7 @@ const LoginPage = () => {
             ) : (
               ''
             )}
-            <form className='form' onSubmit={handleSubmit} name='login'>
+            <form className='form' onSubmit={handleSubmit}>
               <div className='emailBox'>
                 <input
                   className='email'

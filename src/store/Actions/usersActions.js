@@ -16,10 +16,10 @@ export const _fetchUser = (user) => ({
 export const fetchAllUsers = () => {
   return async (dispatch) => {
     try {
-      const response = await getDocs(collection(db, 'users'));
+      const response = await getDocs(collection(db, 'Users'));
       let users = [];
       console.log(response)
-      response.forEach((business) => users.push(business));
+      response.forEach((business) => users.push(business.data()));
       dispatch(_fetchAllUsers(users));
       console.log('users fetch response:', users);
     } catch (error) {
@@ -32,9 +32,8 @@ export const fetchAllUsers = () => {
 export const fetchUser = (userId) => {
   return async (dispatch) => {
     try {
-      const response = await getDoc(doc(db, 'users', userId));
-      dispatch(_fetchUser(response));
-      console.log('fetch was called: ', response);
+      const response = await getDoc(doc(db, 'Users', userId));
+      dispatch(_fetchUser(response.data()));
     } catch (error) {
       console.log('Failed to fetch single user');
       return;

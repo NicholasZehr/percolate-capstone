@@ -6,10 +6,12 @@ import auth from './auth';
 import { getFirestore, reduxFirestore } from 'redux-firestore';
 import db from '../firebase';
 import businessesReducer from './businessesReducer'
+import usersReducers from './Reducers/usersReducer'
 
 const reducer = combineReducers({
   auth,
-  businesses: businessesReducer
+  businesses: businessesReducer,
+  users: usersReducers,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(

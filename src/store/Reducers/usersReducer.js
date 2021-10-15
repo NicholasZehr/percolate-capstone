@@ -15,7 +15,6 @@ export default function usersReducer(state = initialState, action) {
     case GET_ALL_USERS:
       return { ...state, users: action.users }
     case GET_USER:
-      console.log('reducer',action.user)
       return { ...state, user: action.user }
     default:
       return state

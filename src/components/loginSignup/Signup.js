@@ -86,14 +86,7 @@ const Signup = () => {
 
   return (
     <div className='login'>
-      <div className='nav'>
-        <div id='navContent'>
-          <span>Home</span>
-          <span>Feedback</span>
-          <span>Contact Us</span>
-        </div>
-        <div id='blank'></div>
-      </div>
+
       {isLoggedIn ? (
         <Redirect to='/home' />
       ) : (

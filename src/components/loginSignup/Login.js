@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
-import { authenticate} from '../store';
+import { authenticate} from '../../store';
 // import 'simplebar/dist/simplebar.min.css'
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -9,24 +9,16 @@ const LoginPage = () => {
   const auth = useSelector((state) => state.auth);
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    const formName = evt.target.name;
     const username = evt.target.username.value;
     const password = evt.target.password.value;
-    await dispatch(authenticate(username, password, formName));
+    await dispatch(authenticate(username, password));
   };
 
   return (
     <div className='login'>
-      <div className='nav'>
-        <div id='navContent'>
-          <span>Home</span>
-          <span>Feedback</span>
-          <span>Contact Us</span>
-        </div>
-        <div id='blank'></div>
-      </div>
+
       {isLoggedIn ? (
-        <Redirect to='/home' />
+        <Redirect to={`users/${auth.uid}`} />
       ) : (
         <div className='loginbodyBox'>
           <div className='loginbody'>
@@ -38,7 +30,7 @@ const LoginPage = () => {
             ) : (
               ''
             )}
-            <form className='form' onSubmit={handleSubmit} name='login'>
+            <form className='form' onSubmit={handleSubmit}>
               <div className='emailBox'>
                 <input
                   className='email'

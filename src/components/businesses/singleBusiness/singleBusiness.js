@@ -9,35 +9,47 @@ class Business extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchBusiness('07jxOivhASHm1AQVWVqf');
-    console.log(this.props.business)
+    this.props.fetchBusiness("07jxOivhASHm1AQVWVqf");
+    console.log("shit be mounted");
   }
 
   render() {
-      const business = this.props.business.data()
-      console.log(business)
+    console.log("render business", this.props.business);
+    const business = this.props.business;
+    if (!business) {
+      return <h2>loading..</h2>;
+    }
 
-      return (
-        <div>
-            <div>Business:
-              {business.name}
-              <div>
+    //const business = businessProps.data();
+    return (
+      <div class="single-business">
+        <div class="business-info">
+          <div class="cover-img">
+            <img alt="Cover Pic" src={business.coverImageUrl} />
+          </div>
+          <div class="pro-pic">
+            <img alt="Profile Pic" src={business.imageUrl} />
+          </div>
+          <div>
+            Business:
+            {business.name}
+            {/* <div>
               Location:
-              {Object.values(business.location).map(item=><h1>{item}</h1>)}
-              </div>
-              <div>
-              Contact Info: <br/>
-              {business.phone} <br/>
+              {Object.values(business.location).map((item) => (
+                <h1>{item}</h1>
+              ))}
+            </div> */}
+            <div>
+              Contact Info: <br />
+              {business.phone} <br />
               {business.email}
-              </div>
-              {business.followers.length} followers
-              <img alt="Cover Pic" src={business.coverImageUrl} />
-              <img alt="Profile Pic"src={business.imageUrl} />
-
             </div>
+            {/* {business.followers.length} followers */}
+          </div>
         </div>
-      );
-      }
+      </div>
+    );
+  }
 }
 
 const mapState = (state) => {

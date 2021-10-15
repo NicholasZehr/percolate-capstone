@@ -1,19 +1,17 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import {fetchUser} from '../store/Actions/usersActions'
 import { logout } from '../store/auth';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
 
 const Header = () => {
   const history = useHistory();
-  const dispatch = useDispatch();
-  const auth = useSelector((state) => state.auth);
-  const isLoggedIn = useSelector((state) => state.auth.accessToken);
-  const user = useSelector(state=>state.user)
-  useEffect(_ => {
-    dispatch(fetchUser(auth.uid))
-  },[])
-  console.log('user', user? user.lastName:'not yet')
+  const login = getAuth()
+  const [user, setUser] = useState(getAuth().currentUser)
+  onAuthStateChanged(login, (u) => {
+    setUser(u)
+  })
+
   return (
     <div className="header">
       <div className="header-navbar">
@@ -40,15 +38,15 @@ const Header = () => {
           <div className="search-label">Search</div>
         </div>
         <div className="blank"></div>
-          <div className="loginBox" onClick={() => history.push('/user/id')}>
+        <div className="loginBox" onClick={() => history.push(`/users/${user.uid}`)}>
             <div className="imageBox">
               <img
                 className="profPic"
-                src={process.env.PUBLIC_URL + '/Nobi.png'}
+                src={user? user.photoURL:process.env.PUBLIC_URL + '/guest.jpeg'}
               />
             </div>
             <div>
-              <span className='userName'>{user? user.lastName:'Sign in'}</span>
+              <span className='userName'>{user? user.displayName:'Sign in'}</span>
             </div>
         </div>
       </div>

@@ -15,14 +15,14 @@ class SingleCoffee extends Component {
 
     const { name, brandName, photoUrl, roast } = this.props.singleCoffee;
     return (
-      <div className="single-coffee">
+      <div className='single-coffee'>
         <h2>{name}</h2>
         <h3>{brandName}</h3>
-        <div className="single-coffee-container">
-          <div className="single-coffee-image">
-            <img id="single-coffee-img" src={photoUrl} />
+        <div className='single-coffee-container'>
+          <div className='single-coffee-image'>
+            <img id='single-coffee-img' src={photoUrl} />
           </div>
-          <div className="single-coffee-info">
+          <div className='single-coffee-info'>
             <p>{roast}</p>
           </div>
         </div>

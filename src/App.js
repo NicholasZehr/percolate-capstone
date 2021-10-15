@@ -6,11 +6,9 @@ import Header from "./components/Header"
 
 function App() {
   return (
-    <div>
+    <div className='singlepage'>
       <Header />
-      <div id="singlepage">
       <Routes />
-      </div>
     </div>
   );
 }

@@ -18,7 +18,7 @@ const Header = () => {
     <div className="header">
       <div className="header-navbar">
         <div className="oursite" onClick={() => history.push('/home')}>
-          <span className="brand">Perculate</span>
+          <span className="brand">Percolate</span>
           <img
             className="logo"
             src={process.env.PUBLIC_URL + '/logo.png'}

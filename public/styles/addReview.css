@@ -1,7 +1,6 @@
 #form_review_new {
-  color: pink;
+  margin-top: 2vh;
+  width: auto;
+  color: #c9e4ca;
   background-color: #3b6064;
-}
-.form-text-box {
-  color: blue;
 }

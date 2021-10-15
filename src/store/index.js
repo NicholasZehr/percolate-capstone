@@ -8,12 +8,14 @@ import db from "../firebase";
 import businessesReducer from "./businessesReducer";
 import usersReducers from "./Reducers/usersReducer";
 import singleCoffeeReducer from "./singleCoffee";
+import reviewReducer from "./reviewReducer";
 
 const reducer = combineReducers({
   auth,
   businesses: businessesReducer,
   users: usersReducers,
   singleCoffee: singleCoffeeReducer,
+  review: reviewReducer,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(

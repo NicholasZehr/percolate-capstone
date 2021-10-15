@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Route, Switch } from "react-router";
 import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
+import AddReview from "../reviews/AddReview";
 import LoginPage from "../loginSignup/Login";
 import Signup from '../loginSignup/Signup';
 import Business from "../businesses/singleBusiness/singleBusiness"
@@ -12,6 +13,8 @@ class Routes extends Component {
   render() {
     return (
       <Switch>
+
+        <Route path='/review/add' component={AddReview} />
         <Route path="/login" component={LoginPage} />
         <Route path="/signup" component={Signup} />
         <Route path="/all-business" component={AllBusinesses} />

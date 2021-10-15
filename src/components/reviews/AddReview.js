@@ -1,19 +1,19 @@
 /*eslint jsx-quotes: ["error", "prefer-single"]*/
-import React from 'react';
-import { connect } from 'react-redux';
-import { addReview } from '../../store/reviewActions';
+import React from "react";
+import { connect } from "react-redux";
+import { addReview } from "../../store/reviewActions";
 
 class AddReview extends React.Component {
   constructor() {
     super();
     this.errors = [];
     this.state = {
-      businessId: '',
-      coffeeId: '',
+      businessId: "",
+      coffeeId: "",
       rating: 0.0,
-      reviewContent: '',
-      userId: '',
-      username: '',
+      reviewContent: "",
+      userId: "",
+      username: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,8 +25,8 @@ class AddReview extends React.Component {
     const { ...review } = this.state;
     event.preventDefault();
     let newReview = {
-      businessId: review.businessId ? review.businessId : null,
-      coffeeId: review.coffeeId ? review.coffeeId : null,
+      businessId: this.props.businessId ? review.businessId : null,
+      coffeeId: this.props.coffeeId ? review.coffeeId : null,
       likeCount: 0,
       rating: review.rating,
       reviewContent: review.reviewContent,

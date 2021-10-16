@@ -15,7 +15,8 @@ class SingleCoffee extends Component {
     console.log("props matching!!", this.props.match);
     //const singleCoffee = this.props.singleCoffee;
     const id = this.props.match.params.coffeeId;
-    const { name, brandName, photoUrl, roast } = this.props.singleCoffee;
+    const { name, brandName, photoUrl, roast, roasterCity, avgRating } =
+      this.props.singleCoffee;
     return (
       <>
         <div className="single-coffee">
@@ -30,7 +31,9 @@ class SingleCoffee extends Component {
               />
             </div>
             <div className="single-coffee-info">
-              <p>{roast}</p>
+              <p>Roast: {roast}</p>
+              <p>Roasted in {roasterCity}</p>
+              <p>User Rating: {avgRating}</p>
             </div>
           </div>
           <AddReview coffeeId={id} />

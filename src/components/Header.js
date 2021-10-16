@@ -19,7 +19,7 @@ const Header = () => {
           <span className="brand">Percolate</span>
           <img
             className="logo"
-            src={process.env.PUBLIC_URL + '/logo.png'}
+            src={'/logo.png'}
             onClick={() => history.push('/home')}
           />
         </div>
@@ -42,7 +42,7 @@ const Header = () => {
             <div className="imageBox">
               <img
                 className="profPic"
-                src={user? user.photoURL:process.env.PUBLIC_URL + '/guest.jpeg'}
+                src={user? user.photoURL:'/guest.jpeg'}
               />
             </div>
             <div>

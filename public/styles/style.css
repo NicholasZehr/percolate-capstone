@@ -18,6 +18,7 @@ body {
 }
 #singlepage {
   height: 100vh;
+  background-color: #e5e5e5;
 }
 /** Logo */
 .logo {

@@ -47,21 +47,20 @@ class AddReview extends React.Component {
 
   render() {
     return (
-      <div>
-        {/* <ReviewPane /> */}
+      <div className="new-review-container">
         <form
-          id='form_review_new'
+          id="form_review_new"
           className="form-review-new"
           onSubmit={this.handleSubmit}
         >
           <div className="form-input-submit-group">
-            {this.state.error ? (
+            {/* {this.state.error ? (
               <ul className="error-label">
                 {this.error.map((error) => (
                   <li>{error}</li>
                 ))}
               </ul>
-            ) : null}
+            ) : null} */}
             <label htmlFor="rating">Rating</label>
             <input
               className="form-text-box"
@@ -73,7 +72,7 @@ class AddReview extends React.Component {
               onChange={this.handleChange}
             />
             <label htmlFor="reviewContent">Review Comments</label>
-            <input
+            <textarea
               className="form-text-box"
               type="text"
               name="reviewContent"

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchSingleCoffee } from "../../store/singleCoffee";
 import AddReview from "../reviews/AddReview";
+import ReviewPane from "../reviews/ReviewPane";
 
 class SingleCoffee extends Component {
   componentDidMount() {
@@ -12,7 +13,7 @@ class SingleCoffee extends Component {
   }
 
   render() {
-    console.log("props matching!!", this.props.match);
+    //console.log("props matching!!", this.props.match);
     //const singleCoffee = this.props.singleCoffee;
     const id = this.props.match.params.coffeeId;
     const { name, brandName, photoUrl, roast, roasterCity, avgRating } =
@@ -36,8 +37,9 @@ class SingleCoffee extends Component {
               <p>User Rating: {avgRating}</p>
             </div>
           </div>
-          <AddReview coffeeId={id} />
         </div>
+          <AddReview coffeeId={id} />
+          <ReviewPane />
       </>
     );
   }

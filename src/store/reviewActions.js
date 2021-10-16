@@ -1,4 +1,4 @@
-import { ADD_REVIEW } from "./reviewReducer";
+import { ADD_REVIEW, FETCH_REVIEWS } from "./reviewReducer";
 import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import db from "../firebase";
 
@@ -8,6 +8,13 @@ export const _addReview = (review) => ({
   type: ADD_REVIEW,
   review,
 });
+
+export const _fetchReviews = (reviews) => {
+  return {
+    type: FETCH_REVIEWS,
+    reviews,
+  };
+};
 
 // ------------------ Thunk creators -----------------------
 
@@ -31,7 +38,15 @@ export const fetchReviews = (type, id) => {
       console.log(`${type}Id`, id);
       const q = query(collection(db, "reviews"), where(`${type}Id`, "==", id));
       const docSnap = await getDocs(q);
-      docSnap.forEach((doc) => doc.data());
+
+      const reviewsArr = [];
+      docSnap.forEach((doc) => {
+        //console.log("doc", doc.data());
+        reviewsArr.push(doc.data());
+      });
+
+      console.log(reviewsArr);
+      dispatch(_fetchReviews(reviewsArr));
     } catch (error) {
       console.error(error);
     }

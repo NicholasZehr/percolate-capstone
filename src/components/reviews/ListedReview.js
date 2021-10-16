@@ -6,7 +6,7 @@ class ListedReview extends Component {
     const { userName, rating, content } = this.props.review;
 
     return (
-      <div>
+      <div className='review-list-item'>
         <div className="review-user-rating">
           <h4>{userName}</h4>
           <h4>{rating}</h4>

@@ -1,15 +1,24 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchReviews } from "../../store/reviewActions";
+import ListedReview from "./ListedReview";
 
 class ReviewPane extends Component {
   componentDidMount() {
     console.log("I mounted!!!");
-    this.props.fetchReviews('type', 'id');
+    this.props.fetchReviews("type", "id");
   }
   render() {
-    console.log( 'review props',this.props)
-    return <div>hey guys here I am in the render</div>;
+    const reviewArr = this.props.reviews.reviews;
+    if (!reviewArr) return null;
+    return (
+      <div>
+        <h2>Reviews</h2>
+        {reviewArr.map((review) => {
+          return <ListedReview review={review} />;
+        })}
+      </div>
+    );
   }
 }
 

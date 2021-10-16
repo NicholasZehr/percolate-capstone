@@ -21,25 +21,30 @@ class SingleCoffee extends Component {
     return (
       <>
         <div className="single-coffee">
-          <h2>{name}</h2>
-          <h3>{brandName}</h3>
           <div className="single-coffee-container">
-            <div className="single-coffee-image">
-              <img
-                id="single-coffee-img"
-                src={photoUrl}
-                alt={`${name} by ${brandName}`}
-              />
+            <div className="coffee-title">
+              <h2>{name}</h2>
+              <h3>{brandName}</h3>
+              <hr class="solid" />
             </div>
-            <div className="single-coffee-info">
-              <p>Roast: {roast}</p>
-              <p>Roasted in {roasterCity}</p>
-              <p>User Rating: {avgRating}</p>
+            <div className="image-details-row">
+              <div className="single-coffee-image">
+                <img
+                  id="single-coffee-img"
+                  src={photoUrl}
+                  alt={`${name} by ${brandName}`}
+                />
+              </div>
+              <div className="single-coffee-info">
+                <p>Roast: {roast}</p>
+                <p>Roasted in {roasterCity}</p>
+                <p>User Rating: {avgRating}</p>
+              </div>
             </div>
           </div>
-        </div>
           <AddReview coffeeId={id} />
           <ReviewPane />
+        </div>
       </>
     );
   }

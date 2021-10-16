@@ -4,6 +4,8 @@
   height: 15vh;
   color: #c9e4ca;
   background-color: #3b6064;
+  border-radius: 7px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .new-review-container {

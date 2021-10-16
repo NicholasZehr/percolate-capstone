@@ -5,18 +5,18 @@ import AddReview from "../reviews/AddReview";
 
 class SingleCoffee extends Component {
   componentDidMount() {
-    const id = "AHmZ4UjEsZb4atwmhPM3";
+    //const id = "AHmZ4UjEsZb4atwmhPM3";
+    const id = this.props.match.params.coffeeId;
     this.props.fetchCoffee(id);
     console.log("component moutned");
   }
 
   render() {
-    console.log("props", this.props);
+    console.log("props matching!!", this.props.match);
     //const singleCoffee = this.props.singleCoffee;
-    const id = "AHmZ4UjEsZb4atwmhPM3";
+    const id = this.props.match.params.coffeeId;
     const { name, brandName, photoUrl, roast } = this.props.singleCoffee;
     return (
-
       <>
         <div className="single-coffee">
           <h2>{name}</h2>

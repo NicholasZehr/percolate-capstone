@@ -6,7 +6,10 @@ import ListedReview from "./ListedReview";
 class ReviewPane extends Component {
   componentDidMount() {
     console.log("I mounted!!!");
-    this.props.fetchReviews("type", "id");
+    const type = this.props.type;
+    const id = this.props.coffeeId;
+    console.log("reviewzzz", this.props);
+    this.props.fetchReviews(type, id);
   }
   render() {
     const reviewArr = this.props.reviews.reviews;
@@ -28,7 +31,7 @@ const mapState = (state) => {
   };
 };
 const mapDispatch = (dispatch) => ({
-  fetchReviews: (type, id) => dispatch(fetchReviews("coffee", "1")),
+  fetchReviews: (type, id) => dispatch(fetchReviews(type, id)),
 });
 
 export default connect(mapState, mapDispatch)(ReviewPane);

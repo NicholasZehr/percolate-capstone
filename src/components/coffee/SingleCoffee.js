@@ -43,7 +43,7 @@ class SingleCoffee extends Component {
             </div>
           </div>
           <AddReview coffeeId={id} />
-          <ReviewPane />
+          <ReviewPane type="coffee" coffeeId={id} />
         </div>
       </>
     );

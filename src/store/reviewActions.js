@@ -1,5 +1,13 @@
-import { ADD_REVIEW, FETCH_REVIEWS } from "./reviewReducer";
-import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import { ADD_REVIEW, FETCH_REVIEWS, GET_SINGLE_REVIEW } from "./reviewReducer";
+import {
+  collection,
+  doc,
+  addDoc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../firebase";
 
 // ------------------ Actions creators --------------------
@@ -13,6 +21,13 @@ export const _fetchReviews = (reviews) => {
   return {
     type: FETCH_REVIEWS,
     reviews,
+  };
+};
+
+export const _getSingleReview = (review) => {
+  return {
+    type: GET_SINGLE_REVIEW,
+    review,
   };
 };
 
@@ -49,6 +64,20 @@ export const fetchReviews = (type, id) => {
       dispatch(_fetchReviews(reviewsArr));
     } catch (error) {
       console.error(error);
+    }
+  };
+};
+
+export const fetchSingleReview = (reviewId) => {
+  return async (dispatch) => {
+    try {
+      const docRef = doc(db, "reviews", reviewId);
+      const docSnap = await getDoc(docRef);
+
+      const singleReview = docSnap.data();
+      dispatch(_getSingleReview(singleReview));
+    } catch (error) {
+      return `Error ${error.message} help get single review!`;
     }
   };
 };

@@ -43,6 +43,8 @@ const SingleUserPage = () => {
       password: evt.target.password.value,
       photoURL: evt.target.photoURL.value,
       coverURL: evt.target.coverURL.value,
+      favorite: evt.target.favorite.value,
+      coffeeURL: evt.target.coffeeURL.value,
     };
     const nonEmptyValue = {}
     for (const key in userInfo) {
@@ -145,6 +147,26 @@ const SingleUserPage = () => {
             />
             <div className="blank3"></div>
           </div>
+          <div className="emailBox mod">
+            <span className="formName">Favorite Coffee:</span>
+            <input
+              className="email"
+              name="favorite"
+              type="text"
+              placeholder="Coffee"
+            />
+            <div className="blank3"></div>
+          </div>
+          <div className="emailBox mod">
+            <span className="formName">Coffee Picture:</span>
+            <input
+              className="email"
+              name="coffeeURL"
+              placeholder="favorite coffee url"
+              type="text"
+            />
+            <div className="blank3"></div>
+          </div>
           <button className="signupPage" name="button1">
             Save
           </button>
@@ -156,7 +178,7 @@ const SingleUserPage = () => {
           <div className="shadow">
             <img
               className="cover"
-              src={realUser ? realUser.coverURL : '/whiteBack2.png'}
+              src={realUser ? realUser.coverURL : "/whiteBack2.png"}
             />
           </div>
         </div>
@@ -165,14 +187,14 @@ const SingleUserPage = () => {
           <div className="pictureBox">
             <img
               className="profPic ownpage"
-              src={user ? user.photoURL : '/guest.jpeg'}
+              src={user ? user.photoURL : "/guest.jpeg"}
             />
           </div>
           <div className="profileNavBar">
             <div onClick={editPage} className="editProfileButton">
               Edit Profile
             </div>
-            <h2>{user ? user.displayName + ' ' + realUser.lastName : ''}</h2>
+            <h2>{user ? user.displayName + " " + realUser.lastName : ""}</h2>
             <hr className="divider" />
             <div className="menu">
               <div>Reviews</div>
@@ -185,8 +207,20 @@ const SingleUserPage = () => {
         </div>
       </div>
       <div className="body">
-        <div className="leftBody"></div>
+        <div className="blank2"></div>
+        <div className="leftBody">
+          <div className="intro">
+            <h2>Intro: </h2>
+            <span className="favoriteTitle">My favorite coffee:</span>
+            <img
+              className="favCoffee"
+              src={realUser ? realUser.coffeeURL : "whiteBack2.png"}
+            />
+          </div>
+          <div className="friendList"></div>
+        </div>
         <div className="rightBody"></div>
+        <div className="blank2"></div>
       </div>
     </div>
   );

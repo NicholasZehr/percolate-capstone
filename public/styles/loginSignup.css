@@ -129,17 +129,7 @@
   margin-left:20px;
   text-decoration: None;
 }
-.mod {
-  align-items:center;
-  justify-content: flex-end;
-}
-.formName {
-  align-self: flex-end;
-  font-size: 1rem;
-}
-.blank3 {
-  width: 10vw;
-}
+
 .signupBox {
   width: 35vw;
   text-align: center;

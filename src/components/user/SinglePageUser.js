@@ -3,46 +3,176 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import { fetchUser } from '../../store/Actions/usersActions';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-
+import db from '../../firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import {
+  getAuth,
+  onAuthStateChanged,
+  updateProfile,
+  updatePassword,
+} from 'firebase/auth';
+import Modal from 'react-modal';
+Modal.setAppElement('#root');
 const SingleUserPage = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   //componentDidMount here
-  const auth = getAuth()
+  const auth = getAuth();
   const [user, setUser] = useState(getAuth().currentUser);
-  const realUser = useSelector(state=> state.users.user)
+  const [edit, setEdit] = useState(false);
+  const realUser = useSelector((state) => state.users.user);
   onAuthStateChanged(auth, (u) => {
     setUser(u);
-    console.log(user,realUser)
   });
   useEffect(() => {
     async function fetchData() {
       //* Fetch the user using it's id
-      await dispatch(fetchUser(user?user.uid:{}));
+      await dispatch(fetchUser(user ? user.uid : {}));
     }
     fetchData();
-  }, []);
+  }, [user]);
+  function editPage() {
+    setEdit(!edit);
+  }
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    const userInfo = {
+      email: evt.target.email.value,
+      displayName: evt.target.firstName.value,
+      lastName: evt.target.lastName.value,
+      password: evt.target.password.value,
+      photoURL: evt.target.photoURL.value,
+      coverURL: evt.target.coverURL.value,
+    };
+    const nonEmptyValue = {}
+    for (const key in userInfo) {
+      if (userInfo[key].length > 0 && key!=="password") {
+        nonEmptyValue[key] = userInfo[key]
+      }
+    }
+    //================== update basic info in auth
+    updateProfile(auth.currentUser, nonEmptyValue, user);
 
+    //================== update password in auth
+    if (userInfo.password.length >= 6) {
+      updatePassword(auth.currentUser, userInfo.password)
+        .then(() => {
+          // Update successful.
+          console.log('Yes, password changed');
+        })
+        .catch((error) => {
+          // An error ocurred
+          // ...
+          console.log('somthing wrong');
+        });
+    }
+    console.log(nonEmptyValue)
+    //============== update detail info in firestore data
+    const userRef = doc(db, 'Users', user.uid);
+    await setDoc(userRef, nonEmptyValue, {merge:true});
+    //==============update redux store user info
+    await dispatch(fetchUser(user ? user.uid : {}));
+    setEdit(!edit);
+  };
   return (
     <div className="singleUserPageBox">
+      <Modal className="modal" isOpen={edit} onRequestClose={editPage}>
+        <div className="close" onClick={editPage}></div>
+        <h2>Edit Profile</h2>
+        <form
+          className="signupform"
+          open={false}
+          onSubmit={handleSubmit}
+          name="signup"
+        >
+          <div className="emailBox mod">
+            <span className="formName">Email:</span>
+            <input
+              className="email"
+              name="email"
+              type="text"
+              placeholder="Email"
+            />
+            <div className="blank3"></div>
+          </div>
+          <div className="emailBox mod">
+            <span className="formName">Display Name:</span>
+            <input
+              className="email"
+              name="firstName"
+              type="text"
+              placeholder="Frist Name"
+            />
+            <div className="blank3"></div>
+          </div>
+          <div className="emailBox mod">
+            <span className="formName">Last Name:</span>
+            <input
+              className="email"
+              name="lastName"
+              placeholder="Last Name"
+              type="text"
+            />
+            <div className="blank3"></div>
+          </div>
+          <div className="emailBox mod">
+            <span className="formName">Password:</span>
+            <input
+              className="email"
+              name="password"
+              placeholder="Password"
+              type="password"
+            />
+            <div className="blank3"></div>
+          </div>
+          <div className="emailBox mod">
+            <span className="formName">Profile Picture:</span>
+            <input
+              className="email"
+              name="photoURL"
+              type="text"
+              placeholder="picture URL"
+            />
+            <div className="blank3"></div>
+          </div>
+          <div className="emailBox mod">
+            <span className="formName">Cover Picture:</span>
+            <input
+              className="email"
+              name="coverURL"
+              placeholder="cover image url"
+              type="text"
+            />
+            <div className="blank3"></div>
+          </div>
+          <button className="signupPage" name="button1">
+            Save
+          </button>
+        </form>
+      </Modal>
+
       <div className="profileBox">
         <div className="profileCover">
           <div className="shadow">
             <img
               className="cover"
-              src="https://i.pinimg.com/originals/1b/e1/b8/1be1b8df06dd6c392696589402cf26af.jpg"
+              src={realUser ? realUser.coverURL : '/whiteBack2.png'}
             />
           </div>
         </div>
         <div className="profilePicNavBox">
           <div className="blank2"></div>
-          <img
-            className="profPic ownpage"
-            src={user ? user.photoURL : '/guest.jpeg'}
-          />
+          <div className="pictureBox">
+            <img
+              className="profPic ownpage"
+              src={user ? user.photoURL : '/guest.jpeg'}
+            />
+          </div>
           <div className="profileNavBar">
-            <h2>{user? user.displayName+' '+realUser.lastName:''}</h2>
+            <div onClick={editPage} className="editProfileButton">
+              Edit Profile
+            </div>
+            <h2>{user ? user.displayName + ' ' + realUser.lastName : ''}</h2>
             <hr className="divider" />
             <div className="menu">
               <div>Reviews</div>

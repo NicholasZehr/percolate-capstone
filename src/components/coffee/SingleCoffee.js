@@ -15,9 +15,19 @@ class SingleCoffee extends Component {
   render() {
     //console.log("props matching!!", this.props.match);
     //const singleCoffee = this.props.singleCoffee;
+    console.log("COFFEE PROPS", this.props.singleCoffee.reviews);
     const id = this.props.match.params.coffeeId;
-    const { name, brandName, photoUrl, roast, roasterCity, avgRating } =
-      this.props.singleCoffee;
+    const {
+      name,
+      brandName,
+      photoUrl,
+      roast,
+      roasterCity,
+      avgRating,
+      reviews,
+    } = this.props.singleCoffee;
+
+    console.log('here they are', reviews)
     return (
       <>
         <div className="single-coffee">
@@ -43,7 +53,7 @@ class SingleCoffee extends Component {
             </div>
           </div>
           <AddReview coffeeId={id} />
-          <ReviewPane type="coffee" coffeeId={id} />
+          <ReviewPane type="coffee" coffeeId={id} arrReviews={reviews} />
         </div>
       </>
     );

@@ -18,7 +18,7 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const authenticate = (username, password) => async (dispatch) => {
   const auth = getAuth();
   try {
-    signOut(auth);
+    logout()
     await signInWithEmailAndPassword(auth, username, password);
     const user = auth.currentUser;
     console.log("what is currentUser", user);
@@ -32,7 +32,7 @@ export const authenticate = (username, password) => async (dispatch) => {
 export const authenticateSignup = (user) => async (dispatch) => {
   try {
     const auth = getAuth();
-    signOut(auth);
+    logout()
     const response = await createUserWithEmailAndPassword(
       auth,
       user.email,
@@ -44,7 +44,7 @@ export const authenticateSignup = (user) => async (dispatch) => {
     });
     const users = collection(db, "Users");
     await setDoc(doc(users, response.user.uid), {
-      firstName: user.firstName,
+      displayName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       photoURL: user.photoURL,
@@ -55,13 +55,11 @@ export const authenticateSignup = (user) => async (dispatch) => {
   }
 };
 
-export const logout = () => {
+export const logout = () => (dispatch) => {
+  console.log("hey");
   const auth = getAuth();
   signOut(auth);
-  return {
-    type: SET_AUTH,
-    auth: {},
-  };
+  return dispatch(setAuth({}));
 };
 
 /**

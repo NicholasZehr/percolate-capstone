@@ -1,7 +1,9 @@
 .like_button {
-  background-color: blueviolet;
+  color: #c9e4ca;
+  background-color: #3b6064;
   border-radius: 5px;
   padding: 10px;
+  max-height: 17px;
 }
 
 .like_button:hover {

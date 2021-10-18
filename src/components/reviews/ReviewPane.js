@@ -42,6 +42,7 @@ class ReviewPane extends Component {
         <h2>Reviews</h2>
         {arrReviews.map((review) => {
           //checkReview(review.content);
+          console.log("this one review", review);
           return (
             <ListedReview
               content={checkReview(review.content)}

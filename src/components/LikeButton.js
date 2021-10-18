@@ -10,10 +10,11 @@ export class LikeButton extends Component {
     console.log(this.props.user);
   }
   render() {
+    const likeCount = this.props.likeCount;
     const { handleLike } = this;
-    return `${this.props.likeCount}` ? (
+    return `${likeCount}` ? (
       <div className='like_button' onClick={handleLike}>
-        Likes{`(${this.props.likes})`}
+        Like {likeCount ? `(${likeCount})` : null}
       </div>
     ) : null;
   }

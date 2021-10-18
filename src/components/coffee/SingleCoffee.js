@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchSingleCoffee } from "../../store/singleCoffee";
-import LikeButton from "../Like";
 import AddReview from "../reviews/AddReview";
 import ReviewPane from "../reviews/ReviewPane";
 

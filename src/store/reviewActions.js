@@ -7,6 +7,8 @@ import {
   getDocs,
   query,
   where,
+  arrayUnion,
+  updateDoc,
 } from "firebase/firestore";
 import db from "../firebase";
 
@@ -36,9 +38,23 @@ export const _getSingleReview = (review) => {
 export const addReview = (review) => {
   return async (dispatch) => {
     try {
-      await addDoc(collection(db, "reviews"), review);
+      // create the new review in teh review collection
+      const newDoc = await addDoc(collection(db, "reviews"), review);
+
+      // updating the array under coffees
+      const updateArr = {
+        coffeeId: review.coffeeId,
+        content: review.reviewContent || null,
+        username: review.username || null,
+        rating: review.rating,
+        reviewId: newDoc.id,
+      };
+
+      const coffeeRef = doc(db, "coffees", review.coffeeId);
+      await updateDoc(coffeeRef, { reviews: arrayUnion(updateArr) });
+
+      // adding a new review in store
       dispatch(_addReview(review));
-      console.log("add review:", review);
     } catch (error) {
       console.error(error);
       console.log("Failed to add review");

@@ -9,12 +9,10 @@ class SingleReview extends Component {
 
   componentDidMount() {
     const reviewId = this.props.match.params.reviewId;
-    console.log("reviewId", reviewId);
     this.props.fetchReview(reviewId);
   }
 
   render() {
-    console.log("this.propsss", this.props);
     const { username, content, rating } = this.props.review;
     return (
       <div className="review-list-item">

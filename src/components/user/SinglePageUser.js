@@ -13,7 +13,11 @@ import {
 } from 'firebase/auth';
 import Modal from 'react-modal';
 Modal.setAppElement('#root');
+
+
+
 const SingleUserPage = () => {
+  const {id} = useParams()
   const history = useHistory();
   const dispatch = useDispatch();
   //componentDidMount here
@@ -21,16 +25,35 @@ const SingleUserPage = () => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [edit, setEdit] = useState(false);
   const realUser = useSelector((state) => state.users.user);
+  const [followers, setFollowers] = useState([])
+
+
   onAuthStateChanged(auth, (u) => {
     setUser(u);
   });
   useEffect(() => {
+    let mounted = true;
     async function fetchData() {
       //* Fetch the user using it's id
-      await dispatch(fetchUser(user ? user.uid : {}));
+      await dispatch(fetchUser(id));
     }
-    fetchData();
-  }, [user]);
+    if (mounted) {
+      fetchData();
+    }
+    return () => {
+      mounted = false;
+    };
+  }, []);
+  useEffect(() => {
+    const list = []
+    if (Object.keys(realUser).length > 0) {
+      realUser.followers.forEach((element) => {
+        list.push(element);
+      });
+    }
+    setFollowers(list)
+  },[realUser])
+
   function editPage() {
     setEdit(!edit);
   }
@@ -52,7 +75,9 @@ const SingleUserPage = () => {
         nonEmptyValue[key] = userInfo[key]
       }
     }
+
     //================== update basic info in auth
+
     updateProfile(auth.currentUser, nonEmptyValue, user);
 
     //================== update password in auth
@@ -187,19 +212,21 @@ const SingleUserPage = () => {
           <div className="pictureBox">
             <img
               className="profPic ownpage"
-              src={user ? user.photoURL : "/guest.jpeg"}
+              src={realUser ? realUser.photoURL : "/guest.jpeg"}
             />
           </div>
           <div className="profileNavBar">
             <div onClick={editPage} className="editProfileButton">
               Edit Profile
             </div>
-            <h2>{user ? user.displayName + " " + realUser.lastName : ""}</h2>
+            <h2>
+              {realUser ? (realUser.firstName||realUser.displayName) + " " + realUser.lastName : ""}
+            </h2>
             <hr className="divider" />
             <div className="menu">
               <div>Reviews</div>
               <div>About</div>
-              <div>Friends</div>
+              <div>Followers</div>
               <div>Photos</div>
             </div>
           </div>
@@ -217,7 +244,28 @@ const SingleUserPage = () => {
               src={realUser ? realUser.coffeeURL : "whiteBack2.png"}
             />
           </div>
-          <div className="friendList"></div>
+          <div className="followers">
+            <h2>Followers:</h2>
+            <div className="followerListBox">
+              {followers.length > 0
+                ? followers.map((each, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="followerIcon"
+                        onClick={() => history.push(`/users/${each.uid}`)}
+                      >
+                        <img
+                          className="profPic followerIcon"
+                          src={each.photoURL}
+                        />
+                        <span>{each.firstName}</span>
+                      </div>
+                    );
+                  })
+                : "You have no followers"}
+            </div>
+          </div>
         </div>
         <div className="rightBody"></div>
         <div className="blank2"></div>

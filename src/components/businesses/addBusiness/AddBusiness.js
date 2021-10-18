@@ -9,7 +9,13 @@ class AddBusiness extends Component {
       name: '',
       email: '',
       phone: '',
-      follower: 0
+      location:{
+        state: '',
+        city: '',
+        zip: '',
+        street: ''
+      },
+      followers: []
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -23,11 +29,11 @@ class AddBusiness extends Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.props.createProduct({ ...this.state});
+    this.props.addBusiness({ ...this.state});
   }
 
   render() {
-    const {name, description, price} = this.state;
+    const {name, email, phone, location} = this.state;
 
     return (
       <form onSubmit={this.handleSubmit}>
@@ -43,14 +49,42 @@ class AddBusiness extends Component {
             type="text"
             name="phone"
             placeholder="Phone..."
-            value={description}
+            value={phone}
             onChange={this.handleChange}
           />
           <input
             type="text"
             name="email"
             placeholder="Email..."
-            value={price}
+            value={email}
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            name="location"
+            placeholder="State..."
+            value={location.state}
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            name="location"
+            placeholder="City..."
+            value={location.city}
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            name="location"
+            placeholder="Zipcode..."
+            value={location.zip}
+            onChange={this.handleChange}
+          />
+          <input
+            type="text"
+            name="location"
+            placeholder="Street..."
+            value={location.street}
             onChange={this.handleChange}
           />
           <span>
@@ -66,7 +100,7 @@ class AddBusiness extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addBusiness: (business) => dispatch(AddBusiness(business))
+    addBusiness: (business) => dispatch(addBusiness(business))
   };
 };
 

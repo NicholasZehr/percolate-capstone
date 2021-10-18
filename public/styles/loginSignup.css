@@ -129,6 +129,7 @@
   margin-left:20px;
   text-decoration: None;
 }
+
 .signupBox {
   width: 35vw;
   text-align: center;
@@ -144,6 +145,12 @@
   row-gap: 15px;
 }
 #signupform {
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+  text-align: center;
+}
+.signupform {
   display: flex;
   flex-direction: column;
   row-gap: 10px;

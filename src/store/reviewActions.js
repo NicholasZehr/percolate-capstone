@@ -1,4 +1,10 @@
-import { ADD_REVIEW, FETCH_REVIEWS, GET_SINGLE_REVIEW } from "./reviewReducer";
+import {
+  ADD_LIKE,
+  ADD_REVIEW,
+  FETCH_REVIEWS,
+  GET_SINGLE_REVIEW,
+  REMOVE_LIKE,
+} from "./reviewReducer";
 import {
   collection,
   doc,
@@ -27,6 +33,20 @@ export const _fetchReviews = (reviews) => {
 export const _getSingleReview = (review) => {
   return {
     type: GET_SINGLE_REVIEW,
+    review,
+  };
+};
+
+export const _addLike = (review) => {
+  return {
+    type: ADD_LIKE,
+    review,
+  };
+};
+
+export const _removeLike = (review) => {
+  return {
+    type: REMOVE_LIKE,
     review,
   };
 };
@@ -78,6 +98,27 @@ export const fetchSingleReview = (reviewId) => {
       dispatch(_getSingleReview(singleReview));
     } catch (error) {
       return `Error ${error.message} help get single review!`;
+    }
+  };
+};
+
+export const likeClick = (reviewId, userId) => {
+  return async (dispatch) => {
+    try {
+      console.log("reviewId", reviewId, "userId", userId);
+      const q = query(
+        collection(db, "likeRelation"),
+        where("reviewId", "==", reviewId),
+        where("userId", "==", userId)
+      );
+      const docSnap = await getDoc(q);
+      console.log(docSnap);
+      if (docSnap) {
+        console.log("this user has already liked the review");
+      } else {
+      }
+    } catch (error) {
+      console.error(error, "Failed to update like for review");
     }
   };
 };

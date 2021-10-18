@@ -1,13 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { likeClick } from "../store/reviewActions";
 
-export class LikeButton extends Component {
+class LikeButton extends Component {
   constructor() {
     super();
     this.handleLike = this.handleLike.bind(this);
   }
   handleLike() {
-    console.log(this.props.user);
+    console.log("Used handle click", this.props.reviewId, this.props);
+    likeClick(this.props.reviewId, this.props.loggedInPerson);
   }
   render() {
     const likeCount = this.props.likeCount;
@@ -19,9 +21,14 @@ export class LikeButton extends Component {
     ) : null;
   }
 }
-const mapState = (state) => ({
-  user: state.auth.uid,
+const mapState = (state) => {
+  console.log("This is state.auth", state.auth);
+  return {
+    loggedInPerson: state.auth,
+  };
+};
+const mapDispatch = (dispatch) => ({
+  likeClick: (reviewId, userId) => dispatch(likeClick(reviewId, userId)),
 });
-const mapDispatch = () => {};
 
 export default connect(mapState, mapDispatch)(LikeButton);

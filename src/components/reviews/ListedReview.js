@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { LikeButton } from "../LikeButton";
+import LikeButton from "../LikeButton";
 
 class ListedReview extends Component {
   render() {
@@ -12,9 +12,13 @@ class ListedReview extends Component {
         <div className='review-user-rating'>
           <h4 id='review-username'>Username {username} </h4>
           <h4 id='review-rating'>Rating {rating}</h4>
-          <LikeButton likeCount={this.props.review.likeCount} />
+          <LikeButton
+            reviewId={this.props.review.reviewId}
+            key={this.props.review.reviewId}
+            likeCount={this.props.review.likeCount}
+          />
         </div>
-        <hr class='solid' />
+        <hr className='solid' />
         <p id='content'>{content}</p>
       </div>
     );

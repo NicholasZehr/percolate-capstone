@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchReviews } from "../../store/reviewActions";
+import { likeClick } from "../../store/reviewActions";
 import ListedReview from "./ListedReview";
 
 class ReviewPane extends Component {
@@ -45,6 +45,7 @@ class ReviewPane extends Component {
           console.log("this one review", review);
           return (
             <ListedReview
+              key={review.reviewId}
               content={checkReview(review.content)}
               review={review}
             />
@@ -61,7 +62,7 @@ const mapState = (state) => {
   };
 };
 const mapDispatch = (dispatch) => ({
-  fetchReviews: (type, id) => dispatch(fetchReviews(type, id)),
+  fetchReviews: (type, id) => dispatch(likeClick(type, id)),
 });
 
 export default connect(mapState, mapDispatch)(ReviewPane);

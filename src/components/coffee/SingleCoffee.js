@@ -53,7 +53,6 @@ class SingleCoffee extends Component {
               </div>
             </div>
           </div>
-          <LikeButton likeCount={this.props.likeCount} />
           <AddReview coffeeId={id} />
           <ReviewPane type='coffee' coffeeId={id} arrReviews={reviews} />
         </div>

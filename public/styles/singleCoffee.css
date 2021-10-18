@@ -3,27 +3,44 @@
   flex-direction: column;
   align-items: center;
   font-family: Arial, Helvetica, sans-serif;
+}
 
-  border: 3px solid black;
+.coffee-title {
+  text-align: center;
+}
+
+/* Solid border */
+hr.solid {
+  border-top: 3px solid #bbb;
 }
 
 .single-coffee-container {
   display: flex;
+  flex-direction: column;
+  width: 60vw;
+  margin-top: 10px;
+  align-items: center;
+  border-radius: 9px;
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.image-details-row {
+  display: flex;
   flex-direction: row;
-  border: 3px dashed blue;
+  justify-content: space-between;
 }
 
 #single-coffee-img {
-  max-width: 250px;
-  max-height: 250px;
+  max-width: 20vw;
+  max-height: 90vw;
   left: 5.57%;
   right: 54.43%;
   top: 19.25%;
   bottom: 24.75%;
 
   background: url(image.png);
-  border: 1px solid #000000;
   box-sizing: border-box;
-  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  border-radius: 28px;
+
+  border-radius: 9px;
 }

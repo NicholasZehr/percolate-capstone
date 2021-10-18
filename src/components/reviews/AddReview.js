@@ -1,3 +1,4 @@
+/* eslint-disable jsx-quotes */
 /*eslint jsx-quotes: ["error", "prefer-single"]*/
 import React from "react";
 import { connect } from "react-redux";
@@ -34,9 +35,9 @@ class AddReview extends React.Component {
       userId: review.userId ? review.userId : null,
       username: review.username ? review.username : null,
     };
-    console.log("lballelsid newReview", newReview);
-    console.log("Props to you", this.props);
-    console.log(addReview);
+    // console.log("lballelsid newReview", newReview);
+    // console.log("Props to you", this.props);
+    // console.log(addReview);
     this.props.addR(newReview);
   }
 
@@ -46,40 +47,39 @@ class AddReview extends React.Component {
 
   render() {
     return (
-      <div>
-        <ReviewPane />
+      <div className="new-review-container">
         <form
-          id='form_review_new'
-          className='form-review-new'
+          id="form_review_new"
+          className="form-review-new"
           onSubmit={this.handleSubmit}
         >
-          <div className='form-input-submit-group'>
-            {this.state.error ? (
-              <ul className='error-label'>
+          <div className="form-input-submit-group">
+            {/* {this.state.error ? (
+              <ul className="error-label">
                 {this.error.map((error) => (
                   <li>{error}</li>
                 ))}
               </ul>
-            ) : null}
-            <label htmlFor='rating'>Rating</label>
+            ) : null} */}
+            <label htmlFor="rating">Rating</label>
             <input
-              className='form-text-box'
-              type='number'
-              name='rating'
+              className="form-text-box"
+              type="number"
+              name="rating"
               placeholder={0.0}
-              min='0'
-              max='5'
+              min="0"
+              max="5"
               onChange={this.handleChange}
             />
-            <label htmlFor='reviewContent'>Review Comments</label>
-            <input
-              className='form-text-box'
-              type='text'
-              name='reviewContent'
-              placeholder='Your comment here...'
+            <label htmlFor="reviewContent">Review Comments</label>
+            <textarea
+              className="form-text-box"
+              type="text"
+              name="reviewContent"
+              placeholder="Your comment here..."
               onChange={this.handleChange}
             />
-            <button className='review-submit-button' type='submit'>
+            <button className="review-submit-button" type="submit">
               Submit Review
             </button>
           </div>

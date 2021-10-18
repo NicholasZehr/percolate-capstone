@@ -1,0 +1,9 @@
+.like_button {
+  background-color: blueviolet;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.like_button:hover {
+  background-color: blue;
+}

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchSingleCoffee } from "../../store/singleCoffee";
+import LikeButton from "../Like";
 import AddReview from "../reviews/AddReview";
 import ReviewPane from "../reviews/ReviewPane";
 
@@ -27,33 +28,34 @@ class SingleCoffee extends Component {
       reviews,
     } = this.props.singleCoffee;
 
-    console.log('here they are', reviews)
+    console.log("here they are", reviews);
     return (
       <>
-        <div className="single-coffee">
-          <div className="single-coffee-container">
-            <div className="coffee-title">
+        <div className='single-coffee'>
+          <div className='single-coffee-container'>
+            <div className='coffee-title'>
               <h2>{name}</h2>
               <h3>{brandName}</h3>
-              <hr class="solid" />
+              <hr class='solid' />
             </div>
-            <div className="image-details-row">
-              <div className="single-coffee-image">
+            <div className='image-details-row'>
+              <div className='single-coffee-image'>
                 <img
-                  id="single-coffee-img"
+                  id='single-coffee-img'
                   src={photoUrl}
                   alt={`${name} by ${brandName}`}
                 />
               </div>
-              <div className="single-coffee-info">
+              <div className='single-coffee-info'>
                 <p>Roast: {roast}</p>
                 <p>Roasted in {roasterCity}</p>
                 <p>User Rating: {avgRating}</p>
               </div>
             </div>
           </div>
+          <LikeButton likeCount={this.props.likeCount} />
           <AddReview coffeeId={id} />
-          <ReviewPane type="coffee" coffeeId={id} arrReviews={reviews} />
+          <ReviewPane type='coffee' coffeeId={id} arrReviews={reviews} />
         </div>
       </>
     );

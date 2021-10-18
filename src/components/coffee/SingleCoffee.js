@@ -9,7 +9,7 @@ class SingleCoffee extends Component {
     //const id = "AHmZ4UjEsZb4atwmhPM3";
     const id = this.props.match.params.coffeeId;
     this.props.fetchCoffee(id);
-    console.log("component moutned");
+    console.log("component mounted");
   }
 
   render() {
@@ -27,25 +27,25 @@ class SingleCoffee extends Component {
       reviews,
     } = this.props.singleCoffee;
 
-    console.log('here they are', reviews)
+    console.log("here they are", reviews);
     return (
       <>
-        <div className="single-coffee">
-          <div className="single-coffee-container">
-            <div className="coffee-title">
+        <div className='single-coffee'>
+          <div className='single-coffee-container'>
+            <div className='coffee-title'>
               <h2>{name}</h2>
               <h3>{brandName}</h3>
-              <hr class="solid" />
+              <hr className='solid' />
             </div>
-            <div className="image-details-row">
-              <div className="single-coffee-image">
+            <div className='image-details-row'>
+              <div className='single-coffee-image'>
                 <img
-                  id="single-coffee-img"
+                  id='single-coffee-img'
                   src={photoUrl}
                   alt={`${name} by ${brandName}`}
                 />
               </div>
-              <div className="single-coffee-info">
+              <div className='single-coffee-info'>
                 <p>Roast: {roast}</p>
                 <p>Roasted in {roasterCity}</p>
                 <p>User Rating: {avgRating}</p>
@@ -53,7 +53,7 @@ class SingleCoffee extends Component {
             </div>
           </div>
           <AddReview coffeeId={id} />
-          <ReviewPane type="coffee" coffeeId={id} arrReviews={reviews} />
+          <ReviewPane type='coffee' coffeeId={id} arrReviews={reviews} />
         </div>
       </>
     );

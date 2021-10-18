@@ -1,24 +1,29 @@
 import React, { Component } from "react";
+import LikeButton from "../LikeButton";
 import { Link } from "react-router-dom";
+
 
 class ListedReview extends Component {
   render() {
     const { username, rating, reviewId } = this.props.review;
     const content = this.props.content;
-
+    console.log("ok now in listed review", this.props.review);
     return (
-      <>
-        <div className="review-list-item">
-          <div className="review-user-rating">
-            <h4 id="review-username">{username}</h4>
-            <h4 id="review-rating">{rating}</h4>
-          </div>
-          <hr class="solid" />
-          <Link to={`/review/${reviewId}`}>
-            <p id="content">{content}</p>
-          </Link>
+      <div className='review-list-item'>
+        <div className='review-user-rating'>
+          <h4 id='review-username'>Username {username} </h4>
+          <h4 id='review-rating'>Rating {rating}</h4>
+          <LikeButton
+            reviewId={this.props.review.reviewId}
+            key={this.props.review.reviewId}
+            likeCount={this.props.review.likeCount}
+          />
         </div>
-      </>
+        <hr className='solid' />
+        <Link to={`/review/${reviewId}`}>
+          <p id="content">{content}</p>
+        </Link>
+      </div>
     );
   }
 }

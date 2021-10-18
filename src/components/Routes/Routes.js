@@ -10,8 +10,7 @@ import SingleUserPage from "../user/SinglePageUser";
 import SingleCoffee from "../coffee/SingleCoffee";
 import ReviewPane from "../reviews/ReviewPane";
 import SingleReview from "../reviews/SingleReview";
-// import AllBusinesses from "./components/businesses/allBusinesses/AllBusinesses";
-// import LoginPage from "./components/Login";
+import About from "../About";
 
 class Routes extends Component {
   render() {
@@ -20,6 +19,7 @@ class Routes extends Component {
         <Route exact path="/reviewPane" component={ReviewPane} />
         <Route path="/review/:reviewId" component={SingleReview} />
         <Route path="/login" component={LoginPage} />
+        <Route path='/about' component={About} />
         <Route path="/signup" component={Signup} />
         <Route path="/businesses" component={AllBusinesses} />
         <Route path="/business/:businessId" component={Business} />

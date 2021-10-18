@@ -15,11 +15,11 @@ class SingleReview extends Component {
 
   render() {
     console.log("this.propsss", this.props);
-    const {userName, content, rating} = this.props.review;
+    const { username, content, rating } = this.props.review;
     return (
       <div className="review-list-item">
         <div className="review-user-rating">
-          <h4 id="review-username">{userName}</h4>
+          <h4 id="review-username">{username}</h4>
           <h4 id="review-rating">{rating}</h4>
         </div>
         <hr class="solid" />

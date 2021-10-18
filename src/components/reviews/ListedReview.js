@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import LikeButton from "../LikeButton";
+import { Link } from "react-router-dom";
+
 
 class ListedReview extends Component {
   render() {
-    console.log("l,istexc props", this.props);
-    const { username, rating } = this.props.review;
+    const { username, rating, reviewId } = this.props.review;
     const content = this.props.content;
     console.log("ok now in listed review", this.props.review);
     return (
@@ -19,7 +20,9 @@ class ListedReview extends Component {
           />
         </div>
         <hr className='solid' />
-        <p id='content'>{content}</p>
+        <Link to={`/review/${reviewId}`}>
+          <p id="content">{content}</p>
+        </Link>
       </div>
     );
   }

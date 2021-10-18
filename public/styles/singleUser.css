@@ -193,7 +193,24 @@
   height: 200px;
   align-self: center;
 }
+.followers {
+  width: 100%;
+  padding: 10px;
+  margin-top: 20px;
+  height: 100%;
+  background-color: rgb(255, 255, 255);
+}
+.followerListBox {
+  
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr))
+}
 
+.followerIcon {
+  text-align: center;
+  width: 60px;
+  height: 60px;
+}
 .rightBody {
   width: 50%;
 }

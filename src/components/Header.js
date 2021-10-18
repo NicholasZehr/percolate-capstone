@@ -7,11 +7,18 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const Header = () => {
   const history = useHistory();
   const login = getAuth();
+  const dispatch = useDispatch()
   const [user, setUser] = useState(getAuth().currentUser);
   onAuthStateChanged(login, (u) => {
     setUser(u);
   });
-
+  function gotoPage() {
+    if (user) {
+      history.push(`/users/${user.uid}`);
+    } else {
+      history.push("/login")
+    }
+  }
   return (
     <div className="header">
       <div className="header-navbar">
@@ -42,10 +49,7 @@ const Header = () => {
           <div className="search-label">Search</div>
         </div>
         <div className="blank"></div>
-        <div
-          className="loginBox"
-          onClick={() => history.push(`/users/${user.uid}`)}
-        >
+        <div className="loginBox" onClick={gotoPage}>
           <div className="imageBox">
             <img
               className="profPic"
@@ -53,12 +57,9 @@ const Header = () => {
               src={user ? user.photoURL : "/guest.jpeg"}
             />
           </div>
-          <div>
-            <span className="username">
-              {user ? user.displayName : "Sign in"}
-            </span>
-          </div>
+          <div className="username">{user ? user.displayName : "Sign in"}</div>
         </div>
+        <div className="signoutButton" onClick={()=>dispatch(logout())}>Sign out</div>
       </div>
     </div>
   );

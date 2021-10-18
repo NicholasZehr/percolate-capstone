@@ -1,5 +1,5 @@
 import { FETCH_BUSINESS, FETCH_BUSINESSES, ADD_BUSINESS } from "./businessesReducer";
-import { collection, getDocs, getDoc, doc, addDoc } from "firebase/firestore";
+import { collection, getDocs, getDoc, doc, addDoc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
 
 // ------------------ Actions creators --------------------
@@ -18,6 +18,7 @@ export const _addBusiness = (business) => ({
   type: ADD_BUSINESS,
   business,
 });
+
 
 // ------------------ Thunk creators -----------------------
 

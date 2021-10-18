@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
-import { authenticateSignup } from '../../store';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
+import { authenticateSignup } from "../../store";
 
 const Signup = () => {
   const dispatch = useDispatch();
@@ -10,11 +10,11 @@ const Signup = () => {
   const [userEmails, setUserEmails] = useState({});
   const [userInput, setUserInput] = useState({
     user: {
-      firstName: '',
-      lastName: '',
-      username: '',
-      password: '',
-      email: '',
+      firstName: "",
+      lastName: "",
+      username: "",
+      password: "",
+      email: "",
     },
     errors: {},
   });
@@ -53,25 +53,25 @@ const Signup = () => {
   };
   const handleChange = (evt) => {
     let errors = {
-      firstName: '',
-      lastName: '',
-      password: '',
-      email: '',
+      firstName: "",
+      lastName: "",
+      password: "",
+      email: "",
     };
     if (!userInput.user.firstName) {
       errors.firstName = `first name field can not be empty`;
     }
     if (!userInput.user.lastName) {
-      errors.lastName = 'put your last name !';
+      errors.lastName = "put your last name !";
     }
 
     if (!userInput.user.password) {
-      errors.password = '????? please write your password.';
+      errors.password = "????? please write your password.";
     }
     if (!userInput.user.email) {
-      errors.email = 'email please!';
+      errors.email = "email please!";
     } else if (userInput.user.email in userEmails) {
-      errors.email = 'Email already exist!';
+      errors.email = "Email already exist!";
     }
     setUserInput({
       user: { ...userInput.user, [evt.target.name]: evt.target.value },
@@ -80,89 +80,86 @@ const Signup = () => {
   };
 
   return (
-    <div className='login'>
-
+    <div className="login">
       {isLoggedIn ? (
-        <Redirect to='/home' />
+        <Redirect to="/home" />
       ) : (
-        <div className='loginbodyBox'>
-          <div className='loginbody'>
-            <div className='signupTitle'>
+        <div className="loginbodyBox">
+          <div className="loginbody">
+            <div className="signupTitle">
               <h2>Signup your account</h2>
             </div>
-            <form id='signupform' onSubmit={handleSubmit} name='signup'>
-              <div className='emailBox'>
+            <form id="signupform" onSubmit={handleSubmit} name="signup">
+              <div className="emailBox">
                 <input
-                  className='email'
-                  name='email'
-                  type='text'
+                  className="email"
+                  name="email"
+                  type="text"
                   onChange={handleChange}
-                  placeholder='Email'
+                  placeholder="Email"
                 />
-                {userInput.errors != '' && (
-                  <span className='error'>{userInput.errors.email}</span>
+                {userInput.errors !== "" && (
+                  <span className="error">{userInput.errors.email}</span>
                 )}
               </div>
-              <div className='emailBox'>
+              <div className="emailBox">
                 <input
-                  className='email'
-                  name='firstName'
-                  type='text'
+                  className="email"
+                  name="firstName"
+                  type="text"
                   onChange={handleChange}
-                  placeholder='Frist Name'
+                  placeholder="Frist Name"
                 />
-                {userInput.errors != '' && (
-                  <span className='error'>{userInput.errors.firstName}</span>
+                {userInput.errors !== "" && (
+                  <span className="error">{userInput.errors.firstName}</span>
                 )}
               </div>
-              <div className='emailBox'>
+              <div className="emailBox">
                 <input
-                  className='email'
-                  name='lastName'
+                  className="email"
+                  name="lastName"
                   onChange={handleChange}
-                  placeholder='Last Name'
-                  type='text'
+                  placeholder="Last Name"
+                  type="text"
                 />
-                {userInput.errors != '' && (
-                  <span className='error'>{userInput.errors.lastName}</span>
+                {userInput.errors !== "" && (
+                  <span className="error">{userInput.errors.lastName}</span>
                 )}
               </div>
-              <div className='emailBox'>
+              <div className="emailBox">
                 <input
-                  className='email'
-                  name='photoURL'
-                  type='text'
+                  className="email"
+                  name="photoURL"
+                  type="text"
                   onChange={handleChange}
-                  placeholder='picture URL'
+                  placeholder="picture URL"
                 />
-                {userInput.errors != '' && (
-                  <span className='error'></span>
+                {userInput.errors !== "" && <span className="error"></span>}
+              </div>
+              <div className="emailBox">
+                <input
+                  className="email"
+                  name="password"
+                  onChange={handleChange}
+                  placeholder="Password"
+                  type="password"
+                />
+                {userInput.errors !== "" && (
+                  <span className="error">{userInput.errors.password}</span>
                 )}
               </div>
-              <div className='emailBox'>
-                <input
-                  className='email'
-                  name='password'
-                  onChange={handleChange}
-                  placeholder='Password'
-                  type='password'
-                />
-                {userInput.errors != '' && (
-                  <span className='error'>{userInput.errors.password}</span>
-                )}
-              </div>
-              <div className='signupBox'>
-                <button className='signupPage' name='button1'>
+              <div className="signupBox">
+                <button className="signupPage" name="button1">
                   sign up
                 </button>
               </div>
             </form>
           </div>
-          <h1 className='welcome'>Welcome to Percolate</h1>
+          <h1 className="welcome">Welcome to Percolate</h1>
         </div>
       )}
-      <div className='bottomBarSup'>
-        <div id='bottomText'>The home to all your coffee life.</div>
+      <div className="bottomBarSup">
+        <div id="bottomText">The home to all your coffee life.</div>
       </div>
     </div>
   );

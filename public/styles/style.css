@@ -1,7 +1,7 @@
 body {
-  margin:0 auto;
-  height:100vh;
-  font-family:sans-serif;
+  margin: 0 auto;
+  height: 100vh;
+  font-family: sans-serif;
 }
 #root {
   height: 100vh;
@@ -113,8 +113,7 @@ body {
   border-radius: 50%;
   transition: transform 0.3s ease;
 }
-.userName {
+.username {
   margin-right: 5px;
   color: #c9e4ca;
 }
-

@@ -19,14 +19,9 @@ const Header = () => {
           <span className="brand">Percolate</span>
           <img
             className="logo"
-
-            
             onClick={() => history.push("/home")}
             alt="Percolate Logo"
-
-            src={'/logo.png'}
-
-
+            src={"/logo.png"}
           />
         </div>
 
@@ -47,18 +42,22 @@ const Header = () => {
           <div className="search-label">Search</div>
         </div>
         <div className="blank"></div>
-        <div className="loginBox" onClick={() => history.push(`/users/${user.uid}`)}>
-            <div className="imageBox">
-              <img
-                className="profPic"
-alt="User Profile AVI"
-                src={user? user.photoURL:'/guest.jpeg'}
-              />
-            </div>
-            <div>
-              <span className='userName'>{user? user.displayName:'Sign in'}</span>
-            </div>
-
+        <div
+          className="loginBox"
+          onClick={() => history.push(`/users/${user.uid}`)}
+        >
+          <div className="imageBox">
+            <img
+              className="profPic"
+              alt="User Profile AVI"
+              src={user ? user.photoURL : "/guest.jpeg"}
+            />
+          </div>
+          <div>
+            <span className="username">
+              {user ? user.displayName : "Sign in"}
+            </span>
+          </div>
         </div>
       </div>
     </div>

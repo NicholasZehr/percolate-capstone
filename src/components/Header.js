@@ -7,7 +7,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 const Header = () => {
   const history = useHistory();
   const login = getAuth();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [user, setUser] = useState(getAuth().currentUser);
   onAuthStateChanged(login, (u) => {
     setUser(u);
@@ -16,7 +16,7 @@ const Header = () => {
     if (user) {
       history.push(`/users/${user.uid}`);
     } else {
-      history.push("/login")
+      history.push("/login");
     }
   }
   return (
@@ -57,9 +57,22 @@ const Header = () => {
               src={user ? user.photoURL : "/guest.jpeg"}
             />
           </div>
-          <div className="username">{user ? user.displayName : "Sign in"}</div>
+          <div className="username">
+            {user ? (
+              <div>
+                {user.displayName}
+                <div
+                  className="signoutButton"
+                  onClick={() => dispatch(logout())}
+                >
+                  Sign out
+                </div>
+              </div>
+            ) : (
+              "Sign in"
+            )}
+          </div>
         </div>
-        <div className="signoutButton" onClick={()=>dispatch(logout())}>Sign out</div>
       </div>
     </div>
   );

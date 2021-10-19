@@ -1,33 +1,29 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
-import { useParams } from 'react-router-dom';
-import { fetchUser } from '../../store/Actions/usersActions';
-import db from '../../firebase';
-import { doc, setDoc } from 'firebase/firestore';
-import {
-  getAuth,
-  onAuthStateChanged,
-  updateProfile,
-  updatePassword,
-} from 'firebase/auth';
-import Modal from 'react-modal';
-Modal.setAppElement('#root');
-
-
+import React, { useEffect, useReducer, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
+import { useParams } from "react-router-dom";
+import { fetchUser } from "../../store/Actions/usersActions";
+import db from "../../firebase";
+import { doc, setDoc } from "firebase/firestore";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import EditProfileButton from "./EditProfileButton";
+import Modal from "react-modal";
+import { fetchLoginUser } from "../../store/auth";
+Modal.setAppElement("#root");
 
 const SingleUserPage = () => {
-  const {id} = useParams()
+  const { id } = useParams();
   const history = useHistory();
   const dispatch = useDispatch();
   //componentDidMount here
   const auth = getAuth();
   const [user, setUser] = useState(getAuth().currentUser);
   const [edit, setEdit] = useState(false);
-  const realUser = useSelector((state) => state.users.user);
-  const [followers, setFollowers] = useState([])
-
-
+  const loginUser = useSelector((state) => state.auth);
+  const currentPageUser = useSelector((state) => state.users.user);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [alreadyFollowed, setAlreadyFollowed] = useState(false);
   onAuthStateChanged(auth, (u) => {
     setUser(u);
   });
@@ -36,6 +32,7 @@ const SingleUserPage = () => {
     async function fetchData() {
       //* Fetch the user using it's id
       await dispatch(fetchUser(id));
+      await dispatch(fetchLoginUser());
     }
     if (mounted) {
       fetchData();
@@ -43,167 +40,82 @@ const SingleUserPage = () => {
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [id]);
+
   useEffect(() => {
-    const list = []
-    if (Object.keys(realUser).length > 0) {
-      realUser.followers.forEach((element) => {
+    const list = [];
+    const fol = [];
+    let found = false;
+    let mounted = true;
+
+    //======push followers in list,and following in fol
+    if (Object.keys(currentPageUser).length > 0) {
+      currentPageUser.followers.forEach((element) => {
+        //========== find wether the current profile page is followed
+        if (user && element.uid === user.uid) {
+          found = true;
+        }
         list.push(element);
       });
+      currentPageUser.following.forEach((each) => {
+        // this is push to followiing
+        fol.push(each);
+      });
     }
-    setFollowers(list)
-  },[realUser])
+    // set them in local state
+    if (mounted) {
+      setFollowers(list);
+      setFollowing(fol);
+      setAlreadyFollowed(found);
+    }
+
+    return () => {
+      mounted = false;
+    };
+  }, [currentPageUser]);
 
   function editPage() {
     setEdit(!edit);
   }
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-    const userInfo = {
-      email: evt.target.email.value,
-      displayName: evt.target.firstName.value,
-      lastName: evt.target.lastName.value,
-      password: evt.target.password.value,
-      photoURL: evt.target.photoURL.value,
-      coverURL: evt.target.coverURL.value,
-      favorite: evt.target.favorite.value,
-      coffeeURL: evt.target.coffeeURL.value,
-    };
-    const nonEmptyValue = {}
-    for (const key in userInfo) {
-      if (userInfo[key].length > 0 && key!=="password") {
-        nonEmptyValue[key] = userInfo[key]
-      }
+  async function followingUser() {
+    if (Object.keys(loginUser).length > 0 && id !== loginUser.uid) {
+      const currentFollowers = [...currentPageUser.followers];
+      currentFollowers.push({
+        firstName: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      });
+      const currentMyFollowing = [...loginUser.following];
+      currentMyFollowing.push({
+        firstName: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      });
+
+      //============== update detail info in firestore data
+      const userRef = doc(db, "Users", id);
+      await setDoc(userRef, { followers: currentFollowers }, { merge: true });
+      const myRef = doc(db, "Users", user.uid);
+      await setDoc(myRef, { following: currentMyFollowing }, { merge: true });
+
+      //==============update redux store user info from firebase
+      await dispatch(fetchUser(currentPageUser ? currentPageUser.uid : {})); //Needed for following info.
     }
-
-    //================== update basic info in auth
-
-    updateProfile(auth.currentUser, nonEmptyValue, user);
-
-    //================== update password in auth
-    if (userInfo.password.length >= 6) {
-      updatePassword(auth.currentUser, userInfo.password)
-        .then(() => {
-          // Update successful.
-          console.log('Yes, password changed');
-        })
-        .catch((error) => {
-          // An error ocurred
-          // ...
-          console.log('somthing wrong');
-        });
-    }
-    console.log(nonEmptyValue)
-    //============== update detail info in firestore data
-    const userRef = doc(db, 'Users', user.uid);
-    await setDoc(userRef, nonEmptyValue, {merge:true});
-    //==============update redux store user info
-    await dispatch(fetchUser(user ? user.uid : {}));
-    setEdit(!edit);
-  };
+    setAlreadyFollowed(!alreadyFollowed);
+  }
   return (
     <div className="singleUserPageBox">
       <Modal className="modal" isOpen={edit} onRequestClose={editPage}>
-        <div className="close" onClick={editPage}></div>
-        <h2>Edit Profile</h2>
-        <form
-          className="signupform"
-          open={false}
-          onSubmit={handleSubmit}
-          name="signup"
-        >
-          <div className="emailBox mod">
-            <span className="formName">Email:</span>
-            <input
-              className="email"
-              name="email"
-              type="text"
-              placeholder="Email"
-            />
-            <div className="blank3"></div>
-          </div>
-          <div className="emailBox mod">
-            <span className="formName">Display Name:</span>
-            <input
-              className="email"
-              name="firstName"
-              type="text"
-              placeholder="Frist Name"
-            />
-            <div className="blank3"></div>
-          </div>
-          <div className="emailBox mod">
-            <span className="formName">Last Name:</span>
-            <input
-              className="email"
-              name="lastName"
-              placeholder="Last Name"
-              type="text"
-            />
-            <div className="blank3"></div>
-          </div>
-          <div className="emailBox mod">
-            <span className="formName">Password:</span>
-            <input
-              className="email"
-              name="password"
-              placeholder="Password"
-              type="password"
-            />
-            <div className="blank3"></div>
-          </div>
-          <div className="emailBox mod">
-            <span className="formName">Profile Picture:</span>
-            <input
-              className="email"
-              name="photoURL"
-              type="text"
-              placeholder="picture URL"
-            />
-            <div className="blank3"></div>
-          </div>
-          <div className="emailBox mod">
-            <span className="formName">Cover Picture:</span>
-            <input
-              className="email"
-              name="coverURL"
-              placeholder="cover image url"
-              type="text"
-            />
-            <div className="blank3"></div>
-          </div>
-          <div className="emailBox mod">
-            <span className="formName">Favorite Coffee:</span>
-            <input
-              className="email"
-              name="favorite"
-              type="text"
-              placeholder="Coffee"
-            />
-            <div className="blank3"></div>
-          </div>
-          <div className="emailBox mod">
-            <span className="formName">Coffee Picture:</span>
-            <input
-              className="email"
-              name="coffeeURL"
-              placeholder="favorite coffee url"
-              type="text"
-            />
-            <div className="blank3"></div>
-          </div>
-          <button className="signupPage" name="button1">
-            Save
-          </button>
-        </form>
+        <EditProfileButton edit={edit} setEdit={setEdit} user={user} />
       </Modal>
-
       <div className="profileBox">
         <div className="profileCover">
           <div className="shadow">
             <img
               className="cover"
-              src={realUser ? realUser.coverURL : "/whiteBack2.png"}
+              src={
+                currentPageUser ? currentPageUser.coverURL : "/whiteBack2.png"
+              }
             />
           </div>
         </div>
@@ -212,22 +124,44 @@ const SingleUserPage = () => {
           <div className="pictureBox">
             <img
               className="profPic ownpage"
-              src={realUser ? realUser.photoURL : "/guest.jpeg"}
+              src={currentPageUser ? currentPageUser.photoURL : "/guest.jpeg"}
             />
           </div>
           <div className="profileNavBar">
-            <div onClick={editPage} className="editProfileButton">
-              Edit Profile
-            </div>
+            {user ? (
+              id === user.uid ? (
+                <div onClick={editPage} className="editProfileButton">
+                  Edit Profile
+                </div>
+              ) : alreadyFollowed ? (
+                <div className="editProfileButton">Unfollow</div>
+              ) : (
+                <div onClick={followingUser} className="editProfileButton">
+                  Follow
+                </div>
+              )
+            ) : (
+              <div
+                onClick={(_) => history.push("/login")}
+                className="editProfileButton"
+              >
+                Login to follow
+              </div>
+            )}
+
             <h2>
-              {realUser ? (realUser.firstName||realUser.displayName) + " " + realUser.lastName : ""}
+              {currentPageUser
+                ? (currentPageUser.firstName || currentPageUser.displayName) +
+                  " " +
+                  currentPageUser.lastName
+                : ""}
             </h2>
             <hr className="divider" />
             <div className="menu">
               <div>Reviews</div>
               <div>About</div>
               <div>Followers</div>
-              <div>Photos</div>
+              <div>Following</div>
             </div>
           </div>
           <div className="blank2"></div>
@@ -241,14 +175,38 @@ const SingleUserPage = () => {
             <span className="favoriteTitle">My favorite coffee:</span>
             <img
               className="favCoffee"
-              src={realUser ? realUser.coffeeURL : "whiteBack2.png"}
+              src={
+                currentPageUser ? currentPageUser.coffeeURL : "whiteBack2.png"
+              }
             />
           </div>
           <div className="followers">
-            <h2>Followers:</h2>
+            <h2>{followers.length} followers: </h2>
             <div className="followerListBox">
               {followers.length > 0
                 ? followers.map((each, index) => {
+                    return (
+                      <div
+                        key={index}
+                        className="followerIcon"
+                        onClick={() => history.push(`/users/${each.uid}`)}
+                      >
+                        <img
+                          className="profPic followerIcon"
+                          src={each.photoURL}
+                        />
+                        <span>{each.firstName}</span>
+                      </div>
+                    );
+                  })
+                : "You have no followers"}
+            </div>
+          </div>
+          <div className="followers">
+            <h2>{following.length} following: </h2>
+            <div className="followerListBox">
+              {following.length > 0
+                ? following.map((each, index) => {
                     return (
                       <div
                         key={index}

@@ -10,7 +10,7 @@ class ReviewComment extends Component {
     console.log("comments", this.props.comment);
     const { username, userId, comment } = this.props.comment;
     return (
-      <div>
+      <div className='single-comment-container'>
         <h2>Comments</h2>
         <div className="comment-list-item">
           <div className="comment-username">

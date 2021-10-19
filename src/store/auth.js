@@ -1,4 +1,3 @@
-import history from "../history";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -6,7 +5,7 @@ import {
   signOut,
   updateProfile,
 } from "firebase/auth";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { collection, doc, setDoc, getDoc } from "firebase/firestore";
 import db from "../firebase";
 //https://firebase.google.com/docs/auth/web/manage-users
 const TOKEN = "token";
@@ -21,14 +20,24 @@ export const authenticate = (username, password) => async (dispatch) => {
     logout()
     await signInWithEmailAndPassword(auth, username, password);
     const user = auth.currentUser;
-    console.log("what is currentUser", user);
     if (user !== null) {
-      dispatch(setAuth(user));
+      const response = await getDoc(doc(db, "Users", user.uid));
+      const fullDetail = { ...user, ...response.data() }
+      dispatch(setAuth(fullDetail))
     }
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
   }
 };
+export const fetchLoginUser = () => async (dispatch) => {
+  const auth = getAuth()
+  const user = auth.currentUser;
+  if (user !== null) {
+    const response = await getDoc(doc(db, "Users", user.uid));
+    const fullDetail = { ...user, ...response.data() };
+    dispatch(setAuth(fullDetail));
+  }
+}
 export const authenticateSignup = (user) => async (dispatch) => {
   try {
     const auth = getAuth();
@@ -49,6 +58,7 @@ export const authenticateSignup = (user) => async (dispatch) => {
       email: user.email,
       photoURL: user.photoURL,
     });
+    dispatch(setAuth(user))
   } catch (error) {
     console.log(error);
     return dispatch(setAuth({ error }));

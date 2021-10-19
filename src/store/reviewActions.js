@@ -19,6 +19,7 @@ import {
 } from "firebase/firestore";
 import db from "../firebase";
 import { increment, serverTimestamp } from "firebase/firestore";
+import _addLikeCoffee from "./singleCoffee";
 
 // ------------------ Actions creators --------------------
 
@@ -41,17 +42,17 @@ export const _getSingleReview = (review) => {
   };
 };
 
-export const _addLike = (review) => {
+export const _addLike = (reviewId) => {
   return {
     type: ADD_LIKE,
-    review,
+    reviewId,
   };
 };
 
-export const _removeLike = (review) => {
+export const _removeLike = (reviewId) => {
   return {
     type: REMOVE_LIKE,
-    review,
+    reviewId,
   };
 };
 
@@ -161,6 +162,7 @@ export const likeClick = (reviewId, userId, displayName, photoURL) => {
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(1),
         });
+        dispatch(_addLikeCoffee(reviewId));
       }
     } catch (error) {
       console.error(error, "Failed to update like for review");

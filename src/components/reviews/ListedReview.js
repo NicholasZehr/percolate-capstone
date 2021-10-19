@@ -12,6 +12,7 @@ class ListedReview extends Component {
           <h4 id='review-username'>Username {username} </h4>
           <h4 id='review-rating'>Rating {rating}</h4>
           <LikeButton
+            index={this.props.idx}
             reviewId={this.props.review.reviewId}
             key={this.props.review.reviewId}
             likeCount={this.props.review.likeCount}

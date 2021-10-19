@@ -28,10 +28,11 @@ class ReviewPane extends Component {
     return (
       <div>
         <h2>Reviews</h2>
-        {arrReviews.map((review) => {
+        {arrReviews.map((review, idx) => {
           //checkReview(review.content);
           return (
             <ListedReview
+              idx={idx}
               key={review.reviewId}
               content={checkReview(review.content)}
               review={review}

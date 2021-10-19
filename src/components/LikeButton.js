@@ -11,7 +11,7 @@ class LikeButton extends Component {
     this.handleLike = this.handleLike.bind(this);
   }
   handleLike() {
-    likeClick(this.props.reviewId, this.state.user);
+    this.props.likeClick(this.props.reviewId, this.state.user);
   }
   render() {
     const likeCount = this.props.likeCount;

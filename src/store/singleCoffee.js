@@ -26,8 +26,6 @@ const fetchSingleCoffee = (coffeeId) => {
     try {
       const docRef = doc(db, "coffees", coffeeId);
       const docSnap = await getDoc(docRef);
-
-      //console.log("snap", docSnap.data());
       const singleCoffee = docSnap.data();
 
       dispatch(getSingleCoffee(singleCoffee));

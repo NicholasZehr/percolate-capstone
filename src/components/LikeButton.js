@@ -13,7 +13,6 @@ class LikeButton extends Component {
   handleLike() {
     const likeClick = this.props.likeClick;
     const { uid, displayName, photoURL } = this.state.user;
-    console.log("This is the user Info!!!!", displayName);
     likeClick(this.props.reviewId, uid, displayName, photoURL);
   }
   render() {

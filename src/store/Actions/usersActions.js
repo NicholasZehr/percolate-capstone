@@ -1,7 +1,6 @@
-import { collection, getDocs, getDoc, doc } from 'firebase/firestore';
-import db from '../../firebase';
-import { GET_USER, GET_ALL_USERS } from '../Reducers/usersReducer'
-
+import { collection, getDocs, getDoc, doc } from "firebase/firestore";
+import db from "../../firebase";
+import { GET_USER, GET_ALL_USERS } from "../Reducers/usersReducer";
 
 export const _fetchAllUsers = (users) => ({
   type: GET_ALL_USERS,
@@ -16,14 +15,12 @@ export const _fetchUser = (user) => ({
 export const fetchAllUsers = () => {
   return async (dispatch) => {
     try {
-      const response = await getDocs(collection(db, 'Users'));
+      const response = await getDocs(collection(db, "Users"));
       let users = [];
-      console.log(response)
       response.forEach((business) => users.push(business.data()));
       dispatch(_fetchAllUsers(users));
-      console.log('users fetch response:', users);
     } catch (error) {
-      console.log('Failed to fetch all users');
+      console.log("Failed to fetch all users");
       return;
     }
   };
@@ -32,10 +29,10 @@ export const fetchAllUsers = () => {
 export const fetchUser = (userId) => {
   return async (dispatch) => {
     try {
-      const response = await getDoc(doc(db, 'Users', userId));
+      const response = await getDoc(doc(db, "Users", userId));
       dispatch(_fetchUser(response.data()));
     } catch (error) {
-      console.log('Failed to fetch single user');
+      console.log("Failed to fetch single user");
       return;
     }
   };

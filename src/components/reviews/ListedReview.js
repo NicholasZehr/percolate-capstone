@@ -2,12 +2,10 @@ import React, { Component } from "react";
 import LikeButton from "../LikeButton";
 import { Link } from "react-router-dom";
 
-
 class ListedReview extends Component {
   render() {
     const { username, rating, reviewId } = this.props.review;
     const content = this.props.content;
-    console.log("ok now in listed review", this.props.review);
     return (
       <div className='review-list-item'>
         <div className='review-user-rating'>
@@ -21,7 +19,7 @@ class ListedReview extends Component {
         </div>
         <hr className='solid' />
         <Link to={`/review/${reviewId}`}>
-          <p id="content">{content}</p>
+          <p id='content'>{content}</p>
         </Link>
       </div>
     );

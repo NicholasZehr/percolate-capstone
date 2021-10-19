@@ -10,7 +10,6 @@ class Businesses extends Component {
 
   componentDidMount() {
     this.props.fetchBusinesses();
-    console.log("businesses", this.props.businesses);
   }
 
   render() {
@@ -18,7 +17,9 @@ class Businesses extends Component {
       return (
         <div>
           {this.props.businesses.businesses.map((business) => (
-            <div>{business.data().name} {business.id}</div>
+            <div>
+              {business.data().name} {business.id}
+            </div>
           ))}
         </div>
       );

@@ -4,7 +4,13 @@ import { useHistory } from "react-router";
 import { useParams } from "react-router-dom";
 import { fetchUser } from "../../store/Actions/usersActions";
 import db from "../../firebase";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  updateDoc,
+  arrayRemove,
+  arrayUnion,
+} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EditProfileButton from "./EditProfileButton";
 import Modal from "react-modal";
@@ -103,6 +109,28 @@ const SingleUserPage = () => {
     }
     setAlreadyFollowed(!alreadyFollowed);
   }
+
+  async function unfollowUser() {
+    if (Object.keys(loginUser).length > 0 && id !== loginUser.uid) {
+      const removeFollowers = {
+        firstName: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      };
+
+      const removeFollowing = {
+        firstName: user.displayName,
+        photoURL: user.photoURL,
+        uid: user.uid,
+      };
+
+      const userRef = doc(db, "Users", id);
+      await updateDoc(userRef, { followers: arrayRemove(removeFollowers) });
+      const myRef = doc(db, "Users", user.uid);
+      await updateDoc(myRef, { following: arrayRemove(removeFollowing) });
+    }
+  }
+
   return (
     <div className="singleUserPageBox">
       <Modal className="modal" isOpen={edit} onRequestClose={editPage}>

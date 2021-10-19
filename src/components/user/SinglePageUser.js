@@ -93,7 +93,9 @@ const SingleUserPage = () => {
       });
       const currentMyFollowing = [...loginUser.following];
       currentMyFollowing.push({
-        firstName: currentPageUser.displayName?currentPageUser.displayName:currentPageUser.firstName,
+        firstName: currentPageUser.displayName
+          ? currentPageUser.displayName
+          : currentPageUser.firstName,
         photoURL: currentPageUser.photoURL,
         uid: id,
       });
@@ -108,7 +110,7 @@ const SingleUserPage = () => {
 
       setFollowers(currentFollowers);
     }
-    
+
     setAlreadyFollowed(!alreadyFollowed);
   }
 
@@ -143,6 +145,7 @@ const SingleUserPage = () => {
           <div className="shadow">
             <img
               className="cover"
+              alt="cover"
               src={
                 currentPageUser ? currentPageUser.coverURL : "/whiteBack2.png"
               }
@@ -154,6 +157,7 @@ const SingleUserPage = () => {
           <div className="pictureBox">
             <img
               className="profPic ownpage"
+              alt="your profile pic"
               src={currentPageUser ? currentPageUser.photoURL : "/guest.jpeg"}
             />
           </div>
@@ -205,6 +209,7 @@ const SingleUserPage = () => {
             <span className="favoriteTitle">My favorite coffee:</span>
             <img
               className="favCoffee"
+              alt="favorite coffee"
               src={
                 currentPageUser ? currentPageUser.coffeeURL : "whiteBack2.png"
               }
@@ -223,6 +228,7 @@ const SingleUserPage = () => {
                       >
                         <img
                           className="profPic followerIcon"
+                          alt="follower icon"
                           src={each.photoURL}
                         />
                         <span>{each.firstName}</span>
@@ -244,6 +250,7 @@ const SingleUserPage = () => {
                         onClick={() => history.push(`/users/${each.uid}`)}
                       >
                         <img
+                          alt="follower-icon"
                           className="profPic followerIcon"
                           src={each.photoURL}
                         />

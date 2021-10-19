@@ -7,11 +7,14 @@ const auth = getAuth();
 class LikeButton extends Component {
   constructor(props) {
     super(props);
-    this.state = { user: auth.currentUser.uid };
+    this.state = { user: auth.currentUser };
     this.handleLike = this.handleLike.bind(this);
   }
   handleLike() {
-    this.props.likeClick(this.props.reviewId, this.state.user);
+    const likeClick = this.props.likeClick;
+    const { uid, displayName, photoURL } = this.state.user;
+    console.log("This is the user Info!!!!", displayName);
+    likeClick(this.props.reviewId, uid, displayName, photoURL);
   }
   render() {
     const likeCount = this.props.likeCount;
@@ -24,13 +27,13 @@ class LikeButton extends Component {
   }
 }
 const mapState = (state) => {
-  console.log("This is state.auth", state.auth);
   return {
     loggedInPerson: state.auth,
   };
 };
 const mapDispatch = (dispatch) => ({
-  likeClick: (reviewId, userId) => dispatch(likeClick(reviewId, userId)),
+  likeClick: (reviewId, userId, displayName, photoURL) =>
+    dispatch(likeClick(reviewId, userId, displayName, photoURL)),
 });
 
 export default connect(mapState, mapDispatch)(LikeButton);

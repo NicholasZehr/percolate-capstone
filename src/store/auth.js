@@ -17,31 +17,31 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const authenticate = (username, password) => async (dispatch) => {
   const auth = getAuth();
   try {
-    logout()
+    logout();
     await signInWithEmailAndPassword(auth, username, password);
     const user = auth.currentUser;
     if (user !== null) {
       const response = await getDoc(doc(db, "Users", user.uid));
-      const fullDetail = { ...user, ...response.data() }
-      dispatch(setAuth(fullDetail))
+      const fullDetail = { ...user, ...response.data() };
+      dispatch(setAuth(fullDetail));
     }
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
   }
 };
 export const fetchLoginUser = () => async (dispatch) => {
-  const auth = getAuth()
+  const auth = getAuth();
   const user = auth.currentUser;
   if (user !== null) {
     const response = await getDoc(doc(db, "Users", user.uid));
     const fullDetail = { ...user, ...response.data() };
     dispatch(setAuth(fullDetail));
   }
-}
+};
 export const authenticateSignup = (user) => async (dispatch) => {
   try {
     const auth = getAuth();
-    logout()
+    logout();
     const response = await createUserWithEmailAndPassword(
       auth,
       user.email,
@@ -57,8 +57,10 @@ export const authenticateSignup = (user) => async (dispatch) => {
       lastName: user.lastName,
       email: user.email,
       photoURL: user.photoURL,
+      followers: [],
+      following: [],
     });
-    dispatch(setAuth(user))
+    dispatch(setAuth(user));
   } catch (error) {
     console.log(error);
     return dispatch(setAuth({ error }));

@@ -15,8 +15,10 @@ import {
   where,
   arrayUnion,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import db from "../firebase";
+import { increment } from "firebase/firestore";
 
 // ------------------ Actions creators --------------------
 
@@ -127,11 +129,17 @@ export const likeClick = (reviewId, userId) => {
         where("reviewId", "==", reviewId),
         where("userId", "==", userId)
       );
-      const docSnap = await getDoc(q);
-      console.log(docSnap);
-      if (docSnap) {
+      const docSnapLikeRelation = await getDocs(q);
+      console.log(docSnapLikeRelation);
+      if (docSnapLikeRelation.docs.length) {
         console.log("this user has already liked the review");
+        const docRef = doc(db, "reviews", reviewId);
+        const docSnap = await updateDoc(docRef, {
+          likeCount: increment(-1),
+        });
+        await deleteDoc(docSnapLikeRelation.docs[0]);
       } else {
+        console.log("this user has not yet liked the review");
       }
     } catch (error) {
       console.error(error, "Failed to update like for review");

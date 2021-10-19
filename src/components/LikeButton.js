@@ -1,15 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { likeClick } from "../store/reviewActions";
+import { getAuth } from "firebase/auth";
 
+const auth = getAuth();
 class LikeButton extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = { user: auth.currentUser.uid };
     this.handleLike = this.handleLike.bind(this);
   }
   handleLike() {
-    console.log("Used handle click", this.props.reviewId, this.props);
-    likeClick(this.props.reviewId, this.props.loggedInPerson);
+    this.props.likeClick(this.props.reviewId, this.state.user);
   }
   render() {
     const likeCount = this.props.likeCount;

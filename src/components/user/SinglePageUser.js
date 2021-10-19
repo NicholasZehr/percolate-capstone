@@ -132,6 +132,8 @@ const SingleUserPage = () => {
       await updateDoc(userRef, { followers: arrayRemove(removeFollowers) });
       const myRef = doc(db, "Users", user.uid);
       await updateDoc(myRef, { following: arrayRemove(removeFollowing) });
+
+      console.log('hello')
     }
   }
 
@@ -168,7 +170,9 @@ const SingleUserPage = () => {
                   Edit Profile
                 </div>
               ) : alreadyFollowed ? (
-                <div className="editProfileButton">Unfollow</div>
+                <div onClick={unfollowUser} className="editProfileButton">
+                  Unfollow
+                </div>
               ) : (
                 <div onClick={followingUser} className="editProfileButton">
                   Follow

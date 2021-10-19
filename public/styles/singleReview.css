@@ -1,0 +1,10 @@
+.single-review-container {
+  display: flex;
+  flex-direction: column;
+  width: 60vw;
+  margin-top: 10px;
+  align-items: center;
+  border-radius: 9px;
+  background-color: #ffffff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

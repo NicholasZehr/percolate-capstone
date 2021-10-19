@@ -18,7 +18,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import db from "../firebase";
-import { increment } from "firebase/firestore";
+import { increment, serverTimestamp } from "firebase/firestore";
 
 // ------------------ Actions creators --------------------
 
@@ -120,26 +120,47 @@ export const fetchSingleReview = (reviewId) => {
   };
 };
 
-export const likeClick = (reviewId, userId) => {
+export const likeClick = (reviewId, userId, displayName, photoURL) => {
   return async (dispatch) => {
     try {
-      console.log("reviewId", reviewId, "userId", userId);
+      console.log(
+        "reviewId",
+        reviewId,
+        "userId",
+        userId,
+        "displayName",
+        displayName,
+        "photoURL",
+        photoURL
+      );
       const q = query(
         collection(db, "likeRelation"),
         where("reviewId", "==", reviewId),
         where("userId", "==", userId)
       );
       const docSnapLikeRelation = await getDocs(q);
-      console.log(docSnapLikeRelation);
+      const docRefReviewLikeCount = doc(db, "reviews", reviewId);
       if (docSnapLikeRelation.docs.length) {
         console.log("this user has already liked the review");
-        const docRef = doc(db, "reviews", reviewId);
-        const docSnap = await updateDoc(docRef, {
+        await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(-1),
         });
-        await deleteDoc(docSnapLikeRelation.docs[0]);
+        await deleteDoc(
+          doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
+        );
       } else {
         console.log("this user has not yet liked the review");
+        const likeRelation = {
+          userId: userId,
+          reviewId: reviewId,
+          time: serverTimestamp(),
+          displayName: displayName,
+          photoURL: photoURL,
+        };
+        await addDoc(collection(db, "likeRelation"), likeRelation);
+        await updateDoc(docRefReviewLikeCount, {
+          likeCount: increment(1),
+        });
       }
     } catch (error) {
       console.error(error, "Failed to update like for review");

@@ -11,6 +11,7 @@ import db from "../firebase";
 // action types
 
 const GET_SINGLE_COFFEE = "GET_SINGLE_COFFEE";
+const ADD_LIKE_COFFEE = "ADD_LIKE_COFFEE";
 
 const getSingleCoffee = (coffee) => {
   return {
@@ -19,6 +20,13 @@ const getSingleCoffee = (coffee) => {
   };
 };
 
+const _addLikeCoffee = (reviewId, index) => {
+  return {
+    type: ADD_LIKE_COFFEE,
+    reviewId,
+    index,
+  };
+};
 // thunk
 
 const fetchSingleCoffee = (coffeeId) => {
@@ -26,8 +34,6 @@ const fetchSingleCoffee = (coffeeId) => {
     try {
       const docRef = doc(db, "coffees", coffeeId);
       const docSnap = await getDoc(docRef);
-
-      //console.log("snap", docSnap.data());
       const singleCoffee = docSnap.data();
 
       dispatch(getSingleCoffee(singleCoffee));
@@ -36,15 +42,33 @@ const fetchSingleCoffee = (coffeeId) => {
     }
   };
 };
+const addCoffeeLike = (reviewId, index) => {
+  return async (dispatch) => {
+    try {
+      dispatch(_addLikeCoffee(reviewId, index));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 
 const singleCoffeeReducer = (state = {}, action) => {
+  console.log(action);
   switch (action.type) {
     case GET_SINGLE_COFFEE:
       return action.coffee;
+    case ADD_LIKE_COFFEE:
+      return {
+        ...state,
+        reviews: [
+          ...state.reviews,
+          (state.reviews[action.index].likeCount += 1),
+        ],
+      };
     default:
       return state;
   }
 };
 
 export default singleCoffeeReducer;
-export { fetchSingleCoffee };
+export { fetchSingleCoffee, addCoffeeLike };

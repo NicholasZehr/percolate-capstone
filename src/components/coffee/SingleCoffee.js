@@ -13,9 +13,6 @@ class SingleCoffee extends Component {
   }
 
   render() {
-    //console.log("props matching!!", this.props.match);
-    //const singleCoffee = this.props.singleCoffee;
-    console.log("COFFEE PROPS", this.props.singleCoffee.reviews);
     const id = this.props.match.params.coffeeId;
     const {
       name,
@@ -27,7 +24,6 @@ class SingleCoffee extends Component {
       reviews,
     } = this.props.singleCoffee;
 
-    console.log("here they are", reviews);
     return (
       <>
         <div className='single-coffee'>

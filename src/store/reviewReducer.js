@@ -19,13 +19,6 @@ export default function reviewReducer(state = initialState, action) {
       return { ...state, reviews: action };
     case GET_SINGLE_REVIEW:
       return { ...state, review: action.review };
-    case ADD_LIKE:
-      console.log("Add like to store now");
-      return;
-    case REMOVE_LIKE:
-      console.log("Remove like from store now");
-      return;
-
     default:
       return state;
   }

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchSingleReview } from "../../store/reviewActions";
+import ReviewComment from "./ReviewComment";
 
 class SingleReview extends Component {
   constructor(props) {
@@ -13,15 +14,27 @@ class SingleReview extends Component {
   }
 
   render() {
-    const { username, content, rating } = this.props.review;
+    const { username, content, rating, comments } = this.props.review;
+
     return (
-      <div className="review-list-item">
-        <div className="review-user-rating">
-          <h4 id="review-username">{username}</h4>
-          <h4 id="review-rating">{rating}</h4>
+      <div className="single-review-container">
+        <div className="review-list-item">
+          <div className="review-user-rating">
+            <h4 id="review-username">{username}</h4>
+            <h4 id="review-rating">{rating}</h4>
+          </div>
+          <hr className="solid" />
+          <p id="content">{content}</p>
         </div>
-        <hr class="solid" />
-        <p id="content">{content}</p>
+        <div className="comments-container">
+          {comments ? (
+            comments.map((comment) => {
+              return <ReviewComment comment={comment} />;
+            })
+          ) : (
+            <h2>Be first to add a comment!</h2>
+          )}
+        </div>
       </div>
     );
   }

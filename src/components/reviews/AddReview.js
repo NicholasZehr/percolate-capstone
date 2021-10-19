@@ -4,6 +4,8 @@ import React from "react";
 import { connect } from "react-redux";
 import { addReview } from "../../store/reviewActions";
 import ReviewPane from "./ReviewPane";
+import { getAuth } from "firebase/auth";
+const auth = getAuth();
 
 class AddReview extends React.Component {
   constructor() {
@@ -19,6 +21,10 @@ class AddReview extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    console.log(auth.currentUser);
   }
 
   componentDidUpdate(prevProps) {}

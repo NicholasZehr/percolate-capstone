@@ -87,11 +87,10 @@ const SingleUserPage = () => {
       });
       const currentMyFollowing = [...loginUser.following];
       currentMyFollowing.push({
-        firstName: user.displayName,
-        photoURL: user.photoURL,
-        uid: user.uid,
+        firstName: currentPageUser.displayName?currentPageUser.displayName:currentPageUser.firstName,
+        photoURL: currentPageUser.photoURL,
+        uid: id,
       });
-
       //============== update detail info in firestore data
       const userRef = doc(db, "Users", id);
       await setDoc(userRef, { followers: currentFollowers }, { merge: true });
@@ -100,7 +99,10 @@ const SingleUserPage = () => {
 
       //==============update redux store user info from firebase
       await dispatch(fetchUser(currentPageUser ? currentPageUser.uid : {})); //Needed for following info.
+
+      setFollowers(currentFollowers);
     }
+    
     setAlreadyFollowed(!alreadyFollowed);
   }
   return (

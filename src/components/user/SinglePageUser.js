@@ -123,17 +123,18 @@ const SingleUserPage = () => {
       };
 
       const removeFollowing = {
-        firstName: user.displayName,
-        photoURL: user.photoURL,
-        uid: user.uid,
+        firstName: loginUser.displayName,
+        photoURL: loginUser.photoURL,
+        uid: loginUser.uid,
       };
 
       const userRef = doc(db, "Users", id);
       await updateDoc(userRef, { followers: arrayRemove(removeFollowers) });
-      const myRef = doc(db, "Users", user.uid);
+      const myRef = doc(db, "Users", loginUser.uid);
+      console.log("reff", myRef);
       await updateDoc(myRef, { following: arrayRemove(removeFollowing) });
 
-      console.log('hello')
+      console.log("hello");
     }
   }
 

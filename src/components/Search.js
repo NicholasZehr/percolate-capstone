@@ -4,13 +4,14 @@ import algoliasearch from 'algoliasearch/lite';
 import { InstantSearch, SearchBox, Hits } from 'react-instantsearch-dom';
 
 const searchClient = algoliasearch(
-  'latency',
-  '6be0576ff61c053d5f9a3225e2a90f76'
+  'JP955S508F',
+  '3de80a48e4011b0c171789a11801fb58',
+  'coffees'
 );
 
 export const Search = () => (
   <InstantSearch
-    indexName="bestbuy"
+    indexName="coffees"
     searchClient={searchClient}
   >
     <SearchBox />

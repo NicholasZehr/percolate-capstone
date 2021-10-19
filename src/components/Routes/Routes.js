@@ -11,6 +11,7 @@ import SingleCoffee from "../coffee/SingleCoffee";
 import ReviewPane from "../reviews/ReviewPane";
 import SingleReview from "../reviews/SingleReview";
 import About from "../About";
+import Home from "../Home"
 
 class Routes extends Component {
   render() {
@@ -19,13 +20,14 @@ class Routes extends Component {
         <Route exact path="/reviewPane" component={ReviewPane} />
         <Route path="/review/:reviewId" component={SingleReview} />
         <Route path="/login" component={LoginPage} />
-        <Route path='/about' component={About} />
+        <Route path="/about" component={About} />
         <Route path="/signup" component={Signup} />
         <Route path="/businesses" component={AllBusinesses} />
         <Route path="/business/:businessId" component={Business} />
-        <Route path="/addBusiness" component={AddBusiness}/>
+        <Route path="/addBusiness" component={AddBusiness} />
         <Route path="/users/:id" component={SingleUserPage} />
         <Route exact path="/coffee/:coffeeId" component={SingleCoffee} />
+        <Route path="/Home" component={Home} />
       </Switch>
     );
   }

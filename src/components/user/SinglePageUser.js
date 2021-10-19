@@ -221,7 +221,7 @@ const SingleUserPage = () => {
             />
           </div>
           <div className="followers">
-            <h2>{followers.length} followers: </h2>
+            <h3>{followers.length} followers: </h3>
             <div className="followerListBox">
               {followers.length > 0
                 ? followers.map((each, index) => {
@@ -244,7 +244,7 @@ const SingleUserPage = () => {
             </div>
           </div>
           <div className="followers">
-            <h2>{following.length} following: </h2>
+            <h3>{following.length} following: </h3>
             <div className="followerListBox">
               {following.length > 0
                 ? following.map((each, index) => {

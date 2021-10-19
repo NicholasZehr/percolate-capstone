@@ -54,7 +54,7 @@ const Header = () => {
             <img
               className="profPic"
               alt="User Profile AVI"
-              src={user ? user.photoURL : "/guest.jpeg"}
+              src={user ? user.photoURL||"/guest.jpeg" : "/guest.jpeg"}
             />
           </div>
           <div className="username">

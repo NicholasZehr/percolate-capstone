@@ -126,3 +126,52 @@ body {
   font-size: 12px;
   border:1px solid white;
 }
+
+
+/* ===================Home page================== */
+
+.home {
+  display: flex;
+  text-align: center;
+  justify-content: space-around;
+  border-radius: 3px;
+  padding: 10px;
+}
+.leftSide {
+  flex-grow:1;
+}
+.self {
+  display: flex;
+  flex-flow: column;
+  background-color: white;
+  padding:10px;
+  border-radius: 10px;
+  width: 100%;
+  margin: 5px;
+}
+.fbox {
+  padding: 0 auto;
+  display: flex;
+  flex-flow:column;
+}
+
+.rightSide {
+  flex-grow:1;
+}
+.centerBody {
+  flex-grow: 3;
+}
+.feeding {
+  display: flex;
+  flex-flow: column;
+  background-color: white;
+
+  width: 100%;
+}
+.productAndBusiness {
+      display: flex;
+  flex-flow: column;
+  background-color: white;
+
+  width: 100%;
+}

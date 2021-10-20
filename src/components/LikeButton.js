@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { likeClick } from "../store/reviewActions";
-import { addCoffeeLike } from "../store/singleCoffee";
+import { updateCoffeeLike } from "../store/singleCoffee";
 import { getAuth } from "firebase/auth";
 
 const auth = getAuth();
@@ -13,10 +13,14 @@ class LikeButton extends Component {
   }
   handleLike() {
     const likeClick = this.props.likeClick;
-    const likeUpdateRedux = this.props.likeUpdateRedux;
     const { uid, displayName, photoURL } = this.state.user;
-    likeClick(this.props.reviewId, uid, displayName, photoURL);
-    likeUpdateRedux(this.props.reviewId, this.props.index);
+    likeClick(
+      this.props.reviewId,
+      uid,
+      displayName,
+      photoURL,
+      this.props.index
+    );
   }
   render() {
     const likeCount = this.props.likeCount;
@@ -34,10 +38,8 @@ const mapState = (state) => {
   };
 };
 const mapDispatch = (dispatch) => ({
-  likeClick: (reviewId, userId, displayName, photoURL) =>
-    dispatch(likeClick(reviewId, userId, displayName, photoURL)),
-  likeUpdateRedux: (reviewId, index) =>
-    dispatch(addCoffeeLike(reviewId, index)),
+  likeClick: (reviewId, userId, displayName, photoURL, index) =>
+    dispatch(likeClick(reviewId, userId, displayName, photoURL, index)),
 });
 
 export default connect(mapState, mapDispatch)(LikeButton);

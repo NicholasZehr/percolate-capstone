@@ -13,8 +13,10 @@ class LikeButton extends Component {
   }
   handleLike() {
     const likeClick = this.props.likeClick;
+    const coffeeId = this.props.coffeeId;
     const { uid, displayName, photoURL } = this.state.user;
     likeClick(
+      coffeeId,
       this.props.reviewId,
       uid,
       displayName,
@@ -38,8 +40,10 @@ const mapState = (state) => {
   };
 };
 const mapDispatch = (dispatch) => ({
-  likeClick: (reviewId, userId, displayName, photoURL, index) =>
-    dispatch(likeClick(reviewId, userId, displayName, photoURL, index)),
+  likeClick: (coffeeId, reviewId, userId, displayName, photoURL, index) =>
+    dispatch(
+      likeClick(coffeeId, reviewId, userId, displayName, photoURL, index)
+    ),
 });
 
 export default connect(mapState, mapDispatch)(LikeButton);

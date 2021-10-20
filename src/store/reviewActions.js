@@ -84,6 +84,7 @@ export const addReview = (review) => {
         username: review.username || null,
         rating: review.rating,
         reviewId: newDoc.id,
+        likeCount: review.likeCount,
       };
 
       const coffeeRef = doc(db, "coffees", review.coffeeId);
@@ -134,37 +135,40 @@ export const fetchSingleReview = (reviewId) => {
   };
 };
 
-export const likeClick = (reviewId, userId, displayName, photoURL, index) => {
+export const likeClick = (
+  coffeeId,
+  reviewId,
+  userId,
+  displayName,
+  photoURL,
+  index
+) => {
   return async (dispatch) => {
     try {
-      console.log(
-        "reviewId",
-        reviewId,
-        "userId",
-        userId,
-        "displayName",
-        displayName,
-        "photoURL",
-        photoURL
-      );
       const q = query(
         collection(db, "likeRelation"),
         where("reviewId", "==", reviewId),
         where("userId", "==", userId)
       );
+      console.log(coffeeId);
       const docSnapLikeRelation = await getDocs(q);
       const docRefReviewLikeCount = doc(db, "reviews", reviewId);
+      const docRefCoffeeLikeCount = doc(db, "coffees", coffeeId);
       if (docSnapLikeRelation.docs.length) {
         console.log("this user has already liked the review");
+        dispatch(_removeLike(reviewId, index));
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(-1),
+        });
+        await updateDoc(docRefCoffeeLikeCount, {
+          reviews: ([index].likeCount = increment(-1)),
         });
         await deleteDoc(
           doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
         );
-        dispatch(_removeLike(reviewId, index));
       } else {
         console.log("this user has not yet liked the review");
+        dispatch(_addLike(reviewId, index));
         const likeRelation = {
           userId: userId,
           reviewId: reviewId,
@@ -176,7 +180,6 @@ export const likeClick = (reviewId, userId, displayName, photoURL, index) => {
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(1),
         });
-        dispatch(_addLike(reviewId, index));
       }
     } catch (error) {
       console.error(error, "Failed to update like for review");

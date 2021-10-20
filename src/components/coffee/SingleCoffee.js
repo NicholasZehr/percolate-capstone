@@ -9,7 +9,6 @@ class SingleCoffee extends Component {
     //const id = "AHmZ4UjEsZb4atwmhPM3";
     const id = this.props.match.params.coffeeId;
     this.props.fetchCoffee(id);
-    console.log("component mounted");
   }
 
   render() {
@@ -23,7 +22,7 @@ class SingleCoffee extends Component {
       avgRating,
       reviews,
     } = this.props.singleCoffee;
-
+    console.log("coffeeId from SingleCoffee", id);
     return (
       <>
         <div className='single-coffee'>

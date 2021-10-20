@@ -9,6 +9,7 @@ import businessesReducer from "./businessesReducer";
 import usersReducers from "./Reducers/usersReducer";
 import singleCoffeeReducer from "./singleCoffee";
 import reviewReducer from "./reviewReducer";
+import feedReducer from "./feed";
 
 const reducer = combineReducers({
   auth,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   users: usersReducers,
   singleCoffee: singleCoffeeReducer,
   review: reviewReducer,
+  feed: feedReducer,
 });
 const middleware = composeWithDevTools(
   applyMiddleware(

@@ -230,3 +230,40 @@ p strong {
 }
 
 
+.ais-SearchBox-input{
+  left: 5px;
+  margin: 2px;
+  margin-left: 10px;
+  width: 90%;
+  height: 100%;
+  border: 0;
+}
+
+.ais-SearchBox-form{
+  flex-grow: 3.5;
+  background: #ffffff;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1.25px solid rgba(0, 0, 0, 0.25);
+  box-sizing: border-box;
+  border-radius: 25px;
+  padding: 5px;
+  margin: 10px;
+  text-align: left;
+}
+
+.search-results{
+  position: fixed;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: center;
+  background-color: white;
+  overflow-y: scroll;
+  max-height: 50vh;
+  z-index: 10;
+  max-width: 40vw;
+}

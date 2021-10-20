@@ -160,9 +160,9 @@ export const likeClick = (
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(-1),
         });
-        await updateDoc(docRefCoffeeLikeCount, {
-          reviews: ([index].likeCount = increment(-1)),
-        });
+        // await updateDoc(docRefCoffeeLikeCount, {
+        //   reviews: ([index].likeCount = increment(-1)),
+        // });
         await deleteDoc(
           doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
         );

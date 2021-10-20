@@ -22,11 +22,11 @@ class Routes extends Component {
         <Route path="/login" component={LoginPage} />
         <Route path="/about" component={About} />
         <Route path="/signup" component={Signup} />
-        <Route path="/businesses" component={AllBusinesses} />
-        <Route path="/business/:businessId" component={Business} />
+        <Route exact path="/businesses" component={AllBusinesses} />
+        <Route exact path="/businesses/:businessId" component={Business} />
         <Route path="/addBusiness" component={AddBusiness} />
         <Route path="/users/:id" component={SingleUserPage} />
-        <Route exact path="/coffee/:coffeeId" component={SingleCoffee} />
+        <Route exact path="/coffees/:coffeeId" component={SingleCoffee} />
         <Route path="/Home" component={Home} />
       </Switch>
     );

@@ -42,17 +42,10 @@ const Header = () => {
           </div>
           <div className='space'></div>
         </div>
-        <div className='search'>
-          <input
-            className='search-input'
-            placeholder='Search Coffee | location | zip code'
-          />
-          <div className='search-label'>Search</div>
-          {/* <Search /> */}
-        </div>
-        <div className='blank'></div>
-        <div className='loginBox' onClick={gotoPage}>
-          <div className='imageBox'>
+          <Search className="search"/>
+        <div className="blank"></div>
+        <div className="loginBox" onClick={gotoPage}>
+          <div className="imageBox">
             <img
               className='profPic'
               alt='User Profile AVI'

@@ -7,6 +7,7 @@ import db from "../firebase";
 import {
   doc,
   setDoc,
+  getDoc,
   updateDoc,
   arrayRemove,
   arrayUnion,
@@ -24,6 +25,7 @@ const Home = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [posts, setPosts] = useState("");
   const [write, setWrite] = useState(false);
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -42,10 +44,9 @@ const Home = (props) => {
     };
   }, [user]);
 
-  useEffect(() => {
+  useEffect(async () => {
     const list = [];
     const fol = [];
-    let found = false;
     let mounted = true;
 
     //======push followers in list,and following in fol
@@ -59,7 +60,11 @@ const Home = (props) => {
         fol.push(each);
       });
     }
-    // set them in local state
+    //fetching posts from firestore
+    if (user) {
+      const response = await getDoc(doc(db, "reviews", user.uid));
+      setPosts(response.data().reviews)
+    }
     if (mounted) {
       setFollowers(list);
       setFollowing(fol);
@@ -69,7 +74,6 @@ const Home = (props) => {
     };
   }, [loggedInUser]);
 
-
   function writePage() {
     setWrite(!write);
   }
@@ -77,7 +81,7 @@ const Home = (props) => {
   const handleSubmit = async (evt) => {
     evt.preventDefault();
     if (loggedInUser) {
-      const content = evt.target.content.value
+      const content = evt.target.content.value;
       const userRef = doc(db, "reviews", loggedInUser.uid);
       await setDoc(
         userRef,
@@ -92,9 +96,7 @@ const Home = (props) => {
         { merge: true }
       );
     }
-    
   };
-
 
   return (
     <div className="home">
@@ -164,8 +166,10 @@ const Home = (props) => {
               <p>What's on your mind?</p>
             </div>
           </div>
-          <div className="feelingPhotoVideo"></div>
         </div>
+        {posts.length > 0
+          ? posts.map((each, index) => <div key={index}> {each} </div>)
+          : ""}
       </div>
       <div className="rightSide">
         <div className="productAndBusiness">fdsafdsafsda</div>

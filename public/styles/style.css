@@ -120,13 +120,12 @@ body {
 }
 .signoutButton {
   cursor: pointer;
-  padding:5px;
+  padding: 5px;
   color: #c9e4ca;
   border-radius: 20px;
   font-size: 12px;
-  border:1px solid white;
+  border: 1px solid white;
 }
-
 
 /* ===================Home page================== */
 
@@ -138,40 +137,96 @@ body {
   padding: 10px;
 }
 .leftSide {
-  flex-grow:1;
+  flex-grow: 1;
+  margin: 10px;
+  display: flex;
+  justify-content: start;
+  flex-flow: column;
+  align-items: center;
 }
 .self {
   display: flex;
   flex-flow: column;
   background-color: white;
-  padding:10px;
+  padding: 10px 0px 10px 10px;
   border-radius: 10px;
   width: 100%;
   margin: 5px;
 }
-.fbox {
-  padding: 0 auto;
-  display: flex;
-  flex-flow:column;
-}
 
 .rightSide {
-  flex-grow:1;
+  flex-grow: 1;
+  margin: 10px;
+  display: flex;
+  justify-content: start;
+  flex-flow: column;
+  align-items: center;
 }
 .centerBody {
   flex-grow: 3;
+  margin: 10px;
+  display: flex;
+  justify-content: start;
+  flex-flow: column;
+  align-items: center;
 }
 .feeding {
+  height: auto;
+}
+.headNPost {
+  display: flex;
+  padding:5px;
+  justify-content: flex-start;
+  align-items: center;
+}
+.productAndBusiness {
   display: flex;
   flex-flow: column;
   background-color: white;
-
+  padding: 10px 0px 10px 10px;
+  border-radius: 10px;
   width: 100%;
+  margin: 5px;
 }
-.productAndBusiness {
-      display: flex;
-  flex-flow: column;
-  background-color: white;
-
+.post-input {
   width: 100%;
+  height: auto;
+  background-color: rgb(228, 227, 227);
+  border-radius: 20px;
+  border:0;
+  margin-right:10px;
+  font-size: 1rem;
+  color: gray;
+  text-align: left;
+  padding-left: 10px;
 }
+.writepost {
+  color:black;
+  font-size:1.2rem;
+}
+.post {
+  display: flex;
+  flex-flow: row;
+}
+
+.textarea {
+  width:100%;
+  overflow:hidden;
+  font-size:18px;
+  height:auto;
+  display: block;
+  resize: both;
+  min-height: 40px;
+  line-height: 20px;
+}
+.textarea {
+  border: 1px solid #ccc;
+  font-family: inherit;
+  font-size: inherit;
+
+}
+p strong {
+  display: block;
+}
+
+

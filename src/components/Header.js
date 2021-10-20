@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { logout } from "../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { Search } from "../components/Search"
 
 const Header = () => {
   const history = useHistory();
@@ -47,6 +48,7 @@ const Header = () => {
             placeholder="Search Coffee | location | zip code"
           />
           <div className="search-label">Search</div>
+          <Search />
         </div>
         <div className="blank"></div>
         <div className="loginBox" onClick={gotoPage}>

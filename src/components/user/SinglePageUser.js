@@ -123,19 +123,22 @@ const SingleUserPage = () => {
       };
 
       const removeFollowing = {
-        firstName: loginUser.displayName,
-        photoURL: loginUser.photoURL,
-        uid: loginUser.uid,
+        firstName: currentPageUser.displayName
+          ? currentPageUser.displayName
+          : currentPageUser.firstName,
+        photoURL: currentPageUser.photoURL,
+        uid: id,
       };
-
       const userRef = doc(db, "Users", id);
       await updateDoc(userRef, { followers: arrayRemove(removeFollowers) });
       const myRef = doc(db, "Users", loginUser.uid);
-      console.log("reff", myRef);
       await updateDoc(myRef, { following: arrayRemove(removeFollowing) });
 
-      console.log("hello");
+      await dispatch(fetchUser(currentPageUser ? currentPageUser.uid : {})); //Needed for following info.
+
+      setFollowers(removeFollowers);
     }
+    setAlreadyFollowed(!alreadyFollowed);
   }
 
   return (

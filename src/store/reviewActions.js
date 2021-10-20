@@ -19,7 +19,7 @@ import {
 } from "firebase/firestore";
 import db from "../firebase";
 import { increment, serverTimestamp } from "firebase/firestore";
-import _addLikeCoffee from "./singleCoffee";
+import { _addLikeCoffee, _removeLikeCoffee } from "./singleCoffee";
 
 // ------------------ Actions creators --------------------
 
@@ -42,14 +42,27 @@ export const _getSingleReview = (review) => {
   };
 };
 
-export const _addLike = (reviewId) => {
+export const _addLike = (reviewId, index) => {
+  return (dispatch) => {
+    dispatch(_addLikeReview(reviewId));
+    dispatch(_addLikeCoffee(reviewId, index));
+  };
+};
+
+export const _removeLike = (reviewId, index) => {
+  return (dispatch) => {
+    dispatch(_removeLikeReview(reviewId));
+    dispatch(_removeLikeCoffee(reviewId, index));
+  };
+};
+export const _addLikeReview = (reviewId) => {
   return {
     type: ADD_LIKE,
     reviewId,
   };
 };
 
-export const _removeLike = (reviewId) => {
+export const _removeLikeReview = (reviewId) => {
   return {
     type: REMOVE_LIKE,
     reviewId,
@@ -71,6 +84,7 @@ export const addReview = (review) => {
         username: review.username || null,
         rating: review.rating,
         reviewId: newDoc.id,
+        likeCount: review.likeCount,
       };
 
       const coffeeRef = doc(db, "coffees", review.coffeeId);
@@ -121,36 +135,40 @@ export const fetchSingleReview = (reviewId) => {
   };
 };
 
-export const likeClick = (reviewId, userId, displayName, photoURL) => {
+export const likeClick = (
+  coffeeId,
+  reviewId,
+  userId,
+  displayName,
+  photoURL,
+  index
+) => {
   return async (dispatch) => {
     try {
-      console.log(
-        "reviewId",
-        reviewId,
-        "userId",
-        userId,
-        "displayName",
-        displayName,
-        "photoURL",
-        photoURL
-      );
       const q = query(
         collection(db, "likeRelation"),
         where("reviewId", "==", reviewId),
         where("userId", "==", userId)
       );
+      console.log(coffeeId);
       const docSnapLikeRelation = await getDocs(q);
       const docRefReviewLikeCount = doc(db, "reviews", reviewId);
+      const docRefCoffeeLikeCount = doc(db, "coffees", coffeeId);
       if (docSnapLikeRelation.docs.length) {
         console.log("this user has already liked the review");
+        dispatch(_removeLike(reviewId, index));
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(-1),
         });
+        // await updateDoc(docRefCoffeeLikeCount, {
+        //   reviews: ([index].likeCount = increment(-1)),
+        // });
         await deleteDoc(
           doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
         );
       } else {
         console.log("this user has not yet liked the review");
+        dispatch(_addLike(reviewId, index));
         const likeRelation = {
           userId: userId,
           reviewId: reviewId,
@@ -162,7 +180,6 @@ export const likeClick = (reviewId, userId, displayName, photoURL) => {
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(1),
         });
-        dispatch(_addLikeCoffee(reviewId));
       }
     } catch (error) {
       console.error(error, "Failed to update like for review");

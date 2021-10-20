@@ -22,23 +22,28 @@ class ReviewPane extends Component {
 
   render() {
     const { checkReview } = this;
-    const arrReviews = this.props.arrReviews;
+    const coffeeId = this.props.coffeeId;
+    console.log("coffeeId from ReviewPane", coffeeId);
+    const arrReviews = this.props.arrReviews ? this.props.arrReviews : false;
     // const reviewArr = this.props.reviews.reviews;
-    if (!arrReviews) return null;
+    console.log(arrReviews);
     return (
       <div>
         <h2>Reviews</h2>
-        {arrReviews.map((review, idx) => {
-          //checkReview(review.content);
-          return (
-            <ListedReview
-              idx={idx}
-              key={review.reviewId}
-              content={checkReview(review.content)}
-              review={review}
-            />
-          );
-        })}
+        {arrReviews
+          ? arrReviews.map((review, idx) => {
+              //checkReview(review.content);
+              return (
+                <ListedReview
+                  coffeeId={coffeeId}
+                  idx={idx}
+                  key={review.reviewId}
+                  content={checkReview(review.content)}
+                  review={review}
+                />
+              );
+            })
+          : null}
       </div>
     );
   }

@@ -7,11 +7,11 @@ import {
   query,
 } from "firebase/firestore";
 import db from "../firebase";
-
 // action types
 
 const GET_SINGLE_COFFEE = "GET_SINGLE_COFFEE";
 const ADD_LIKE_COFFEE = "ADD_LIKE_COFFEE";
+const REMOVE_LIKE_COFFEE = "REMOVE_LIKE_COFFEE";
 
 const getSingleCoffee = (coffee) => {
   return {
@@ -20,9 +20,16 @@ const getSingleCoffee = (coffee) => {
   };
 };
 
-const _addLikeCoffee = (reviewId, index) => {
+export const _addLikeCoffee = (reviewId, index) => {
   return {
     type: ADD_LIKE_COFFEE,
+    reviewId,
+    index,
+  };
+};
+export const _removeLikeCoffee = (reviewId, index) => {
+  return {
+    type: REMOVE_LIKE_COFFEE,
     reviewId,
     index,
   };
@@ -35,19 +42,10 @@ const fetchSingleCoffee = (coffeeId) => {
       const docRef = doc(db, "coffees", coffeeId);
       const docSnap = await getDoc(docRef);
       const singleCoffee = docSnap.data();
-
+      console.log(singleCoffee);
       dispatch(getSingleCoffee(singleCoffee));
     } catch (error) {
       return `Error ${error.message} fetch single coffee thunk`;
-    }
-  };
-};
-const addCoffeeLike = (reviewId, index) => {
-  return async (dispatch) => {
-    try {
-      dispatch(_addLikeCoffee(reviewId, index));
-    } catch (error) {
-      console.error(error);
     }
   };
 };
@@ -58,12 +56,24 @@ const singleCoffeeReducer = (state = {}, action) => {
     case GET_SINGLE_COFFEE:
       return action.coffee;
     case ADD_LIKE_COFFEE:
+      const addReviewLike = Array.from(state.reviews);
+      addReviewLike.splice(action.index, 1, {
+        ...state.reviews[action.index],
+        likeCount: state.reviews[action.index].likeCount + 1,
+      });
       return {
         ...state,
-        reviews: [
-          ...state.reviews,
-          (state.reviews[action.index].likeCount += 1),
-        ],
+        reviews: addReviewLike,
+      };
+    case REMOVE_LIKE_COFFEE:
+      const removeReviewLike = Array.from(state.reviews);
+      removeReviewLike.splice(action.index, 1, {
+        ...state.reviews[action.index],
+        likeCount: state.reviews[action.index].likeCount - 1,
+      });
+      return {
+        ...state,
+        reviews: removeReviewLike,
       };
     default:
       return state;
@@ -71,4 +81,4 @@ const singleCoffeeReducer = (state = {}, action) => {
 };
 
 export default singleCoffeeReducer;
-export { fetchSingleCoffee, addCoffeeLike };
+export { fetchSingleCoffee };

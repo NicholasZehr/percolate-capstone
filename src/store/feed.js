@@ -33,6 +33,8 @@ const fetchFeedReviews = () => {
     //do some stuff
     let reviews;
 
+    // query reviews where reviewer id is in my own followed
+
     dispatch(getFeedReviews(reviews));
   };
 };

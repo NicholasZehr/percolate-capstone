@@ -1,6 +1,6 @@
 body {
   margin: 0 auto;
-  height: 100vh;
+  height: auto;
   font-family: sans-serif;
 }
 #root {
@@ -18,7 +18,7 @@ body {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 #singlepage {
-  height: 100vh;
+  height: auto;
   background-color: #e5e5e5;
 }
 /** Logo */
@@ -225,8 +225,21 @@ body {
   border: 1px solid #ccc;
   font-family: inherit;
   font-size: inherit;
-
 }
+.textarea {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  resize: both;
+  min-height: 40px;
+  line-height: 20px;
+}
+
+.textarea[contenteditable]:empty::before {
+  content: "Placeholder still possible";
+  color: gray;
+}
+
 p strong {
   display: block;
 }
@@ -332,11 +345,49 @@ p strong {
 .ais-SearchBox-form{
   align-self: center;
 }
-.cardAdjustment { 
+.cardUpAdjustment { 
   margin-top:0px;
+  margin-bottom: 1px;
+  border-radius: 0;
+}
+.cardUp {
+  margin-top:0px;
+  margin-bottom: 1px;
+  border-radius: 0px;
+  flex-flow: row;
+  justify-content: space-around;
+  align-items: center;
+}
+.cardUptwo{
+  margin-top:0px;
+  border-radius: 0px 0px 20px 20px;
+}
+.heart {
+  height: 20px;
+  width: auto;
+}
+.likes{
+  flex-grow:2;
+  display: flex;
+  align-items: center;
+}
+.likes p{
+  padding-left:10px;
+}
+.flip {
+  color: gray;
+  transform: scaleX(-1);
+}
+.comments {
+  flex-grow:1;  
+  display: flex;
+}
+.comments p{
+  padding-left:10px;
 }
 .cardDown {
   margin-bottom: 1px;
+  border-radius: 20px 20px 0px 0px;
 }
 .card {
   flex-flow: row;

@@ -155,22 +155,9 @@ const Home = (props) => {
       </div>
 
       <div className="centerBody">
-        <div className="self feeding">
-          <div className="headNPost">
-            <div className="imageBox">
-              <img
-                className="profPic"
-                alt="User Profile AVI"
-                src={user ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"}
-              />
-            </div>
-            <div className="post-input" onClick={writePage}>
-              <p>What's on your mind?</p>
-            </div>
-          </div>
-        </div>
         {reviews.length > 0
-          ? reviews.map((each, index) => <FeedCard key={index} review={each} user={user} loggedInUser={loggedInUser} />)
+          ? reviews.map((each, index) => <FeedCard key={index} handleSubmit={handleSubmit}
+            writePage={writePage} review={each} user={user} loggedInUser={loggedInUser} />)
           : ""}
       </div>
       <div className="rightSide">

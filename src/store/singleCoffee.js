@@ -38,7 +38,6 @@ export const _removeLikeCoffee = (reviewId, index) => {
   return {
     type: REMOVE_LIKE_COFFEE,
     reviewId,
-    index,
   };
 };
 // thunk
@@ -60,25 +59,6 @@ const singleCoffeeReducer = (state = {}, action) => {
   switch (action.type) {
     case GET_SINGLE_COFFEE:
       return action.coffee;
-    case ADD_LIKE_COFFEE:
-      const addReviewLike = Array.from(state.reviews);
-      addReviewLike.map((element, index) => {
-        return console.log(element);
-      });
-      return {
-        ...state,
-        reviews: addReviewLike,
-      };
-    case REMOVE_LIKE_COFFEE:
-      const removeReviewLike = Array.from(state.reviews);
-      removeReviewLike.splice(action.index, 1, {
-        ...state.reviews[action.index],
-        likeCount: state.reviews[action.index].likeCount - 1,
-      });
-      return {
-        ...state,
-        reviews: removeReviewLike,
-      };
     default:
       return state;
   }

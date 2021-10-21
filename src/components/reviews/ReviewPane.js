@@ -40,6 +40,7 @@ class ReviewPane extends Component {
                   key={review[0]}
                   content={checkReview(review[1].content)}
                   review={review[1]}
+                  reviewId={review[0]}
                 />
               );
             })

@@ -8,25 +8,25 @@ class SingleReview extends Component {
     super(props);
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const reviewId = this.props.match.params.reviewId;
-    this.props.fetchReview(reviewId);
+    await this.props.fetchReview(reviewId);
   }
 
   render() {
-    const { username, content, rating, comments } = this.props.review;
+    const { rating, comments } = this.props.review;
 
     return (
-      <div className="single-review-container">
-        <div className="review-list-item">
-          <div className="review-user-rating">
-            <h4 id="review-username">{username}</h4>
-            <h4 id="review-rating">{rating}</h4>
+      <div className='single-review-container'>
+        <div className='review-list-item'>
+          <div className='review-user-rating'>
+            <h4 id='review-username'>username</h4>
+            <h4 id='review-rating'>{rating}</h4>
           </div>
-          <hr className="solid" />
-          <p id="content">{content}</p>
+          <hr className='solid' />
+          <p id='content'>content</p>
         </div>
-        <div className="comments-container">
+        <div className='comments-container'>
           {comments ? (
             comments.map((comment) => {
               return <ReviewComment comment={comment} />;

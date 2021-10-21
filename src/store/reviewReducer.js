@@ -19,6 +19,26 @@ export default function reviewReducer(state = initialState, action) {
       return { ...state, reviews: action.reviews };
     case GET_SINGLE_REVIEW:
       return { ...state, review: action.review };
+    case ADD_LIKE:
+      let addLike = state.reviews[action.reviewId];
+      addLike.likeCount += 1;
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          [action.reviewId]: addLike,
+        },
+      };
+    case REMOVE_LIKE:
+      let removeLike = state.reviews[action.reviewId];
+      removeLike.likeCount -= 1;
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          [action.reviewId]: removeLike,
+        },
+      };
     default:
       return state;
   }

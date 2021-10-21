@@ -1,18 +1,5 @@
-import {
-  collection,
-  doc,
-  addDoc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-  arrayUnion,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { collection, doc, getDocs, query } from "firebase/firestore";
 import db from "../firebase";
-import { increment, serverTimestamp } from "firebase/firestore";
-import _addLikeCoffee from "./singleCoffee";
 
 // action creators
 const GET_FEED_REVIEWS = "GET_FEED_REVIEWS";
@@ -31,8 +18,8 @@ const getFeedReviews = (reviews) => {
 const fetchFeedReviews = (me) => {
   return async (dispatch) => {
     console.log("thunk me", me);
-    //const userRef = doc(db, "Users", me);
-    //console.log("ref", userRef);
+    const userRef = doc(db, "Users", me);
+    console.log("ref", userRef);
 
     const feedRef = collection(db, "reviews");
     const revQuery = query(feedRef);

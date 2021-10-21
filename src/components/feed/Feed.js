@@ -3,17 +3,21 @@ import { connect } from "react-redux";
 import { fetchFeedReviews } from "../../store/feed";
 
 import { getAuth } from "firebase/auth";
-const auth = getAuth();
+// const auth = getAuth();
+// const user = auth.currentUser;
 class Feed extends Component {
   constructor() {
     super();
-    // this.state = { user: auth.currentUser };
+    const auth = getAuth();
+    this.state = { user: auth.currentUser };
   }
+
   componentDidMount() {
-    const user = auth.currentUser;
-    console.log("user", user);
-    this.props.fetchFeed(user);
+    // const user = this.state.user;
+    // console.log("user", user.uid);
+    // this.props.fetchFeed(user.uid);
   }
+
   render() {
     console.log("feed props", this.props.feed);
     return (

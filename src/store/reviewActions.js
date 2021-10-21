@@ -176,7 +176,6 @@ export const likeClick = (
       );
       if (docSnapLikeRelation.docs.length) {
         console.log("this user has already liked the review");
-        dispatch(_removeLike(reviewId, index));
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(-1),
         });
@@ -186,9 +185,9 @@ export const likeClick = (
         await deleteDoc(
           doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
         );
+        dispatch(_removeLike(reviewId, index));
       } else {
         console.log("this user has not yet liked the review");
-        dispatch(_addLike(reviewId, index));
         const likeRelation = {
           userId: userId,
           reviewId: reviewId,
@@ -203,6 +202,7 @@ export const likeClick = (
         await updateDoc(docRefCoffeeLikeCount, {
           likeCount: increment(1),
         });
+        dispatch(_addLike(reviewId, index));
       }
     } catch (error) {
       console.error(error, "Failed to update like for review");

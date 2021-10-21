@@ -39,10 +39,10 @@ export const _removeLikeCoffee = (reviewId, index) => {
 const fetchSingleCoffee = (coffeeId) => {
   return async (dispatch) => {
     try {
+      
       const docRef = doc(db, "coffees", coffeeId);
       const docSnap = await getDoc(docRef);
       const singleCoffee = docSnap.data();
-      console.log("Label for No", docSnap);
       dispatch(getSingleCoffee(singleCoffee));
     } catch (error) {
       return `Error ${error.message} fetch single coffee thunk`;
@@ -51,7 +51,6 @@ const fetchSingleCoffee = (coffeeId) => {
 };
 
 const singleCoffeeReducer = (state = {}, action) => {
-  console.log(action);
   switch (action.type) {
     case GET_SINGLE_COFFEE:
       return action.coffee;

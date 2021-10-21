@@ -10,8 +10,8 @@ body {
   width: 100%;
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-around;
   text-align: center;
   z-index: 99 !important;
   background-color: #3b6064;
@@ -24,8 +24,8 @@ body {
 /** Logo */
 .logo {
   flex-grow: 0.5;
-  max-width: 50px;
-  max-height: 50px;
+  width: 50px;
+  height: 50px;
 }
 
 /** Percolate phrase*/
@@ -178,6 +178,8 @@ body {
   padding:5px;
   justify-content: flex-start;
   align-items: center;
+  background-color: white;
+  border-radius: 20px;
 }
 .productAndBusiness {
   display: flex;
@@ -254,9 +256,9 @@ p strong {
   text-align: left;
 }
 
-.search-results{
-  position: fixed;
-  top: 50px;
+.search-results:not(:empty){
+  position: absolute;
+  top: 55px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -265,5 +267,81 @@ p strong {
   overflow-y: scroll;
   max-height: 50vh;
   z-index: 10;
-  max-width: 40vw;
+  width: 40%;
+  border-radius: 0 0 2% 2%;
+  box-shadow: black 0px 1px 1px 1px;
+}
+
+.hit-photo{
+  max-width: 50px;
+  max-height: 50px;
+}
+
+.ais-Hits{
+  display: flex;
+  flex-direction: column;
+  width: 98%;
+}
+
+.ais-Hits-list{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 0
+}
+
+.ais-Hits-item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: solid grey 1px;
+    align-items: center;
+}
+
+.results{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%
+}
+
+.header-left{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-left: 10px;
+}
+.header-middle{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.header-right{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    margin-right: 10px;
+}
+
+.ais-SearchBox{
+  align-self: center;
+}
+
+.ais-SearchBox-form{
+  align-self: center;
+}
+.cardAdjustment { 
+  margin-top:0px;
+}
+.cardDown {
+  margin-bottom: 1px;
+}
+.card {
+  flex-flow: row;
+  justify-content: space-around;
+}
+.coffeeInfo {
+  text-align: left;
 }

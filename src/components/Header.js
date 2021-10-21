@@ -23,6 +23,7 @@ const Header = () => {
   return (
     <div className='header'>
       <div className='header-navbar'>
+        <div className='header-left'>
         <div className='oursite' onClick={() => history.push("/home")}>
           <span className='brand'>Percolate</span>
           <img
@@ -42,8 +43,11 @@ const Header = () => {
           </div>
           <div className='space'></div>
         </div>
+        </div>
+        <div className="header-middle">
           <Search className="search"/>
-        <div className="blank"></div>
+        </div>
+        <div className="header-right">
         <div className="loginBox" onClick={gotoPage}>
           <div className="imageBox">
             <img
@@ -69,6 +73,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 };

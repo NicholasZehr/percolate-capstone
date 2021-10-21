@@ -288,6 +288,7 @@ p strong {
 .hit-photo{
   max-width: 50px;
   max-height: 50px;
+  margin-right: 15px;
 }
 
 .ais-Hits{
@@ -345,11 +346,13 @@ p strong {
 .ais-SearchBox-form{
   align-self: center;
 }
+
 .cardUpAdjustment { 
   margin-top:0px;
   margin-bottom: 1px;
   border-radius: 0;
 }
+
 .cardUp {
   margin-top:0px;
   margin-bottom: 1px;

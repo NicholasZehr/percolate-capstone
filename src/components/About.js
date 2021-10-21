@@ -8,8 +8,8 @@ const About = () => {
         <div className='authors'>
           <div className='authorBox'>
             <label>Matt</label>
-            <img className='author zoomable' alt='hold up' />
-            <p className='aboutAuthor'>Matt insert your statement here... </p>
+            <img src = '/Matt.jpeg' className='author zoomable' alt='hold up' />
+            <p className='aboutAuthor'>Matt was an electrical engineer at AECOM designing power distribution systems. </p>
           </div>
           <div className='authorBox'>
             <label>Greg</label>

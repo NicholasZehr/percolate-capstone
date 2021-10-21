@@ -28,7 +28,7 @@ function Hit(props) {
   return (
     <Link to={`/${props.hit.path}`}>
     <div class="results">
-      <img className="hit-photo" src={props.hit.photoUrl?(props.hit.photoUrl):(props.hit.imageUrl)} align="left" alt={null} />
+      <img className="hit-photo" src={props.hit.photoURL?(props.hit.photoURL):(props.hit.photoUrl?(props.hit.photoUrl):(props.hit.imageUrl))} align="left" alt={null} />
         <p>{props.hit.displayName?(props.hit.displayName):(props.hit.name?(props.hit.name):(`${props.hit.firstName} ${props.hit.lastName}`))}</p>
       </div>
     </Link>

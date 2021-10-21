@@ -26,21 +26,12 @@ export const Search = () => (
 function Hit(props) {
   console.log(props.hit)
   return (
-    <div>
     <Link to={`/${props.hit.path}`}>
-      <img src={props.hit.imageUrl} align="left" alt={props.hit.name} />
-      <p>ID: {props.hit.objectID}</p>
-      <div className="hit-name">
-        <Highlight attribute="name" hit={props.hit} />
-      </div>
-      <div className="hit-objectID">
-        <Highlight attribute="objectID" hit={props.hit} />
-      </div>
-      <div className="hit-description">
-        <Highlight attribute="description" hit={props.hit} />
+    <div class="results">
+      <img className="hit-photo" src={props.hit.photoUrl?(props.hit.photoUrl):(props.hit.imageUrl)} align="left" alt={null} />
+        <p>{props.hit.displayName?(props.hit.displayName):(props.hit.name?(props.hit.name):(`${props.hit.firstName} ${props.hit.lastName}`))}</p>
       </div>
     </Link>
-    </div>
 
   );
 }
@@ -55,8 +46,8 @@ const IndexResults = connectStateResults(
       children
     ) : (
       <div>
-        No results have been found in
-        {searchResults ? ` ${searchResults.index}` : ''}
+        NO RESULTS FOUND IN
+        {searchResults ? ` ${searchResults.index.toUpperCase()}` : ''}
       </div>
     )
 );
@@ -81,19 +72,19 @@ const Results = connectStateResults(({ searchState }) =>
     <AllResults>
   <Index indexName="coffees">
     <IndexResults>
-    <p>Coffees: </p>
+    <h3 className="hit-label">Coffees: </h3>
     <Hits hitComponent={Hit}/>
     </IndexResults>
   </Index>
   <Index indexName="Users">
     <IndexResults>
-    <p>Users: </p>
+    <h3 className="hit-label">Users: </h3>
     <Hits hitComponent={Hit}/>
     </IndexResults>
   </Index>
   <Index indexName="businesses">
     <IndexResults>
-    <p>businesses:</p>
+    <h3 className="hit-label">Businesses:</h3>
     <Hits hitComponent={Hit}/>
     </IndexResults>
   </Index>

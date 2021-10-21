@@ -12,7 +12,6 @@ import ReviewPane from "../reviews/ReviewPane";
 import SingleReview from "../reviews/SingleReview";
 import About from "../About";
 import Home from "../Home";
-
 import Feed from "../feed/Feed";
 
 
@@ -33,7 +32,6 @@ class Routes extends Component {
         <Route exact path="/coffees/:coffeeId" component={SingleCoffee} />
         <Route path="/Home" component={Home} />
         <Route exact path="/" component={Home} />
-
         <Route path="/feed" component={Feed} />
 
 

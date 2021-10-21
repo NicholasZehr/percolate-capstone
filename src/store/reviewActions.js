@@ -80,12 +80,12 @@ export const addReview = (review) => {
 
       // updating the array under coffees
       const newReview = {
-        content: review.reviewContent || null,
+        content: review.content || null,
         username: review.username || null,
         rating: review.rating,
         likeCount: review.likeCount,
+        userId: review.userId,
       };
-      console.log(newDoc);
       const coffeeRef = doc(
         db,
         "coffees",
@@ -107,7 +107,6 @@ export const addReview = (review) => {
 export const fetchReviews = (type, id) => {
   return async (dispatch) => {
     try {
-      console.log(`${type}Id`, id);
       const q = query(collection(db, "reviews"), where(`${type}Id`, "==", id));
       const docSnap = await getDocs(q);
 
@@ -122,13 +121,27 @@ export const fetchReviews = (type, id) => {
     }
   };
 };
+export const fetchSingleCoffeeReviews = (id) => {
+  return async (dispatch) => {
+    try {
+      const docRef = collection(db, "coffees", id, "coffeeReviews");
+      const docSnap = await getDocs(docRef);
+      const reviewsObj = {};
+      docSnap.forEach((doc) => {
+        reviewsObj[doc.id] = doc.data();
+      });
 
+      dispatch(_fetchReviews(reviewsObj));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
 export const fetchSingleReview = (reviewId) => {
   return async (dispatch) => {
     try {
       const docRef = doc(db, "reviews", reviewId);
       const docSnap = await getDoc(docRef);
-
       const singleReview = docSnap.data();
       dispatch(_getSingleReview(singleReview));
     } catch (error) {
@@ -152,19 +165,24 @@ export const likeClick = (
         where("reviewId", "==", reviewId),
         where("userId", "==", userId)
       );
-      console.log(coffeeId);
       const docSnapLikeRelation = await getDocs(q);
       const docRefReviewLikeCount = doc(db, "reviews", reviewId);
-      const docRefCoffeeLikeCount = doc(db, "coffees", coffeeId);
+      const docRefCoffeeLikeCount = doc(
+        db,
+        "coffees",
+        coffeeId,
+        "coffeeReviews",
+        reviewId
+      );
       if (docSnapLikeRelation.docs.length) {
         console.log("this user has already liked the review");
         dispatch(_removeLike(reviewId, index));
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(-1),
         });
-        // await updateDoc(docRefCoffeeLikeCount, {
-        //   reviews: ([index].likeCount = increment(-1)),
-        // });
+        await updateDoc(docRefCoffeeLikeCount, {
+          likeCount: increment(-1),
+        });
         await deleteDoc(
           doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
         );
@@ -180,6 +198,9 @@ export const likeClick = (
         };
         await addDoc(collection(db, "likeRelation"), likeRelation);
         await updateDoc(docRefReviewLikeCount, {
+          likeCount: increment(1),
+        });
+        await updateDoc(docRefCoffeeLikeCount, {
           likeCount: increment(1),
         });
       }

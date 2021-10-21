@@ -9,26 +9,27 @@ class ReviewPane extends Component {
     this.checkReview = this.checkReview.bind(this);
   }
 
-  checkReview(review) {
-    let revWords = review.split(" ");
+  checkReview(content) {
+    let revWords = content.split(" ");
     const length = revWords.length;
     let newReview = "";
     if (length >= 10) {
       newReview = revWords.slice(0, 5).join(" ").concat(" More...");
       return newReview;
     }
-    return review;
+    return content;
   }
 
   render() {
     const { checkReview } = this;
     const coffeeId = this.props.coffeeId;
-    console.log("coffeeId from ReviewPane", coffeeId);
-    const arrReviews = this.props.arrReviews ? this.props.arrReviews : false;
+
+    const arrReviews = this.props.reviews
+      ? Object.entries(this.props.reviews)
+      : false;
     // const reviewArr = this.props.reviews.reviews;
-    console.log(arrReviews);
     return (
-      <div key={this.props.length}>
+      <div>
         <h2>Reviews</h2>
         {arrReviews
           ? arrReviews.map((review, idx) => {
@@ -36,10 +37,9 @@ class ReviewPane extends Component {
               return (
                 <ListedReview
                   coffeeId={coffeeId}
-                  idx={idx}
-                  key={review.reviewId}
-                  content={checkReview(review.content)}
-                  review={review}
+                  key={review[0]}
+                  content={checkReview(review[1].content)}
+                  review={review[1]}
                 />
               );
             })

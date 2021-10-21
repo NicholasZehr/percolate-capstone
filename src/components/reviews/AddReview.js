@@ -15,7 +15,7 @@ class AddReview extends React.Component {
       businessId: "",
       coffeeId: "",
       rating: 0.0,
-      reviewContent: "",
+      content: "",
       userId: "",
       username: "",
     };
@@ -33,7 +33,7 @@ class AddReview extends React.Component {
       coffeeId: this.props.coffeeId ? this.props.coffeeId : null,
       likeCount: 0,
       rating: review.rating,
-      reviewContent: review.reviewContent,
+      content: review.content,
       userId: auth.currentUser.uid ? auth.currentUser.uid : null,
       username: auth.currentUser.displayName
         ? auth.currentUser.displayName
@@ -72,11 +72,11 @@ class AddReview extends React.Component {
               max='5'
               onChange={this.handleChange}
             />
-            <label htmlFor='reviewContent'>Review Comments</label>
+            <label htmlFor='content'>Review Comments</label>
             <textarea
               className='form-text-box'
               type='text'
-              name='reviewContent'
+              name='content'
               placeholder='Your comment here...'
               onChange={this.handleChange}
             />

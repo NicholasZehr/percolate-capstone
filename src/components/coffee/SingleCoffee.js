@@ -5,22 +5,16 @@ import AddReview from "../reviews/AddReview";
 import ReviewPane from "../reviews/ReviewPane";
 
 class SingleCoffee extends Component {
-  componentDidMount() {
+  async componentDidMount() {
     const id = this.props.match.params.coffeeId;
-    this.props.fetchCoffee(id);
+    await this.props.fetchCoffee(id);
   }
 
   render() {
+    const reviews = this.props.reviews;
     const id = this.props.match.params.coffeeId;
-    const {
-      name,
-      brandName,
-      photoUrl,
-      roast,
-      roasterCity,
-      avgRating,
-      reviews,
-    } = this.props.singleCoffee;
+    const { name, brandName, photoUrl, roast, roasterCity, avgRating } =
+      this.props.singleCoffee;
     return (
       <>
         <div className='single-coffee'>
@@ -56,6 +50,7 @@ class SingleCoffee extends Component {
 const mapState = (state) => {
   return {
     singleCoffee: state.singleCoffee,
+    reviews: state.review.reviews,
   };
 };
 

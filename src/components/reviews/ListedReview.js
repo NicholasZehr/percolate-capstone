@@ -6,7 +6,6 @@ class ListedReview extends Component {
   render() {
     const { username, rating, reviewId } = this.props.review;
     const content = this.props.content;
-    console.log("coffeeId from ListedReview", this.props.coffeeId);
     return (
       <div className='review-list-item'>
         <div className='review-user-rating'>

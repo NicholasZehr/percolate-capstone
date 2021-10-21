@@ -113,7 +113,6 @@ export const fetchReviews = (type, id) => {
         reviewsArr.push(doc.data());
       });
 
-      console.log(reviewsArr);
       dispatch(_fetchReviews(reviewsArr));
     } catch (error) {
       console.error(error);

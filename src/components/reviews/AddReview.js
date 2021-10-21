@@ -34,8 +34,10 @@ class AddReview extends React.Component {
       likeCount: 0,
       rating: review.rating,
       reviewContent: review.reviewContent,
-      userId: review.userId ? review.userId : null,
-      username: review.username ? review.username : null,
+      userId: auth.currentUser.uid ? auth.currentUser.uid : null,
+      username: auth.currentUser.displayName
+        ? auth.currentUser.displayName
+        : null,
     };
     this.props.addR(newReview);
   }

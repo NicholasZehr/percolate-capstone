@@ -1,5 +1,6 @@
-import { collection, doc, getDocs, query } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query } from "firebase/firestore";
 import db from "../firebase";
+import usersReducer from "./Reducers/usersReducer";
 
 // action creators
 const GET_FEED_REVIEWS = "GET_FEED_REVIEWS";
@@ -17,13 +18,22 @@ const getFeedReviews = (reviews) => {
 
 const fetchFeedReviews = (me) => {
   return async (dispatch) => {
+    // get your following list
     console.log("thunk me", me);
-    const userRef = doc(db, "Users", me);
-    console.log("ref", userRef);
+    // const userRef = doc(db, "Users", me);
+    // console.log("ref", userRef);
+    // const docSnap = getDoc(userRef);
+    // console.log("data snamp", docSnap.data());
 
+    // reviews
     const feedRef = collection(db, "reviews");
-    const revQuery = query(feedRef);
+    const revQuery = query(feedRef); // where user is in my following list
 
+    // organize by most recent
+
+    //pagination ??
+
+    // dispatch to state/store
     const reviews = await getDocs(revQuery);
     let reviewsArr = [];
     reviews.forEach((review) => {

@@ -15,6 +15,9 @@ import {
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
 import { fetchLoginUser } from "../store/auth";
+import FeedCard from './feedCard'
+import {fetchReviews} from '../store/reviewActions'
+
 Modal.setAppElement("#root");
 
 const Home = (props) => {
@@ -25,7 +28,7 @@ const Home = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-  const [posts, setPosts] = useState("");
+  const reviews = useSelector(state=>state.review.reviews)
   const [write, setWrite] = useState(false);
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -62,8 +65,7 @@ const Home = (props) => {
     }
     //fetching posts from firestore
     if (user) {
-      const response = await getDoc(doc(db, "reviews", user.uid));
-      setPosts(response.data().reviews)
+      dispatch(fetchReviews('user', user.uid))
     }
     if (mounted) {
       setFollowers(list);
@@ -167,8 +169,8 @@ const Home = (props) => {
             </div>
           </div>
         </div>
-        {posts.length > 0
-          ? posts.map((each, index) => <div key={index}> {each} </div>)
+        {reviews.length > 0
+          ? reviews.map((each, index) => <FeedCard key={index} review={each} user={user} loggedInUser={loggedInUser} />)
           : ""}
       </div>
       <div className="rightSide">

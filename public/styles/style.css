@@ -178,6 +178,8 @@ body {
   padding:5px;
   justify-content: flex-start;
   align-items: center;
+  background-color: white;
+  border-radius: 20px;
 }
 .productAndBusiness {
   display: flex;
@@ -329,4 +331,17 @@ p strong {
 
 .ais-SearchBox-form{
   align-self: center;
+}
+.cardAdjustment { 
+  margin-top:0px;
+}
+.cardDown {
+  margin-bottom: 1px;
+}
+.card {
+  flex-flow: row;
+  justify-content: space-around;
+}
+.coffeeInfo {
+  text-align: left;
 }

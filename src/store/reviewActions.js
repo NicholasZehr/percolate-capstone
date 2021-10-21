@@ -8,6 +8,7 @@ import {
 import {
   collection,
   doc,
+  setDoc,
   addDoc,
   getDoc,
   getDocs,
@@ -78,18 +79,21 @@ export const addReview = (review) => {
       const newDoc = await addDoc(collection(db, "reviews"), review);
 
       // updating the array under coffees
-      const updateArr = {
-        coffeeId: review.coffeeId,
+      const newReview = {
         content: review.reviewContent || null,
         username: review.username || null,
         rating: review.rating,
-        reviewId: newDoc.id,
         likeCount: review.likeCount,
       };
-
-      const coffeeRef = doc(db, "coffees", review.coffeeId);
-      await updateDoc(coffeeRef, { reviews: arrayUnion(updateArr) });
-
+      console.log(newDoc);
+      const coffeeRef = doc(
+        db,
+        "coffees",
+        review.coffeeId,
+        "coffeeReviews",
+        newDoc.id
+      );
+      await setDoc(coffeeRef, newReview);
       // adding a new review in store
       dispatch(_addReview(review));
     } catch (error) {
@@ -109,7 +113,6 @@ export const fetchReviews = (type, id) => {
 
       const reviewsArr = [];
       docSnap.forEach((doc) => {
-        //console.log("doc", doc.data());
         reviewsArr.push(doc.data());
       });
 

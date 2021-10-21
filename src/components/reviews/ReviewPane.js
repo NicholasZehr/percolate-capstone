@@ -28,7 +28,7 @@ class ReviewPane extends Component {
     // const reviewArr = this.props.reviews.reviews;
     console.log(arrReviews);
     return (
-      <div>
+      <div key={this.props.length}>
         <h2>Reviews</h2>
         {arrReviews
           ? arrReviews.map((review, idx) => {

@@ -16,7 +16,7 @@ export default function reviewReducer(state = initialState, action) {
     case ADD_REVIEW:
       return { ...state, reviews: [action.review, ...state.reviews] };
     case FETCH_REVIEWS:
-      return { ...state, reviews: action };
+      return { ...state, reviews: action.reviews };
     case GET_SINGLE_REVIEW:
       return { ...state, review: action.review };
     default:

@@ -178,6 +178,8 @@ body {
   padding:5px;
   justify-content: flex-start;
   align-items: center;
+  background-color: white;
+  border-radius: 20px;
 }
 .productAndBusiness {
   display: flex;
@@ -255,7 +257,7 @@ p strong {
 }
 
 .search-results{
-  position: fixed;
+  position: absolute;
   top: 50px;
   display: flex;
   flex-direction: column;
@@ -266,4 +268,17 @@ p strong {
   max-height: 50vh;
   z-index: 10;
   max-width: 40vw;
+}
+.cardAdjustment { 
+  margin-top:0px;
+}
+.cardDown {
+  margin-bottom: 1px;
+}
+.card {
+  flex-flow: row;
+  justify-content: space-around;
+}
+.coffeeInfo {
+  text-align: left;
 }

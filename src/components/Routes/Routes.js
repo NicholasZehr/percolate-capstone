@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Route, Switch } from "react-router";
 import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
 import AddReview from "../reviews/AddReview";
-import AddBusiness from "../businesses/addBusiness/AddBusiness"
+import AddBusiness from "../businesses/addBusiness/AddBusiness";
 import LoginPage from "../loginSignup/Login";
 import Signup from "../loginSignup/Signup";
 import Business from "../businesses/singleBusiness/singleBusiness";
@@ -11,7 +11,7 @@ import SingleCoffee from "../coffee/SingleCoffee";
 import ReviewPane from "../reviews/ReviewPane";
 import SingleReview from "../reviews/SingleReview";
 import About from "../About";
-import Home from "../Home"
+import Home from "../Home";
 
 class Routes extends Component {
   render() {
@@ -28,6 +28,7 @@ class Routes extends Component {
         <Route path="/users/:id" component={SingleUserPage} />
         <Route exact path="/coffees/:coffeeId" component={SingleCoffee} />
         <Route path="/Home" component={Home} />
+        <Route exact path="/" component={Home} />
       </Switch>
     );
   }

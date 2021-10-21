@@ -54,7 +54,7 @@ const FeedCard = (props) => {
         </div>
       </div>
       <div
-        className="self feeding cardAdjustment"
+        className="self feeding cardUpAdjustment"
         onClick={(_) => console.log("fdsafdsafdf", singleCoffee)}
       >
         <div className="headNPost card">
@@ -67,6 +67,36 @@ const FeedCard = (props) => {
             <p>Brand: {singleCoffee.brandName}</p>
             <p>Average Rate: {singleCoffee.avgRating}</p>
             <p>Location: {singleCoffee.roasterCity}</p>
+          </div>
+        </div>
+      </div>
+      <div className="self feeding cardUp">
+        <div className="blank"></div>
+
+        <div className="likes">
+          <img className="heart" src="/heart.png" />
+          <p>Like</p>
+        </div>
+        <i className="material-icons flip">chat</i>
+        <div className="comments">
+          <p>Comments</p>
+        </div>
+      </div>
+      <div className="self feeding cardUptwo">
+        <div className="headNPost">
+          <div className="imageBox">
+            <img
+              className="profPic"
+              alt="User Profile AVI"
+              src={
+                props.user
+                  ? props.user.photoURL || "/guest.jpeg"
+                  : "/guest.jpeg"
+              }
+            />
+          </div>
+          <div className="post-input" onClick={props.writePage}>
+            <p>What's on your mind?</p>
           </div>
         </div>
       </div>

@@ -4,10 +4,6 @@ import { connect } from "react-redux";
 import { fetchBusinesses } from "../../../store/businessActions";
 
 class Businesses extends Component {
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     this.props.fetchBusinesses();
   }

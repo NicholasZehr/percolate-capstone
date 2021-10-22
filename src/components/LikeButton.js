@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { likeClick } from "../store/reviewActions";
-import { updateCoffeeLike } from "../store/singleCoffee";
 import { getAuth } from "firebase/auth";
 
 const auth = getAuth();
@@ -28,7 +27,7 @@ class LikeButton extends Component {
     const likeCount = this.props.likeCount;
     const { handleLike } = this;
     return `${likeCount}` ? (
-      <div className='like_button' onClick={handleLike}>
+      <div className="like_button" onClick={handleLike}>
         Like {likeCount ? `(${likeCount})` : null}
       </div>
     ) : null;

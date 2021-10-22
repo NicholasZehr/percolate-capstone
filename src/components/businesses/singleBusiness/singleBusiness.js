@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import Modal from "react-modal";
-import { fetchBusiness, updateBusiness } from "../../../store/businessActions";
+import { fetchBusiness } from "../../../store/businessActions";
 import { doc, setDoc } from "firebase/firestore";
 import db from "../../../firebase";
 
@@ -55,137 +55,137 @@ class Business extends Component {
 
     //const business = businessProps.data();
     return (
-      <div className='singleUserPageBox'>
-        <Modal className='modal' isOpen={edit} onRequestClose={this.editPage}>
-          <div className='close' onClick={this.editPage}></div>
+      <div className="singleUserPageBox">
+        <Modal className="modal" isOpen={edit} onRequestClose={this.editPage}>
+          <div className="close" onClick={this.editPage}></div>
           <h2>Edit Business</h2>
           <form
-            className='signupform'
+            className="signupform"
             open={false}
             onSubmit={this.handleSubmit}
-            name='signup'
+            name="signup"
           >
-            <div className='emailBox mod'>
-              <span className='formName'>Email:</span>
+            <div className="emailBox mod">
+              <span className="formName">Email:</span>
               <input
-                className='email'
-                name='email'
-                type='text'
-                placeholder='Email'
+                className="email"
+                name="email"
+                type="text"
+                placeholder="Email"
               />
-              <div className='blank3'></div>
+              <div className="blank3"></div>
             </div>
-            <div className='emailBox mod'>
-              <span className='formName'>Name:</span>
+            <div className="emailBox mod">
+              <span className="formName">Name:</span>
               <input
-                className='email'
-                name='name'
-                type='text'
-                placeholder='Business Name'
+                className="email"
+                name="name"
+                type="text"
+                placeholder="Business Name"
               />
-              <div className='blank3'></div>
+              <div className="blank3"></div>
             </div>
-            <div className='emailBox mod'>
-              <span className='formName'>Cover Image URL:</span>
+            <div className="emailBox mod">
+              <span className="formName">Cover Image URL:</span>
               <input
-                className='email'
-                name='coverImageURL'
-                placeholder='Cover Image URL'
-                type='text'
+                className="email"
+                name="coverImageURL"
+                placeholder="Cover Image URL"
+                type="text"
               />
-              <div className='blank3'></div>
+              <div className="blank3"></div>
             </div>
-            <div className='emailBox mod'>
-              <span className='formName'>Profile Picture:</span>
+            <div className="emailBox mod">
+              <span className="formName">Profile Picture:</span>
               <input
-                className='email'
-                name='profilePicture'
-                placeholder='Profile Picture URL'
-                type='password'
+                className="email"
+                name="profilePicture"
+                placeholder="Profile Picture URL"
+                type="password"
               />
-              <div className='blank3'></div>
+              <div className="blank3"></div>
             </div>
-            <div className='emailBox mod'>
-              <span className='formName'>Phone:</span>
+            <div className="emailBox mod">
+              <span className="formName">Phone:</span>
               <input
-                className='email'
-                name='phone'
-                type='text'
-                placeholder='Phone Number'
+                className="email"
+                name="phone"
+                type="text"
+                placeholder="Phone Number"
               />
-              <div className='blank3'></div>
+              <div className="blank3"></div>
             </div>
-            <div className='emailBox mod'>
-              <span className='formName'>State:</span>
+            <div className="emailBox mod">
+              <span className="formName">State:</span>
               <input
-                className='email'
-                name='state'
-                placeholder='State'
-                type='text'
+                className="email"
+                name="state"
+                placeholder="State"
+                type="text"
               />
-              <div className='blank3'></div>
+              <div className="blank3"></div>
             </div>
-            <div className='emailBox mod'>
-              <span className='formName'>City:</span>
+            <div className="emailBox mod">
+              <span className="formName">City:</span>
               <input
-                className='email'
-                name='city'
-                type='text'
-                placeholder='City'
+                className="email"
+                name="city"
+                type="text"
+                placeholder="City"
               />
-              <div className='blank3'></div>
+              <div className="blank3"></div>
             </div>
-            <div className='emailBox mod'>
-              <span className='formName'>Zip:</span>
+            <div className="emailBox mod">
+              <span className="formName">Zip:</span>
               <input
-                className='email'
-                name='zip'
-                placeholder='Zipcode'
-                type='text'
+                className="email"
+                name="zip"
+                placeholder="Zipcode"
+                type="text"
               />
-              <div className='blank3'></div>
-              <div className='emailBox mod'>
-                <span className='formName'>Street:</span>
+              <div className="blank3"></div>
+              <div className="emailBox mod">
+                <span className="formName">Street:</span>
                 <input
-                  className='email'
-                  name='street'
-                  placeholder='Street'
-                  type='text'
+                  className="email"
+                  name="street"
+                  placeholder="Street"
+                  type="text"
                 />
-                <div className='blank3'></div>
+                <div className="blank3"></div>
               </div>
             </div>
-            <button className='signupPage' name='button1'>
+            <button className="signupPage" name="button1">
               Save
             </button>
           </form>
         </Modal>
-        <div className='profileBox'>
-          <div className='profileCover'>
-            <div className='shadow'>
+        <div className="profileBox">
+          <div className="profileCover">
+            <div className="shadow">
               <img
-                className='cover'
+                className="cover"
                 src={business.name ? business.coverImageUrl : "/whiteBack2.png"}
-                alt='cover'
+                alt="cover"
               />
             </div>
           </div>
-          <div className='profilePicNavBox'>
-            <div className='blank2'></div>
-            <div className='pictureBox'>
+          <div className="profilePicNavBox">
+            <div className="blank2"></div>
+            <div className="pictureBox">
               <img
-                className='profPic ownpage'
+                className="profPic ownpage"
                 src={business.name ? business.imageUrl : "/guest.jpeg"}
-                alt='pic'
+                alt="pic"
               />
             </div>
-            <div className='profileNavBar'>
-              <div onClick={this.editPage} className='editProfileButton'>
+            <div className="profileNavBar">
+              <div onClick={this.editPage} className="editProfileButton">
                 Edit Profile
               </div>
               <h2>{business.name ? business.name : ""}</h2>
-              <hr className='divider' />
-              <div className='menu'>
+              <hr className="divider" />
+              <div className="menu">
                 <div>Coffees</div>
                 <div>About</div>
                 <div>
@@ -194,27 +194,27 @@ class Business extends Component {
                 </div>
               </div>
             </div>
-            <div className='blank2'></div>
+            <div className="blank2"></div>
           </div>
         </div>
-        <div className='body'>
-          <div className='blank2'></div>
-          <div className='leftBody'>
-            <div className='intro'>
+        <div className="body">
+          <div className="blank2"></div>
+          <div className="leftBody">
+            <div className="intro">
               <h2>Intro: </h2>
-              <span className='favoriteTitle'>Newest coffee:</span>
+              <span className="favoriteTitle">Newest coffee:</span>
               <img
-                className='favCoffee'
+                className="favCoffee"
                 src={
                   business.menu ? business.menu[0].photoURL : "whiteBack2.png"
                 }
-                alt='coffee'
+                alt="coffee"
               />
             </div>
-            <div className='friendList'></div>
+            <div className="friendList"></div>
           </div>
-          <div className='rightBody'></div>
-          <div className='blank2'></div>
+          <div className="rightBody"></div>
+          <div className="blank2"></div>
         </div>
       </div>
     );

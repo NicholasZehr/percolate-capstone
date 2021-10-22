@@ -40,6 +40,9 @@ class Feed extends Component {
     return (
       <div>
         <h1>this is the feed component!</h1>
+        {this.props.feed.forEach((item) => {
+          console.log(item);
+        })}
       </div>
     );
   }

@@ -3,6 +3,11 @@ body {
   height: auto;
   font-family: sans-serif;
 }
+.loading {
+  height: 100%;
+  background-color: white;
+  font-size: 48px;
+}
 #root {
   height: 100vh;
 }
@@ -175,11 +180,14 @@ body {
 }
 .headNPost {
   display: flex;
-  padding:5px;
+  padding: 5px;
   justify-content: flex-start;
   align-items: center;
   background-color: white;
   border-radius: 20px;
+}
+.commentImage {
+  flex-grow: 1;
 }
 .productAndBusiness {
   display: flex;
@@ -195,57 +203,65 @@ body {
   height: auto;
   background-color: rgb(228, 227, 227);
   border-radius: 20px;
-  border:0;
-  margin-right:10px;
+  border: 0;
+  margin-right: 10px;
   font-size: 1rem;
   color: gray;
   text-align: left;
   padding-left: 10px;
+  flex-grow: 10;
 }
 .writepost {
-  color:black;
-  font-size:1.2rem;
+  color: black;
+  font-size: 1.2rem;
 }
 .post {
   display: flex;
   flex-flow: row;
 }
-
+.postNow {
+  flex-grow: 0.5;
+  width: 60px;
+  height: 35px;
+  margin-right: 10px;
+  background-color:  #3B6064;
+  border-radius: 20px;
+  border:0;
+  font-size: 20px;
+  color: #c8d6cf;
+}
+.postNow:hover {
+  background: #2c484b;
+}
 .textarea {
-  width:100%;
-  overflow:hidden;
-  font-size:18px;
-  height:auto;
+   background-color: rgb(228, 227, 227);
+  width: 100%;
+  overflow: hidden;
+  font-size: 18px;
+  height: auto;
   display: block;
   resize: both;
   min-height: 40px;
   line-height: 20px;
-}
-.textarea {
-  border: 1px solid #ccc;
+  resize: none;
+  border: 0;
+  padding-top: 5px;
+  border-radius: 20px;
   font-family: inherit;
   font-size: inherit;
 }
-.textarea {
-  display: block;
-  width: 100%;
+.textarea:focus {
+  border: 0 none;
   overflow: hidden;
-  resize: both;
-  min-height: 40px;
-  line-height: 20px;
+  outline: none;
 }
 
-.textarea[contenteditable]:empty::before {
-  content: "Placeholder still possible";
-  color: gray;
-}
 
 p strong {
   display: block;
 }
 
-
-.ais-SearchBox-input{
+.ais-SearchBox-input {
   left: 5px;
   margin: 2px;
   margin-left: 10px;
@@ -254,7 +270,7 @@ p strong {
   border: 0;
 }
 
-.ais-SearchBox-form{
+.ais-SearchBox-form {
   flex-grow: 3.5;
   background: #ffffff;
   display: flex;
@@ -269,7 +285,7 @@ p strong {
   text-align: left;
 }
 
-.search-results:not(:empty){
+.search-results:not(:empty) {
   position: absolute;
   top: 55px;
   display: flex;
@@ -285,105 +301,105 @@ p strong {
   box-shadow: black 0px 1px 1px 1px;
 }
 
-.hit-photo{
+.hit-photo {
   max-width: 50px;
   max-height: 50px;
 }
 
-.ais-Hits{
+.ais-Hits {
   display: flex;
   flex-direction: column;
   width: 98%;
 }
 
-.ais-Hits-list{
+.ais-Hits-list {
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0
+  padding: 0;
 }
 
-.ais-Hits-item{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    border-bottom: solid grey 1px;
-    align-items: center;
-}
-
-.results{
+.ais-Hits-item {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 100%
+  width: 100%;
+  border-bottom: solid grey 1px;
+  align-items: center;
 }
 
-.header-left{
+.results {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.header-left {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   margin-left: 10px;
 }
-.header-middle{
+.header-middle {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
-.header-right{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    margin-right: 10px;
+.header-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 10px;
 }
 
-.ais-SearchBox{
+.ais-SearchBox {
   align-self: center;
 }
 
-.ais-SearchBox-form{
+.ais-SearchBox-form {
   align-self: center;
 }
-.cardUpAdjustment { 
-  margin-top:0px;
+.cardUpAdjustment {
+  margin-top: 0px;
   margin-bottom: 1px;
   border-radius: 0;
 }
 .cardUp {
-  margin-top:0px;
+  margin-top: 0px;
   margin-bottom: 1px;
   border-radius: 0px;
   flex-flow: row;
   justify-content: space-around;
   align-items: center;
 }
-.cardUptwo{
-  margin-top:0px;
+.cardUptwo {
+  margin-top: 0px;
   border-radius: 0px 0px 20px 20px;
 }
 .heart {
   height: 20px;
   width: auto;
 }
-.likes{
-  flex-grow:2;
+.likes {
+  flex-grow: 2;
   display: flex;
   align-items: center;
 }
-.likes p{
-  padding-left:10px;
+.likes p {
+  padding-left: 10px;
 }
 .flip {
   color: gray;
   transform: scaleX(-1);
 }
 .comments {
-  flex-grow:1;  
+  flex-grow: 1;
   display: flex;
 }
-.comments p{
-  padding-left:10px;
+.comments p {
+  padding-left: 10px;
 }
 .cardDown {
   margin-bottom: 1px;

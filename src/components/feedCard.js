@@ -1,19 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
-import { fetchUser } from "../store/Actions/usersActions";
-import db from "../firebase";
-import {
-  doc,
-  setDoc,
-  getDoc,
-  updateDoc,
-  arrayRemove,
-  arrayUnion,
-} from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { fetchLoginUser } from "../store/auth";
+
 import { fetchSingleCoffee } from "../store/singleCoffee";
 
 const FeedCard = (props) => {
@@ -22,11 +9,18 @@ const FeedCard = (props) => {
 
   useEffect(() => {
     if (props.review) {
+      console.log('sheldon',props.review)
       dispatch(fetchSingleCoffee(props.review.coffeeId));
     }
     console.log(singleCoffee);
   }, []);
-
+  //CSS textarea expanding
+  const textarea = document.getElementById("txt");
+  if(textarea){textarea.addEventListener("input", function (e) {
+    this.style.height = "auto";
+    this.style.height = this.scrollHeight + "px";
+  });}
+  
   return (
     <>
       <div className="self feeding cardDown">
@@ -83,22 +77,33 @@ const FeedCard = (props) => {
         </div>
       </div>
       <div className="self feeding cardUptwo">
-        <div className="headNPost">
-          <div className="imageBox">
-            <img
-              className="profPic"
-              alt="User Profile AVI"
-              src={
-                props.user
-                  ? props.user.photoURL || "/guest.jpeg"
-                  : "/guest.jpeg"
-              }
-            />
+        <form className="form" onSubmit={props.handleSubmit}>
+          <div className="headNPost">
+            <div className="imageBox commentImage">
+              <img
+                className="profPic"
+                alt="User Profile AVI"
+                src={
+                  props.user
+                    ? props.user.photoURL || "/guest.jpeg"
+                    : "/guest.jpeg"
+                }
+              />
+            </div>
+
+            <div className="post-input ">
+              <textarea
+                className="textarea"
+                id="txt"
+                maxLength="200"
+                placeholder="Write a comment..."
+              ></textarea>
+            </div>
+            <button className="postNow">
+              <i className="fa fa-paper-plane-o"></i>
+            </button>
           </div>
-          <div className="post-input" onClick={props.writePage}>
-            <p>What's on your mind?</p>
-          </div>
-        </div>
+        </form>
       </div>
     </>
   );

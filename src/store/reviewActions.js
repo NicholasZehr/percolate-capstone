@@ -80,10 +80,11 @@ export const _removeLikeReview = (reviewId) => {
 export const addReview = (review) => {
   return async (dispatch) => {
     try {
-      // create the new review in teh review collection
+      // create the new review in the review collection
       const newDoc = await addDoc(collection(db, "reviews"), review);
 
-      // updating the array under coffees
+      // This constructs what we want to put in the subcollection when we display
+      // a singleCoffee or singleBusiness
       const newReview = {
         content: review.content || null,
         username: review.username || null,

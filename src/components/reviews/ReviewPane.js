@@ -25,8 +25,9 @@ class ReviewPane extends Component {
     const id = this.props.id;
     const type = this.props.type;
     const arrReviews =
-      this.props.reviews === {} ? Object.entries(this.props.reviews) : false;
+      this.props.reviews !== {} ? Object.entries(this.props.reviews) : false;
     // const reviewArr = this.props.reviews.reviews;
+    console.log(arrReviews);
     return (
       <div>
         <h2>Reviews</h2>

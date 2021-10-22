@@ -8,21 +8,21 @@ class ListedReview extends Component {
     const reviewId = this.props.reviewId;
     const content = this.props.content;
     return (
-      <div className='review-list-item'>
-        <div className='review-user-rating'>
-          <h4 id='review-username'>Username {username} </h4>
-          <h4 id='review-rating'>Rating {rating}</h4>
+      <div className="review-list-item">
+        <div className="review-user-rating">
+          <h4 id="review-username">Username {username} </h4>
+          <h4 id="review-rating">Rating {rating}</h4>
           <LikeButton
-            coffeeId={this.props.coffeeId}
+            id={this.props.id}
             index={this.props.idx}
             reviewId={reviewId}
             key={this.props.review.reviewId}
             likeCount={this.props.review.likeCount}
           />
         </div>
-        <hr className='solid' />
+        <hr className="solid" />
         <Link to={`/review/${reviewId}`}>
-          <p id='content'>{content}</p>
+          <p id="content">{content}</p>
         </Link>
       </div>
     );

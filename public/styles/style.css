@@ -213,11 +213,19 @@ body {
 }
 .writepost {
   color: black;
-  font-size: 1.2rem;
+  font-size: 1rem;
+  padding-left: 5px;
+}
+.nameAndTime {
+  display: flex;
+  flex-flow: column;
+}
+.ago {
+  font-size: 10px;
 }
 .post {
   display: flex;
-  flex-flow: row;
+  flex-flow: column;
 }
 .postNow {
   flex-grow: 0.5;

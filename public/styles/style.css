@@ -423,3 +423,7 @@ p strong {
 .coffeeInfo {
   text-align: left;
 }
+
+#map {
+  height: 100%;
+}

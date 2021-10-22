@@ -26,7 +26,7 @@ const FeedCard = (props) => {
     ? new Date(props.review.time.seconds * 1000)
     : "no time";
   function timeDifference(input) {
-    input *= 1000
+    input *= 1000;
     let msPerMinute = 60 * 1000;
     let msPerHour = msPerMinute * 60;
     let msPerDay = msPerHour * 24;
@@ -70,7 +70,9 @@ const FeedCard = (props) => {
           <div className="nameAndTime">
             <span className="writepost">{props.user.displayName}: </span>
             {props.review.time ? (
-              <span className="ago">{`${timeDifference(props.review.time.seconds)}`}</span>
+              <span className="ago">{`${timeDifference(
+                props.review.time.seconds
+              )}`}</span>
             ) : (
               <span className="ago">no time</span>
             )}
@@ -80,9 +82,7 @@ const FeedCard = (props) => {
           </div>
         </div>
       </div>
-      <div
-        className="self feeding cardUpAdjustment"
-      >
+      <div className="self feeding cardUpAdjustment">
         <div className="headNPost card">
           <img
             className="favCoffee"

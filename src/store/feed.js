@@ -1,4 +1,11 @@
-import { collection, getDocs, getDoc, doc, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../firebase";
 //import usersReducer from "./Reducers/usersReducer";
 
@@ -28,7 +35,12 @@ const fetchFeedReviews = (me) => {
 
     // reviews
     const feedRef = collection(db, "reviews");
-    const revQuery = query(feedRef); // where user is in my following list
+    let revQuery;
+    // for each user in folliowing arr, get their reviews.
+    followingArr.forEach((following) => {
+      console.log("single following", following);
+      revQuery = query(feedRef, where("userId", "==", following.uid)); // where user is in my following list
+    });
 
     // organize by most recent
 

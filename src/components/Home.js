@@ -19,7 +19,6 @@ import FeedCard from "./feedCard";
 import { fetchReviews } from "../store/reviewActions";
 import { Redirect } from "react-router-dom";
 
-
 Modal.setAppElement("#root");
 
 const Home = (props) => {
@@ -49,7 +48,7 @@ const Home = (props) => {
     };
   }, [user]);
 
-  useEffect( () => {
+  useEffect(() => {
     const list = [];
     const fol = [];
     let mounted = true;
@@ -86,7 +85,7 @@ const Home = (props) => {
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
-    console.log(evt)
+    console.log(evt);
     // if (loggedInUser) {
     //   const content = evt.target.content.value;
     //   const userRef = doc(db, "comments", loggedInUser.uid);
@@ -180,12 +179,11 @@ const Home = (props) => {
           </div>
         </div>
       ) : (
-          <div className="home loading">
+        <div className="home loading">
           <div className="self loading">
-              <p>Loading ...</p>
+            <p>Loading ...</p>
           </div>
         </div>
-
       )}
     </>
   );

@@ -60,6 +60,7 @@ const FeedCard = (props) => {
         <div className="headNPost card">
           <img
             className="favCoffee"
+            alt="favorite coffee"
             src={singleCoffee ? singleCoffee.photoUrl : singleCoffee}
           />
           <div className="coffeeInfo">
@@ -74,7 +75,7 @@ const FeedCard = (props) => {
         <div className="blank"></div>
 
         <div className="likes">
-          <img className="heart" src="/heart.png" />
+          <img className="heart" src="/heart.png" alt="Like Heart Icon" />
           <p>Like</p>
         </div>
         <i className="material-icons flip">chat</i>

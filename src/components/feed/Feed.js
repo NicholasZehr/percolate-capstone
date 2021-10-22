@@ -12,8 +12,10 @@ class Feed extends Component {
   }
 
   componentDidMount() {
+    const id = "TPv3liiEWibRlh1Eg2e4EeTA66d2";
     this.props.fetchUser();
-    this.setState({following: this.props.loggedIn.following});
+    this.props.fetchFeed(id);
+    //this.setState({following: this.props.loggedIn.following});
   }
 
   // componentDidUpdate(prevUser) {
@@ -34,7 +36,7 @@ class Feed extends Component {
   //});
 
   render() {
-    console.log("feed props", this.state.following);
+    console.log("feed props", this.props.feed);
     return (
       <div>
         <h1>this is the feed component!</h1>

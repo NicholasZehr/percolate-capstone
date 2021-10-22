@@ -19,6 +19,7 @@ import FeedCard from "./feedCard";
 import { fetchReviews } from "../store/reviewActions";
 import { Redirect } from "react-router-dom";
 
+
 Modal.setAppElement("#root");
 
 const Home = (props) => {
@@ -184,6 +185,7 @@ const Home = (props) => {
               <p>Loading ...</p>
           </div>
         </div>
+
       )}
     </>
   );

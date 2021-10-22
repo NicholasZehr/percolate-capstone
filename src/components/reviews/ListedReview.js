@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 
 class ListedReview extends Component {
   render() {
-    const { username, rating, reviewId } = this.props.review;
+    const { username, rating } = this.props.review;
+    const reviewId = this.props.reviewId;
     const content = this.props.content;
-    console.log("coffeeId from ListedReview", this.props.coffeeId);
     return (
       <div className='review-list-item'>
         <div className='review-user-rating'>
@@ -15,7 +15,7 @@ class ListedReview extends Component {
           <LikeButton
             coffeeId={this.props.coffeeId}
             index={this.props.idx}
-            reviewId={this.props.review.reviewId}
+            reviewId={reviewId}
             key={this.props.review.reviewId}
             likeCount={this.props.review.likeCount}
           />

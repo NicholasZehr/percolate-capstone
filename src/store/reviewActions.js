@@ -86,7 +86,7 @@ export const addReview = (review) => {
       // a singleCoffee or singleBusiness
       const newReview = {
         content: review.content || null,
-        username: review.username || null,
+        displayName: review.displayName || null,
         rating: review.rating,
         likeCount: review.likeCount,
         userId: review.userId,

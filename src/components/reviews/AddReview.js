@@ -30,7 +30,7 @@ class AddReview extends React.Component {
       rating: review.rating,
       content: review.content,
       userId: auth.currentUser.uid ? auth.currentUser.uid : null,
-      username: auth.currentUser.displayName
+      displayName: auth.currentUser.displayName
         ? auth.currentUser.displayName
         : null,
     };
@@ -47,13 +47,13 @@ class AddReview extends React.Component {
 
   render() {
     return (
-      <div className='new-review-container'>
+      <div className="new-review-container">
         <form
-          id='form_review_new'
-          className='form-review-new'
+          id="form_review_new"
+          className="form-review-new"
           onSubmit={this.handleSubmit}
         >
-          <div className='form-input-submit-group'>
+          <div className="form-input-submit-group">
             {/* {this.state.error ? (
               <ul className="error-label">
                 {this.error.map((error) => (
@@ -61,27 +61,27 @@ class AddReview extends React.Component {
                 ))}
               </ul>
             ) : null} */}
-            <label htmlFor='rating'>Rating</label>
+            <label htmlFor="rating">Rating</label>
             <input
-              className='form-text-box'
-              type='number'
-              name='rating'
+              className="form-text-box"
+              type="number"
+              name="rating"
               placeholder={0.0}
-              min='0'
-              max='5'
+              min="0"
+              max="5"
               value={this.state.rating}
               onChange={this.handleChange}
             />
-            <label htmlFor='content'>Review Comments</label>
+            <label htmlFor="content">Review Comments</label>
             <textarea
-              className='form-text-box'
-              type='text'
-              name='content'
-              placeholder='Your comment here...'
+              className="form-text-box"
+              type="text"
+              name="content"
+              placeholder="Your comment here..."
               value={this.state.content}
               onChange={this.handleChange}
             />
-            <button className='review-submit-button' type='submit'>
+            <button className="review-submit-button" type="submit">
               Submit Review
             </button>
           </div>

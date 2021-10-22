@@ -1,25 +1,44 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState} from 'react';
 import GoogleMapReact from 'google-map-react';
+import {
+  GeoSearch,
+  Control,
+  Marker,
+} from 'react-instantsearch-dom-maps';
+/*resources for algolia search
+https://www.algolia.com/doc/api-reference/widgets/geo-search/js/
+https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/
+https://www.algolia.com/doc/guides/managing-results/refine-results/geolocation/how-to/filter-results-around-a-location/?client=javascript*/
 
 const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-class MapSearch extends Component {
-  static defaultProps = {
-    center: {
-      lat: 40.7128,
-      lng: -73.935242
-    },
-    zoom: 11
+const MapSearch =()=> {
+  let [center, setCenter] = useState({})
+  useEffect(()=>{
+  var options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
   };
 
-  render() {
+  function success(pos) {
+    var crd = pos.coords;
+    setCenter({lat: crd.latitude, lng: crd.longitude});
+  }
+
+  function error(err) {
+    console.warn(`ERROR(${err.code}): ${err.message}`);
+  }
+
+  navigator.geolocation.getCurrentPosition(success, error, options)},[]);
     return (
       // Important! Always set the container height explicitly
-      <div style={{ height: '50vh' }}>
+      center.lng?(
+      <div id="map">
         <GoogleMapReact
           bootstrapURLKeys={{ key: 'AIzaSyD9zxNq0hPgKWsXAIdCsBCGyCoszWaRCEk'}}
-          defaultCenter={this.props.center}
-          defaultZoom={this.props.zoom}
+          defaultCenter={center}
+          defaultZoom={14}
         >
           <AnyReactComponent
             lat={40.7128}
@@ -27,9 +46,8 @@ class MapSearch extends Component {
             text="NYC"
           />
         </GoogleMapReact>
-      </div>
+      </div>):(<h1>loading location...</h1>)
     );
-  }
 }
 
 export default MapSearch;

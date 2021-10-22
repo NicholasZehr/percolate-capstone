@@ -371,7 +371,7 @@ p strong {
 .ais-SearchBox-form {
   align-self: center;
 }
-.cardUpAdjustment { 
+.cardUpAdjustment {
   margin-top:0px;
   margin-bottom: 1px;
   border-radius: 0;
@@ -425,5 +425,7 @@ p strong {
 }
 
 #map {
-  height: 100%;
+  height: 80%;
+  width: 80%;
+  margin: auto;
 }

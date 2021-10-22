@@ -1,12 +1,10 @@
 import React from "react";
-import ReactDOM from "react-dom";
 import algoliasearch from "algoliasearch/lite";
 import {
   InstantSearch,
   SearchBox,
   Hits,
   Index,
-  Highlight,
   connectStateResults,
 } from "react-instantsearch-dom";
 import PropTypes from "prop-types";
@@ -18,10 +16,10 @@ const searchClient = algoliasearch(
 );
 
 export const Search = () => (
-  <InstantSearch indexName='coffees' searchClient={searchClient}>
+  <InstantSearch indexName="coffees" searchClient={searchClient}>
     <SearchBox />
     {isSearch ? (
-      <div className='search-results'>
+      <div className="search-results">
         <Results></Results>
       </div>
     ) : null}
@@ -31,9 +29,9 @@ export const Search = () => (
 function Hit(props) {
   return (
     <Link to={`/${props.hit.path}`}>
-      <div class='results'>
+      <div className="results">
         <img
-          className='hit-photo'
+          className="hit-photo"
           src={
             props.hit.photoURL
               ? props.hit.photoURL
@@ -41,8 +39,8 @@ function Hit(props) {
               ? props.hit.photoUrl
               : props.hit.imageUrl
           }
-          align='left'
-          alt={null}
+          align="left"
+          alt="results"
         />
         <p>
           {props.hit.displayName
@@ -80,9 +78,9 @@ const AllResults = connectStateResults(({ allSearchResults, children }) => {
       <div>
         We're sorry, but we don't have anything that matches your search
       </div>
-      <Index indexName='coffees' />
-      <Index indexName='Users' />
-      <Index indexName='businesses' />
+      <Index indexName="coffees" />
+      <Index indexName="Users" />
+      <Index indexName="businesses" />
     </div>
   ) : (
     children
@@ -92,21 +90,21 @@ const AllResults = connectStateResults(({ allSearchResults, children }) => {
 const Results = connectStateResults(({ searchState }) =>
   searchState && searchState.query ? (
     <AllResults>
-      <Index indexName='coffees'>
+      <Index indexName="coffees">
         <IndexResults>
-          <h3 className='hit-label'>Coffees: </h3>
+          <h3 className="hit-label">Coffees: </h3>
           <Hits hitComponent={Hit} />
         </IndexResults>
       </Index>
-      <Index indexName='Users'>
+      <Index indexName="Users">
         <IndexResults>
-          <h3 className='hit-label'>Users: </h3>
+          <h3 className="hit-label">Users: </h3>
           <Hits hitComponent={Hit} />
         </IndexResults>
       </Index>
-      <Index indexName='businesses'>
+      <Index indexName="businesses">
         <IndexResults>
-          <h3 className='hit-label'>Businesses:</h3>
+          <h3 className="hit-label">Businesses:</h3>
           <Hits hitComponent={Hit} />
         </IndexResults>
       </Index>

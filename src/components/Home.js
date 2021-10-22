@@ -1,28 +1,14 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
-import { fetchUser } from "../store/Actions/usersActions";
-import db from "../firebase";
-import {
-  doc,
-  setDoc,
-  getDoc,
-  updateDoc,
-  arrayRemove,
-  arrayUnion,
-} from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Modal from "react-modal";
 import { fetchLoginUser } from "../store/auth";
 import FeedCard from "./feedCard";
 import { fetchReviews } from "../store/reviewActions";
-import { Redirect } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
 const Home = (props) => {
-  const history = useHistory();
   const dispatch = useDispatch();
   const loggedInUser = useSelector((state) => state.auth);
   const auth = getAuth();
@@ -151,6 +137,7 @@ const Home = (props) => {
               <img
                 className="favCoffee"
                 src={loggedInUser ? loggedInUser.coffeeURL : "whiteBack2.png"}
+                alt="favCoffee"
               />
             </div>
             <div className="self">

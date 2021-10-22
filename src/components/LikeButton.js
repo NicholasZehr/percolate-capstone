@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { likeClick } from "../store/reviewActions";
-import { updateCoffeeLike } from "../store/singleCoffee";
 import { getAuth } from "firebase/auth";
 
 const auth = getAuth();

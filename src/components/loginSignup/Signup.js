@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { authenticateSignup, authenticate } from "../../store";
-import { getAuth } from "firebase/auth";
+import { authenticateSignup } from "../../store";
 import { useHistory } from "react-router";
 
 const Signup = () => {
@@ -153,7 +152,7 @@ const Signup = () => {
                 )}
               </div>
               <div className="signupBox">
-                  <button className="signupPage" name="button1">
+                <button className="signupPage" name="button1">
                   sign up
                 </button>
               </div>

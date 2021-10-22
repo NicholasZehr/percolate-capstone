@@ -1,18 +1,8 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
 import { useHistory } from "react-router";
 
 const FeedCard = (props) => {
   const history = useHistory();
-  // const dispatch = useDispatch();
-  // const singleCoffee = useSelector((state) => state.singleCoffee);
-  // const [coffee, setCoffee]= useState(singleCoffee)
-  // useEffect(() => {
-  //   if (props.review) {
-  //     console.log("sheldon", singleCoffee);
-  //     dispatch(fetchSingleCoffee(props.review.coffeeId));
-  //   }
-  // }, []);
   //CSS textarea expanding
   const textarea = document.getElementById("txt");
   if (textarea) {
@@ -22,9 +12,6 @@ const FeedCard = (props) => {
     });
   }
 
-  let time = props.review.time
-    ? new Date(props.review.time.seconds * 1000)
-    : "no time";
   function timeDifference(input) {
     input *= 1000;
     let msPerMinute = 60 * 1000;

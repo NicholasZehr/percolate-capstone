@@ -282,7 +282,6 @@ const SingleUserPage = () => {
             <div className="rightBody"></div>
             <div className="blank2"></div>
           </div>
-
         </div>
       ) : (
         <div className="home loading">

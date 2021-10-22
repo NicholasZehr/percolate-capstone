@@ -21,6 +21,7 @@ import {
 import db from "../firebase";
 import { increment, serverTimestamp } from "firebase/firestore";
 import { _addLikeCoffee, _removeLikeCoffee } from "./singleCoffee";
+import { _addLikeBusiness, _removeLikeBusiness } from "./businessActions";
 
 // ------------------ Actions creators --------------------
 
@@ -43,17 +44,21 @@ export const _getSingleReview = (review) => {
   };
 };
 
-export const _addLike = (reviewId, index) => {
+export const _addLike = (type, id) => {
   return (dispatch) => {
-    dispatch(_addLikeReview(reviewId));
-    dispatch(_addLikeCoffee(reviewId, index));
+    dispatch(_addLikeReview(id));
+    type === "coffee"
+      ? dispatch(_addLikeCoffee(id))
+      : dispatch(_addLikeBusiness(id));
   };
 };
 
-export const _removeLike = (reviewId, index) => {
+export const _removeLike = (type, id) => {
   return (dispatch) => {
-    dispatch(_removeLikeReview(reviewId));
-    dispatch(_removeLikeCoffee(reviewId, index));
+    dispatch(_removeLikeReview(id));
+    type === "coffee"
+      ? dispatch(_removeLikeCoffee(id))
+      : dispatch(_removeLikeBusiness(id));
   };
 };
 export const _addLikeReview = (reviewId) => {

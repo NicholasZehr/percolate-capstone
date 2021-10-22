@@ -1,11 +1,4 @@
-import {
-  collection,
-  getDocs,
-  getDoc,
-  doc,
-  where,
-  query,
-} from "firebase/firestore";
+import { getDoc, doc } from "firebase/firestore";
 import db from "../firebase";
 import { fetchSingleCoffeeReviews } from "./reviewActions";
 // action types
@@ -28,13 +21,13 @@ const getSingleCoffee = (coffee) => {
   };
 };
 
-export const _addLikeCoffee = (reviewId, index) => {
+export const _addLikeCoffee = (reviewId) => {
   return {
     type: ADD_LIKE_COFFEE,
     reviewId,
   };
 };
-export const _removeLikeCoffee = (reviewId, index) => {
+export const _removeLikeCoffee = (reviewId) => {
   return {
     type: REMOVE_LIKE_COFFEE,
     reviewId,

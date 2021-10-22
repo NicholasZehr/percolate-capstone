@@ -1,5 +1,20 @@
-import { FETCH_BUSINESS, FETCH_BUSINESSES, ADD_BUSINESS } from "./businessesReducer";
-import { collection, getDocs, getDoc, doc, addDoc, updateDoc } from "firebase/firestore";
+import {
+  FETCH_BUSINESS,
+  FETCH_BUSINESSES,
+  ADD_BUSINESS,
+  ADD_LIKE_BUSINESS,
+  REMOVE_LIKE_BUSINESS,
+} from "./businessesReducer";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  addDoc,
+  updateDoc,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../firebase";
 
 // ------------------ Actions creators --------------------
@@ -19,6 +34,18 @@ export const _addBusiness = (business) => ({
   business,
 });
 
+export const _addLikeBusiness = (businessId) => {
+  return {
+    type: ADD_LIKE_BUSINESS,
+    businessId,
+  };
+};
+export const _removeLikeBusiness = (businessId) => {
+  return {
+    type: REMOVE_LIKE_BUSINESS,
+    businessId,
+  };
+};
 
 // ------------------ Thunk creators -----------------------
 
@@ -54,12 +81,72 @@ export const fetchBusiness = (businessId) => {
 export const addBusiness = (business) => {
   return async (dispatch) => {
     try {
-      const response = await addDoc(collection(db, 'businesses'), business);
+      const response = await addDoc(collection(db, "businesses"), business);
       dispatch(_addBusiness(response));
-      console.log('add review response:', response);
+      console.log("add review response:", response);
     } catch (error) {
-      console.log('Failed to add review');
+      console.log("Failed to add review");
       return;
+    }
+  };
+};
+
+export const likeClick = (
+  coffeeId,
+  reviewId,
+  userId,
+  displayName,
+  photoURL,
+  index
+) => {
+  return async (dispatch) => {
+    try {
+      const q = query(
+        collection(db, "likeRelation"),
+        where("businessId", "==", businessId),
+        where("userId", "==", userId)
+      );
+      const docSnapLikeRelation = await getDocs(q);
+      const docRefReviewLikeCount = doc(db, "reviews", reviewId);
+      const docRefCoffeeLikeCount = doc(
+        db,
+        "coffees",
+        coffeeId,
+        "coffeeReviews",
+        reviewId
+      );
+      if (docSnapLikeRelation.docs.length) {
+        console.log("this user has already liked the review");
+        await updateDoc(docRefReviewLikeCount, {
+          likeCount: increment(-1),
+        });
+        await updateDoc(docRefCoffeeLikeCount, {
+          likeCount: increment(-1),
+        });
+        await deleteDoc(
+          doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
+        );
+        dispatch(_removeLike(reviewId, index));
+      } else {
+        console.log("this user has not yet liked the review");
+        const likeRelation = {
+          userId: userId,
+          reviewId: reviewId,
+          time: serverTimestamp(),
+          displayName: displayName,
+          photoURL: photoURL,
+        };
+        await addDoc(collection(db, "likeRelation"), likeRelation);
+        await updateDoc(docRefReviewLikeCount, {
+          likeCount: increment(1),
+        });
+        await updateDoc(docRefCoffeeLikeCount, {
+          likeCount: increment(1),
+        });
+        dispatch(_addLike(reviewId, index));
+      }
+    } catch (error) {
+      console.error(error, "Failed to update like for review");
     }
   };
 };

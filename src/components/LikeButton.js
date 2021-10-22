@@ -12,16 +12,10 @@ class LikeButton extends Component {
   }
   handleLike() {
     const likeClick = this.props.likeClick;
-    const coffeeId = this.props.coffeeId;
+    const id = this.props.id;
+    const type = this.props.type;
     const { uid, displayName, photoURL } = this.state.user;
-    likeClick(
-      coffeeId,
-      this.props.reviewId,
-      uid,
-      displayName,
-      photoURL,
-      this.props.index
-    );
+    likeClick(id, this.props.reviewId, uid, displayName, photoURL, type);
   }
   render() {
     const likeCount = this.props.likeCount;

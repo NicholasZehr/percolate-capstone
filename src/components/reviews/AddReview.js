@@ -22,7 +22,7 @@ class AddReview extends React.Component {
       rating: 0.0,
       content: "",
       userId: "",
-      username: "",
+      displayName: "",
       time: "",
     };
     this.handleChange = this.handleChange.bind(this);

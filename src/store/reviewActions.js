@@ -24,9 +24,10 @@ import { _addLikeBusiness, _removeLikeBusiness } from "./businessActions";
 
 // ------------------ Actions creators --------------------
 
-export const _addReview = (review) => ({
+export const _addReview = (review, id) => ({
   type: ADD_REVIEW,
   review,
+  id,
 });
 
 export const _fetchReviews = (reviews) => {
@@ -81,7 +82,6 @@ export const addReview = (review) => {
     try {
       // create the new review in the review collection
       const newDoc = await addDoc(collection(db, "reviews"), review);
-
       // This constructs what we want to put in the subcollection when we display
       // a singleCoffee or singleBusiness
       const newReview = {
@@ -94,13 +94,13 @@ export const addReview = (review) => {
       const coffeeRef = doc(
         db,
         "coffees",
-        review.coffeeId,
+        review.id,
         "coffeeReviews",
         newDoc.id
       );
       await setDoc(coffeeRef, newReview);
       // adding a new review in store
-      dispatch(_addReview(review));
+      dispatch(_addReview(review, newDoc.id));
     } catch (error) {
       console.error(error);
       console.log("Failed to add review");
@@ -165,20 +165,24 @@ export const likeClick = (
 ) => {
   return async (dispatch) => {
     try {
+      console.log("prior to query");
       const q = query(
         collection(db, "likeRelation"),
         where("reviewId", "==", reviewId),
         where("userId", "==", userId)
       );
+      console.log(id, reviewId, userId, displayName, photoURL, type);
       const docSnapLikeRelation = await getDocs(q);
+      console.log(docSnapLikeRelation);
       const docRefReviewLikeCount = doc(db, "reviews", reviewId);
       const docRefSubColLikeCount = doc(
         db,
-        `${type}s`,
+        type === "coffee" ? "coffees" : "businesses",
         id,
         `${type}Reviews`,
         reviewId
       );
+      console.log(docSnapLikeRelation.docs.length);
       if (docSnapLikeRelation.docs.length) {
         console.log("this user has already liked the review");
         await updateDoc(docRefReviewLikeCount, {
@@ -190,7 +194,7 @@ export const likeClick = (
         await deleteDoc(
           doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
         );
-        dispatch(_removeLike(type, id));
+        dispatch(_removeLike(type, reviewId));
       } else {
         console.log("this user has not yet liked the review");
         const likeRelation = {
@@ -207,7 +211,7 @@ export const likeClick = (
         await updateDoc(docRefSubColLikeCount, {
           likeCount: increment(1),
         });
-        dispatch(_addLike(type, id));
+        dispatch(_addLike(type, reviewId));
       }
     } catch (error) {
       console.error(error, "Failed to update like for review");

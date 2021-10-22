@@ -1,4 +1,11 @@
-import { collection, getDocs, getDoc, doc, query } from "firebase/firestore";
+import {
+  collection,
+  getDocs,
+  getDoc,
+  doc,
+  query,
+  where,
+} from "firebase/firestore";
 import db from "../firebase";
 //import usersReducer from "./Reducers/usersReducer";
 
@@ -21,25 +28,42 @@ const fetchFeedReviews = (me) => {
     // get your following list
     console.log("thunk me", me);
     const userRef = doc(db, "Users", me);
-    console.log("ref", userRef);
     const docSnap = await getDoc(userRef);
     const followingArr = docSnap.data().following;
     console.log("following list", followingArr);
 
     // reviews
     const feedRef = collection(db, "reviews");
-    const revQuery = query(feedRef); // where user is in my following list
+    let reviewsArr = [];
+
+    // for each user in folliowing arr, get their reviews.
+    // followingArr.forEach(async (following) => {
+    //   console.log("single following", following);
+    //   let revQuery = query(feedRef, where("userId", "==", following.uid)); // where user is in my following list
+    //   const reviews = await getDocs(revQuery);
+    //   reviews.forEach((review) => {
+    //     reviewsArr.push(review.data());
+    //   });
+    // });
+
+    // this will only work if sheldon(in this case) has following with reviews posted. Otherwise no reviews.
+    for await (const following of followingArr) {
+      console.log("single following", following);
+      let revQuery = query(feedRef, where("userId", "==", following.uid)); // where user is in my following list
+      const reviews = await getDocs(revQuery);
+      reviews.forEach((review) => {
+        console.log("single review", review);
+        reviewsArr.push(review.data());
+      });
+    }
+
+    console.log("arr", reviewsArr);
 
     // organize by most recent
 
     //pagination ??
 
     // dispatch to state/store
-    const reviews = await getDocs(revQuery);
-    let reviewsArr = [];
-    reviews.forEach((review) => {
-      reviewsArr.push(review.data());
-    });
 
     // query reviews where reviewer id is in my own followed
 

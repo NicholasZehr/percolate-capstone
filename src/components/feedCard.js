@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
-import { fetchSingleCoffee } from "../store/singleCoffee";
 
 const FeedCard = (props) => {
   const history = useHistory();
@@ -83,13 +82,12 @@ const FeedCard = (props) => {
       </div>
       <div
         className="self feeding cardUpAdjustment"
-        onClick={(_) => console.log("fdsafdsafdf", singleCoffee)}
       >
         <div className="headNPost card">
           <img
             className="favCoffee"
             alt="favorite coffee"
-            src={singleCoffee ? singleCoffee.photoUrl : singleCoffee}
+            src={props.review ? props.review.photoUrl : "/whiteBack.png"}
           />
           <div className="coffeeInfo">
             <p>Roast: {props.review.roast}</p>

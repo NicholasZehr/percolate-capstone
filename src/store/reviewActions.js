@@ -24,9 +24,10 @@ import { _addLikeBusiness, _removeLikeBusiness } from "./businessActions";
 
 // ------------------ Actions creators --------------------
 
-export const _addReview = (review) => ({
+export const _addReview = (review, id) => ({
   type: ADD_REVIEW,
   review,
+  id,
 });
 
 export const _fetchReviews = (reviews) => {
@@ -81,7 +82,6 @@ export const addReview = (review) => {
     try {
       // create the new review in the review collection
       const newDoc = await addDoc(collection(db, "reviews"), review);
-
       // This constructs what we want to put in the subcollection when we display
       // a singleCoffee or singleBusiness
       const newReview = {
@@ -94,13 +94,13 @@ export const addReview = (review) => {
       const coffeeRef = doc(
         db,
         "coffees",
-        review.coffeeId,
+        review.id,
         "coffeeReviews",
         newDoc.id
       );
       await setDoc(coffeeRef, newReview);
       // adding a new review in store
-      dispatch(_addReview(review));
+      dispatch(_addReview(review, newDoc.id));
     } catch (error) {
       console.error(error);
       console.log("Failed to add review");
@@ -174,7 +174,7 @@ export const likeClick = (
       const docRefReviewLikeCount = doc(db, "reviews", reviewId);
       const docRefSubColLikeCount = doc(
         db,
-        `${type}s`,
+        type === "coffee" ? "coffees" : "businesses",
         id,
         `${type}Reviews`,
         reviewId

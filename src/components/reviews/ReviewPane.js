@@ -22,11 +22,10 @@ class ReviewPane extends Component {
 
   render() {
     const { checkReview } = this;
-    const coffeeId = this.props.coffeeId;
-
-    const arrReviews = this.props.reviews
-      ? Object.entries(this.props.reviews)
-      : false;
+    const id = this.props.id;
+    const type = this.props.type;
+    const arrReviews =
+      this.props.reviews === {} ? Object.entries(this.props.reviews) : false;
     // const reviewArr = this.props.reviews.reviews;
     return (
       <div>
@@ -36,7 +35,8 @@ class ReviewPane extends Component {
               //checkReview(review.content);
               return (
                 <ListedReview
-                  coffeeId={coffeeId}
+                  id={id}
+                  type={type}
                   key={review[0]}
                   content={checkReview(review[1].content)}
                   review={review[1]}

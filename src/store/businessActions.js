@@ -14,6 +14,7 @@ import {
   updateDoc,
   query,
   where,
+  increment,
 } from "firebase/firestore";
 import db from "../firebase";
 
@@ -87,66 +88,6 @@ export const addBusiness = (business) => {
     } catch (error) {
       console.log("Failed to add review");
       return;
-    }
-  };
-};
-
-export const likeClick = (
-  coffeeId,
-  reviewId,
-  userId,
-  displayName,
-  photoURL,
-  index
-) => {
-  return async (dispatch) => {
-    try {
-      const q = query(
-        collection(db, "likeRelation"),
-        where("businessId", "==", businessId),
-        where("userId", "==", userId)
-      );
-      const docSnapLikeRelation = await getDocs(q);
-      const docRefReviewLikeCount = doc(db, "reviews", reviewId);
-      const docRefCoffeeLikeCount = doc(
-        db,
-        "coffees",
-        coffeeId,
-        "coffeeReviews",
-        reviewId
-      );
-      if (docSnapLikeRelation.docs.length) {
-        console.log("this user has already liked the review");
-        await updateDoc(docRefReviewLikeCount, {
-          likeCount: increment(-1),
-        });
-        await updateDoc(docRefCoffeeLikeCount, {
-          likeCount: increment(-1),
-        });
-        await deleteDoc(
-          doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
-        );
-        dispatch(_removeLike(reviewId, index));
-      } else {
-        console.log("this user has not yet liked the review");
-        const likeRelation = {
-          userId: userId,
-          reviewId: reviewId,
-          time: serverTimestamp(),
-          displayName: displayName,
-          photoURL: photoURL,
-        };
-        await addDoc(collection(db, "likeRelation"), likeRelation);
-        await updateDoc(docRefReviewLikeCount, {
-          likeCount: increment(1),
-        });
-        await updateDoc(docRefCoffeeLikeCount, {
-          likeCount: increment(1),
-        });
-        dispatch(_addLike(reviewId, index));
-      }
-    } catch (error) {
-      console.error(error, "Failed to update like for review");
     }
   };
 };

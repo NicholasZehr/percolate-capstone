@@ -156,12 +156,12 @@ export const fetchSingleReview = (reviewId) => {
 };
 
 export const likeClick = (
-  coffeeId,
+  id,
   reviewId,
   userId,
   displayName,
   photoURL,
-  index
+  type
 ) => {
   return async (dispatch) => {
     try {
@@ -172,11 +172,11 @@ export const likeClick = (
       );
       const docSnapLikeRelation = await getDocs(q);
       const docRefReviewLikeCount = doc(db, "reviews", reviewId);
-      const docRefCoffeeLikeCount = doc(
+      const docRefSubColLikeCount = doc(
         db,
-        "coffees",
-        coffeeId,
-        "coffeeReviews",
+        `${type}s`,
+        id,
+        `${type}Reviews`,
         reviewId
       );
       if (docSnapLikeRelation.docs.length) {
@@ -184,13 +184,13 @@ export const likeClick = (
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(-1),
         });
-        await updateDoc(docRefCoffeeLikeCount, {
+        await updateDoc(docRefSubColLikeCount, {
           likeCount: increment(-1),
         });
         await deleteDoc(
           doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
         );
-        dispatch(_removeLike(reviewId, index));
+        dispatch(_removeLike(type, id));
       } else {
         console.log("this user has not yet liked the review");
         const likeRelation = {
@@ -204,10 +204,10 @@ export const likeClick = (
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(1),
         });
-        await updateDoc(docRefCoffeeLikeCount, {
+        await updateDoc(docRefSubColLikeCount, {
           likeCount: increment(1),
         });
-        dispatch(_addLike(reviewId, index));
+        dispatch(_addLike(type, id));
       }
     } catch (error) {
       console.error(error, "Failed to update like for review");

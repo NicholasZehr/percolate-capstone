@@ -61,6 +61,7 @@ export const authenticateSignup = (user) => async (dispatch) => {
       following: [],
     });
     dispatch(setAuth(user));
+
   } catch (error) {
     console.log(error);
     return dispatch(setAuth({ error }));
@@ -68,7 +69,6 @@ export const authenticateSignup = (user) => async (dispatch) => {
 };
 
 export const logout = () => (dispatch) => {
-  console.log("hey");
   const auth = getAuth();
   signOut(auth);
   return dispatch(setAuth({}));

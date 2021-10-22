@@ -34,8 +34,6 @@ const FeedCard = (props) => {
     let msPerMonth = msPerDay * 30;
     let msPerYear = msPerDay * 365;
     let current = Date.now();
-    console.log(current)
-    console.log(input)
     let elapsed = current - input;
 
     if (elapsed < msPerMinute) {

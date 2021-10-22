@@ -17,6 +17,7 @@ import Modal from "react-modal";
 import { fetchLoginUser } from "../store/auth";
 import FeedCard from "./feedCard";
 import { fetchReviews } from "../store/reviewActions";
+import { Redirect } from "react-router-dom";
 
 Modal.setAppElement("#root");
 
@@ -47,21 +48,23 @@ const Home = (props) => {
     };
   }, [user]);
 
-  useEffect(async () => {
+  useEffect( () => {
     const list = [];
     const fol = [];
     let mounted = true;
 
     //======push followers in list,and following in fol
     if (Object.keys(loggedInUser).length > 0) {
-      loggedInUser.followers.forEach((element) => {
-        //========== find wether the current profile page is followed
-        list.push(element);
-      });
-      loggedInUser.following.forEach((each) => {
-        // this is push to followiing
-        fol.push(each);
-      });
+      if (loggedInUser.following && loggedInUser.followers) {
+        loggedInUser.followers.forEach((element) => {
+          //========== find wether the current profile page is followed
+          list.push(element);
+        });
+        loggedInUser.following.forEach((each) => {
+          // this is push to followiing
+          fol.push(each);
+        });
+      }
     }
     //fetching posts from firestore
     if (user) {
@@ -176,9 +179,9 @@ const Home = (props) => {
           </div>
         </div>
       ) : (
-        <div className="home loading">
+          <div className="home loading">
           <div className="self loading">
-            <p>Loading ...</p>
+              <p>Loading ...</p>
           </div>
         </div>
       )}

@@ -40,18 +40,6 @@ const MapSearch =()=> {
           defaultCenter={center}
           defaultZoom={14}
         >
-          {google => (
-      <GeoSearch google={google}>
-        {({ hits }) => (
-          <div>
-            <Control />
-            {hits.map(hit => (
-              <Marker key={hit.objectID} hit={hit} />
-            ))}
-          </div>
-        )}
-      </GeoSearch>
-    )}
           <AnyReactComponent
             lat={40.7128}
             lng={-74.0060}

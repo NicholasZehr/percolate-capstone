@@ -1,32 +1,57 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useHistory } from "react-router";
-// import { Link } from "react-router-dom";
-// import { fetchUser } from "../store/Actions/usersActions";
-// import db from "../firebase";
-// import {
-//   doc,
-//   setDoc,
-//   getDoc,
-//   updateDoc,
-//   arrayRemove,
-//   arrayUnion,
-// } from "firebase/firestore";
-// import { getAuth, onAuthStateChanged } from "firebase/auth";
-// import { fetchLoginUser } from "../store/auth";
+import { useHistory } from "react-router";
 import { fetchSingleCoffee } from "../store/singleCoffee";
 
 const FeedCard = (props) => {
-  const dispatch = useDispatch();
-  const singleCoffee = useSelector((state) => state.singleCoffee);
+  const history = useHistory();
+  // const dispatch = useDispatch();
+  // const singleCoffee = useSelector((state) => state.singleCoffee);
+  // const [coffee, setCoffee]= useState(singleCoffee)
+  // useEffect(() => {
+  //   if (props.review) {
+  //     console.log("sheldon", singleCoffee);
+  //     dispatch(fetchSingleCoffee(props.review.coffeeId));
+  //   }
+  // }, []);
+  //CSS textarea expanding
+  const textarea = document.getElementById("txt");
+  if (textarea) {
+    textarea.addEventListener("input", function (e) {
+      this.style.height = "auto";
+      this.style.height = this.scrollHeight + "px";
+    });
+  }
 
-  useEffect(() => {
-    if (props.review) {
-      dispatch(fetchSingleCoffee(props.review.coffeeId));
+  let time = props.review.time
+    ? new Date(props.review.time.seconds * 1000)
+    : "no time";
+  function timeDifference(input) {
+    input *= 1000
+    let msPerMinute = 60 * 1000;
+    let msPerHour = msPerMinute * 60;
+    let msPerDay = msPerHour * 24;
+    let msPerMonth = msPerDay * 30;
+    let msPerYear = msPerDay * 365;
+    let current = Date.now();
+    let elapsed = current - input;
+
+    if (elapsed < msPerMinute) {
+      return Math.round(elapsed / 1000) + " secs ago";
+    } else if (elapsed < msPerHour) {
+      return Math.round(elapsed / msPerMinute) + " mins ago";
+    } else if (elapsed < msPerDay) {
+      return Math.round(elapsed / msPerHour) + " hours ago";
+    } else if (elapsed < msPerMonth) {
+      return "approximately " + Math.round(elapsed / msPerDay) + " days ago";
+    } else if (elapsed < msPerYear) {
+      return (
+        "approximately " + Math.round(elapsed / msPerMonth) + " months ago"
+      );
+    } else {
+      return "approximately " + Math.round(elapsed / msPerYear) + " years ago";
     }
-    console.log(singleCoffee);
-  }, []);
-
+  }
   return (
     <>
       <div className="self feeding cardDown">
@@ -40,16 +65,19 @@ const FeedCard = (props) => {
                   ? props.user.photoURL || "/guest.jpeg"
                   : "/guest.jpeg"
               }
+              onClick={(_) => history.push(`/users/${props.user.uid}`)}
             />
-            <div className="username writepost">
-              {props.user ? (
-                <p>
-                  {props.user.displayName + " " + props.loggedInUser.lastName}
-                </p>
-              ) : (
-                "Sign in"
-              )}
-            </div>
+          </div>
+          <div className="nameAndTime">
+            <span className="writepost">{props.user.displayName}: </span>
+            {props.review.time ? (
+              <span className="ago">{`${timeDifference(props.review.time.seconds)}`}</span>
+            ) : (
+              <span className="ago">no time</span>
+            )}
+          </div>
+          <div className="username writepost">
+            <p>{props.review.reviewContent}</p>
           </div>
         </div>
       </div>
@@ -64,10 +92,12 @@ const FeedCard = (props) => {
             src={singleCoffee ? singleCoffee.photoUrl : singleCoffee}
           />
           <div className="coffeeInfo">
-            <p>Roast: {singleCoffee.roast}</p>
-            <p>Brand: {singleCoffee.brandName}</p>
-            <p>Average Rate: {singleCoffee.avgRating}</p>
-            <p>Location: {singleCoffee.roasterCity}</p>
+            <p>Roast: {props.review.roast}</p>
+            <p>Brand: {props.review.brandName}</p>
+            <p>
+              <b>{props.user.displayName}'s </b>Rating: {props.review.rating}/5
+            </p>
+            <p>Location: {props.review.roasterCity}</p>
           </div>
         </div>
       </div>
@@ -84,22 +114,33 @@ const FeedCard = (props) => {
         </div>
       </div>
       <div className="self feeding cardUptwo">
-        <div className="headNPost">
-          <div className="imageBox">
-            <img
-              className="profPic"
-              alt="User Profile AVI"
-              src={
-                props.user
-                  ? props.user.photoURL || "/guest.jpeg"
-                  : "/guest.jpeg"
-              }
-            />
+        <form className="form" onSubmit={props.handleSubmit}>
+          <div className="headNPost">
+            <div className="imageBox commentImage">
+              <img
+                className="profPic"
+                alt="User Profile AVI"
+                src={
+                  props.user
+                    ? props.user.photoURL || "/guest.jpeg"
+                    : "/guest.jpeg"
+                }
+              />
+            </div>
+
+            <div className="post-input ">
+              <textarea
+                className="textarea"
+                id="txt"
+                maxLength="200"
+                placeholder="Write a comment..."
+              ></textarea>
+            </div>
+            <button className="postNow">
+              <i className="fa fa-paper-plane-o"></i>
+            </button>
           </div>
-          <div className="post-input" onClick={props.writePage}>
-            <p>What's on your mind?</p>
-          </div>
-        </div>
+        </form>
       </div>
     </>
   );

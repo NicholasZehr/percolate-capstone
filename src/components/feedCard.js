@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { fetchSingleCoffee } from "../store/singleCoffee";
@@ -81,12 +81,16 @@ const FeedCard = (props) => {
           </div>
         </div>
       </div>
-      <div className="self feeding cardUpAdjustment">
-        <div
-          className="headNPost card"
-          onClick={(_) => history.push(`/coffees/${props.review.coffeeId}`)}
-        >
-          <img className="favCoffee" src={props.review.photoUrl} />
+      <div
+        className="self feeding cardUpAdjustment"
+        onClick={(_) => console.log("fdsafdsafdf", singleCoffee)}
+      >
+        <div className="headNPost card">
+          <img
+            className="favCoffee"
+            alt="favorite coffee"
+            src={singleCoffee ? singleCoffee.photoUrl : singleCoffee}
+          />
           <div className="coffeeInfo">
             <p>Roast: {props.review.roast}</p>
             <p>Brand: {props.review.brandName}</p>
@@ -101,7 +105,7 @@ const FeedCard = (props) => {
         <div className="blank"></div>
 
         <div className="likes">
-          <img className="heart" src="/heart.png" />
+          <img className="heart" src="/heart.png" alt="Like Heart Icon" />
           <p>Like</p>
         </div>
         <i className="material-icons flip">chat</i>

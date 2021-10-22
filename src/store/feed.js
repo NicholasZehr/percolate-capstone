@@ -28,30 +28,41 @@ const fetchFeedReviews = (me) => {
     // get your following list
     console.log("thunk me", me);
     const userRef = doc(db, "Users", me);
-    console.log("ref", userRef);
     const docSnap = await getDoc(userRef);
     const followingArr = docSnap.data().following;
     console.log("following list", followingArr);
 
     // reviews
     const feedRef = collection(db, "reviews");
-    let revQuery;
+    let reviewsArr = [];
+
     // for each user in folliowing arr, get their reviews.
-    followingArr.forEach((following) => {
+    // followingArr.forEach(async (following) => {
+    //   console.log("single following", following);
+    //   let revQuery = query(feedRef, where("userId", "==", following.uid)); // where user is in my following list
+    //   const reviews = await getDocs(revQuery);
+    //   reviews.forEach((review) => {
+    //     reviewsArr.push(review.data());
+    //   });
+    // });
+
+    for await (const following of followingArr) {
       console.log("single following", following);
-      revQuery = query(feedRef, where("userId", "==", following.uid)); // where user is in my following list
-    });
+      let revQuery = query(feedRef, where("userId", "==", following.uid)); // where user is in my following list
+      const reviews = await getDocs(revQuery);
+      reviews.forEach((review) => {
+        console.log("single review", review);
+        reviewsArr.push(review.data());
+      });
+    }
+
+    console.log("arr", reviewsArr);
 
     // organize by most recent
 
     //pagination ??
 
     // dispatch to state/store
-    const reviews = await getDocs(revQuery);
-    let reviewsArr = [];
-    reviews.forEach((review) => {
-      reviewsArr.push(review.data());
-    });
 
     // query reviews where reviewer id is in my own followed
 

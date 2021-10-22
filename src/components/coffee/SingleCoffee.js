@@ -6,13 +6,14 @@ import ReviewPane from "../reviews/ReviewPane";
 
 class SingleCoffee extends Component {
   async componentDidMount() {
-    const id = this.props.match.params.coffeeId;
+    const id = this.props.match.params.id;
     await this.props.fetchCoffee(id);
   }
 
   render() {
     const reviews = this.props.reviews;
-    const id = this.props.match.params.coffeeId;
+    const id = this.props.match.params.id;
+    const type = "coffee";
     const { name, brandName, photoUrl, roast, roasterCity, avgRating } =
       this.props.singleCoffee;
     return (
@@ -40,14 +41,15 @@ class SingleCoffee extends Component {
             </div>
           </div>
           <AddReview
-            coffeeId={id}
+            id={id}
+            type={type}
             name={name}
             brandName={brandName}
             photoUrl={photoUrl}
             roast={roast}
             roasterCity={roasterCity}
           />
-          <ReviewPane type="coffee" coffeeId={id} arrReviews={reviews} />
+          <ReviewPane type={type} id={id} arrReviews={reviews} />
         </div>
       </>
     );

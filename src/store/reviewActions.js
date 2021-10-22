@@ -14,13 +14,13 @@ import {
   getDocs,
   query,
   where,
-  arrayUnion,
   updateDoc,
   deleteDoc,
 } from "firebase/firestore";
 import db from "../firebase";
 import { increment, serverTimestamp } from "firebase/firestore";
 import { _addLikeCoffee, _removeLikeCoffee } from "./singleCoffee";
+import { _addLikeBusiness, _removeLikeBusiness } from "./businessActions";
 
 // ------------------ Actions creators --------------------
 
@@ -43,17 +43,21 @@ export const _getSingleReview = (review) => {
   };
 };
 
-export const _addLike = (reviewId, index) => {
+export const _addLike = (type, id) => {
   return (dispatch) => {
-    dispatch(_addLikeReview(reviewId));
-    dispatch(_addLikeCoffee(reviewId, index));
+    dispatch(_addLikeReview(id));
+    type === "coffee"
+      ? dispatch(_addLikeCoffee(id))
+      : dispatch(_addLikeBusiness(id));
   };
 };
 
-export const _removeLike = (reviewId, index) => {
+export const _removeLike = (type, id) => {
   return (dispatch) => {
-    dispatch(_removeLikeReview(reviewId));
-    dispatch(_removeLikeCoffee(reviewId, index));
+    dispatch(_removeLikeReview(id));
+    type === "coffee"
+      ? dispatch(_removeLikeCoffee(id))
+      : dispatch(_removeLikeBusiness(id));
   };
 };
 export const _addLikeReview = (reviewId) => {
@@ -75,13 +79,14 @@ export const _removeLikeReview = (reviewId) => {
 export const addReview = (review) => {
   return async (dispatch) => {
     try {
-      // create the new review in teh review collection
+      // create the new review in the review collection
       const newDoc = await addDoc(collection(db, "reviews"), review);
 
-      // updating the array under coffees
+      // This constructs what we want to put in the subcollection when we display
+      // a singleCoffee or singleBusiness
       const newReview = {
         content: review.content || null,
-        username: review.username || null,
+        displayName: review.displayName || null,
         rating: review.rating,
         likeCount: review.likeCount,
         userId: review.userId,
@@ -151,12 +156,12 @@ export const fetchSingleReview = (reviewId) => {
 };
 
 export const likeClick = (
-  coffeeId,
+  id,
   reviewId,
   userId,
   displayName,
   photoURL,
-  index
+  type
 ) => {
   return async (dispatch) => {
     try {
@@ -167,11 +172,11 @@ export const likeClick = (
       );
       const docSnapLikeRelation = await getDocs(q);
       const docRefReviewLikeCount = doc(db, "reviews", reviewId);
-      const docRefCoffeeLikeCount = doc(
+      const docRefSubColLikeCount = doc(
         db,
-        "coffees",
-        coffeeId,
-        "coffeeReviews",
+        `${type}s`,
+        id,
+        `${type}Reviews`,
         reviewId
       );
       if (docSnapLikeRelation.docs.length) {
@@ -179,13 +184,13 @@ export const likeClick = (
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(-1),
         });
-        await updateDoc(docRefCoffeeLikeCount, {
+        await updateDoc(docRefSubColLikeCount, {
           likeCount: increment(-1),
         });
         await deleteDoc(
           doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
         );
-        dispatch(_removeLike(reviewId, index));
+        dispatch(_removeLike(type, id));
       } else {
         console.log("this user has not yet liked the review");
         const likeRelation = {
@@ -199,10 +204,10 @@ export const likeClick = (
         await updateDoc(docRefReviewLikeCount, {
           likeCount: increment(1),
         });
-        await updateDoc(docRefCoffeeLikeCount, {
+        await updateDoc(docRefSubColLikeCount, {
           likeCount: increment(1),
         });
-        dispatch(_addLike(reviewId, index));
+        dispatch(_addLike(type, id));
       }
     } catch (error) {
       console.error(error, "Failed to update like for review");

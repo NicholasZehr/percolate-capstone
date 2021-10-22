@@ -1,12 +1,9 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchUser } from "../../store/Actions/usersActions";
 import db from "../../firebase";
 import { doc, setDoc } from "firebase/firestore";
-import {
-  updateProfile,
-  updatePassword,
-} from "firebase/auth";
+import { updateProfile, updatePassword } from "firebase/auth";
 
 const EditProfileButton = (props) => {
   const dispatch = useDispatch();
@@ -59,99 +56,99 @@ const EditProfileButton = (props) => {
   }
   return (
     <>
-      <div className="close" onClick={editPage}></div>
+      <div className='close' onClick={editPage}></div>
       <h2>Edit Profile</h2>
       <form
-        className="signupform"
+        className='signupform'
         open={false}
         onSubmit={handleSubmit}
-        name="signup"
+        name='signup'
       >
-        <div className="emailBox mod">
-          <span className="formName">Email:</span>
+        <div className='emailBox mod'>
+          <span className='formName'>Email:</span>
           <input
-            className="email"
-            name="email"
-            type="text"
-            placeholder="Email"
+            className='email'
+            name='email'
+            type='text'
+            placeholder='Email'
           />
-          <div className="blank3"></div>
+          <div className='blank3'></div>
         </div>
-        <div className="emailBox mod">
-          <span className="formName">Display Name:</span>
+        <div className='emailBox mod'>
+          <span className='formName'>Display Name:</span>
           <input
-            className="email"
-            name="firstName"
-            type="text"
-            placeholder="Frist Name"
+            className='email'
+            name='firstName'
+            type='text'
+            placeholder='Frist Name'
           />
-          <div className="blank3"></div>
+          <div className='blank3'></div>
         </div>
-        <div className="emailBox mod">
-          <span className="formName">Last Name:</span>
+        <div className='emailBox mod'>
+          <span className='formName'>Last Name:</span>
           <input
-            className="email"
-            name="lastName"
-            placeholder="Last Name"
-            type="text"
+            className='email'
+            name='lastName'
+            placeholder='Last Name'
+            type='text'
           />
-          <div className="blank3"></div>
+          <div className='blank3'></div>
         </div>
-        <div className="emailBox mod">
-          <span className="formName">Password:</span>
+        <div className='emailBox mod'>
+          <span className='formName'>Password:</span>
           <input
-            className="email"
-            name="password"
-            placeholder="Password"
-            type="password"
+            className='email'
+            name='password'
+            placeholder='Password'
+            type='password'
           />
-          <div className="blank3"></div>
+          <div className='blank3'></div>
         </div>
-        <div className="emailBox mod">
-          <span className="formName">Profile Picture:</span>
+        <div className='emailBox mod'>
+          <span className='formName'>Profile Picture:</span>
           <input
-            className="email"
-            name="photoURL"
-            type="text"
-            placeholder="picture URL"
+            className='email'
+            name='photoURL'
+            type='text'
+            placeholder='picture URL'
           />
-          <div className="blank3"></div>
+          <div className='blank3'></div>
         </div>
-        <div className="emailBox mod">
-          <span className="formName">Cover Picture:</span>
+        <div className='emailBox mod'>
+          <span className='formName'>Cover Picture:</span>
           <input
-            className="email"
-            name="coverURL"
-            placeholder="cover image url"
-            type="text"
+            className='email'
+            name='coverURL'
+            placeholder='cover image url'
+            type='text'
           />
-          <div className="blank3"></div>
+          <div className='blank3'></div>
         </div>
-        <div className="emailBox mod">
-          <span className="formName">Favorite Coffee:</span>
+        <div className='emailBox mod'>
+          <span className='formName'>Favorite Coffee:</span>
           <input
-            className="email"
-            name="favorite"
-            type="text"
-            placeholder="Coffee"
+            className='email'
+            name='favorite'
+            type='text'
+            placeholder='Coffee'
           />
-          <div className="blank3"></div>
+          <div className='blank3'></div>
         </div>
-        <div className="emailBox mod">
-          <span className="formName">Coffee Picture:</span>
+        <div className='emailBox mod'>
+          <span className='formName'>Coffee Picture:</span>
           <input
-            className="email"
-            name="coffeeURL"
-            placeholder="favorite coffee url"
-            type="text"
+            className='email'
+            name='coffeeURL'
+            placeholder='favorite coffee url'
+            type='text'
           />
-          <div className="blank3"></div>
+          <div className='blank3'></div>
         </div>
-        <button className="signupPage" name="button1">
+        <button className='signupPage' name='button1'>
           Save
         </button>
       </form>
     </>
   );
 };
-export default EditProfileButton
+export default EditProfileButton;

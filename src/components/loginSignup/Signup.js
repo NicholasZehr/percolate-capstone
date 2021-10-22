@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { authenticateSignup, authenticate } from "../../store";
@@ -9,9 +9,7 @@ const Signup = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const isLoggedIn = useSelector((state) => state.auth.accessToken);
-  const [user, setUser] = useState(getAuth().currentUser)
-  const [usernames, setUsernames] = useState({});
-  const [userEmails, setUserEmails] = useState({});
+  const [userEmails] = useState({});
   const [userInput, setUserInput] = useState({
     user: {
       firstName: "",
@@ -65,19 +63,19 @@ const Signup = () => {
       email: "",
     };
     if (!userInput.user.firstName) {
-      errors.firstName = `first name field can not be empty`;
+      errors.firstName = `Please provide your first name.`;
     }
     if (!userInput.user.lastName) {
-      errors.lastName = "put your last name !";
+      errors.lastName = "Please provide your first name.";
     }
 
     if (!userInput.user.password) {
-      errors.password = "????? please write your password.";
+      errors.password = "Password is required.";
     }
     if (!userInput.user.email) {
-      errors.email = "email please!";
+      errors.email = "E-mail is required.";
     } else if (userInput.user.email in userEmails) {
-      errors.email = "Email already exist!";
+      errors.email = "E-mail already in use.";
     }
     setUserInput({
       user: { ...userInput.user, [evt.target.name]: evt.target.value },
@@ -114,7 +112,7 @@ const Signup = () => {
                   name="firstName"
                   type="text"
                   onChange={handleChange}
-                  placeholder="Frist Name"
+                  placeholder="First Name"
                 />
                 {userInput.errors !== "" && (
                   <span className="error">{userInput.errors.firstName}</span>
@@ -138,7 +136,7 @@ const Signup = () => {
                   name="photoURL"
                   type="text"
                   onChange={handleChange}
-                  placeholder="picture URL"
+                  placeholder="Profile Photo URL"
                 />
                 {userInput.errors !== "" && <span className="error"></span>}
               </div>

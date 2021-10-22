@@ -3,7 +3,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addReview } from "../../store/reviewActions";
-import ReviewPane from "./ReviewPane";
 import { getAuth } from "firebase/auth";
 import { serverTimestamp } from "firebase/firestore";
 const auth = getAuth();
@@ -41,18 +40,22 @@ class AddReview extends React.Component {
       roast: this.props.roast,
       roasterCity: this.props.roasterCity,
       name: this.props.name,
-      businessId: this.props.businessId ? this.props.businessId : null,
-      coffeeId: this.props.coffeeId ? this.props.coffeeId : null,
+      type: this.props.type ? this.props.type : null,
+      id: this.props.id ? this.props.id : null,
       likeCount: 0,
       rating: review.rating,
       content: review.content,
       userId: auth.currentUser.uid ? auth.currentUser.uid : null,
-      username: auth.currentUser.displayName
+      displayName: auth.currentUser.displayName
         ? auth.currentUser.displayName
         : null,
       time: serverTimestamp(),
     };
     this.props.addR(newReview);
+    this.setState({
+      rating: 0.0,
+      content: "",
+    });
   }
 
   handleChange(event) {
@@ -83,14 +86,16 @@ class AddReview extends React.Component {
               placeholder={0.0}
               min="0"
               max="5"
+              value={this.state.rating}
               onChange={this.handleChange}
             />
-            <label htmlFor='content'>Review Comments</label>
+            <label htmlFor="content">Review Comments</label>
             <textarea
-              className='form-text-box'
-              type='text'
-              name='content'
-              placeholder='Your comment here...'
+              className="form-text-box"
+              type="text"
+              name="content"
+              placeholder="Your comment here..."
+              value={this.state.content}
               onChange={this.handleChange}
             />
             <button className="review-submit-button" type="submit">

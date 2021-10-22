@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, /* useReducer, */ useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
 import { useParams } from "react-router-dom";
@@ -9,7 +9,7 @@ import {
   setDoc,
   updateDoc,
   arrayRemove,
-  arrayUnion,
+  /* arrayUnion, */
 } from "firebase/firestore";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import EditProfileButton from "./EditProfileButton";
@@ -282,6 +282,7 @@ const SingleUserPage = () => {
             <div className="rightBody"></div>
             <div className="blank2"></div>
           </div>
+
         </div>
       ) : (
         <div className="home loading">

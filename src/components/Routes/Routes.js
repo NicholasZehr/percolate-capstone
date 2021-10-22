@@ -15,8 +15,6 @@ import Home from "../Home";
 import Feed from "../feed/Feed";
 import MapSearch from "../MapSearch"
 
-
-
 class Routes extends Component {
   render() {
     return (
@@ -35,8 +33,6 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/feed" component={Feed} />
         <Route exact path="/map" component={MapSearch}/>
-
-
       </Switch>
     );
   }

@@ -11,10 +11,10 @@ import {
   getDoc,
   doc,
   addDoc,
-  updateDoc,
+  /* updateDoc,
   query,
   where,
-  increment,
+  increment, */
 } from "firebase/firestore";
 import db from "../firebase";
 

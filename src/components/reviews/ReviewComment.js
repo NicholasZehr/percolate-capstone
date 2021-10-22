@@ -2,10 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class ReviewComment extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { username, userId, comment } = this.props.comment;
     return (

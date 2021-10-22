@@ -4,10 +4,6 @@ import { fetchSingleReview } from "../../store/reviewActions";
 import ReviewComment from "./ReviewComment";
 
 class SingleReview extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   async componentDidMount() {
     const reviewId = this.props.match.params.reviewId;
     await this.props.fetchReview(reviewId);

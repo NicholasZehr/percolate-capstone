@@ -3,7 +3,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addReview } from "../../store/reviewActions";
-import ReviewPane from "./ReviewPane";
 import { getAuth } from "firebase/auth";
 const auth = getAuth();
 
@@ -12,12 +11,8 @@ class AddReview extends React.Component {
     super();
     this.errors = [];
     this.state = {
-      businessId: "",
-      coffeeId: "",
       rating: 0.0,
       content: "",
-      userId: "",
-      username: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -29,8 +24,8 @@ class AddReview extends React.Component {
     const { ...review } = this.state;
     event.preventDefault();
     let newReview = {
-      businessId: this.props.businessId ? this.props.businessId : null,
-      coffeeId: this.props.coffeeId ? this.props.coffeeId : null,
+      type: this.props.type ? this.props.type : null,
+      id: this.props.id ? this.props.id : null,
       likeCount: 0,
       rating: review.rating,
       content: review.content,
@@ -40,6 +35,10 @@ class AddReview extends React.Component {
         : null,
     };
     this.props.addR(newReview);
+    this.setState({
+      rating: 0.0,
+      content: "",
+    });
   }
 
   handleChange(event) {
@@ -70,6 +69,7 @@ class AddReview extends React.Component {
               placeholder={0.0}
               min='0'
               max='5'
+              value={this.state.rating}
               onChange={this.handleChange}
             />
             <label htmlFor='content'>Review Comments</label>
@@ -78,6 +78,7 @@ class AddReview extends React.Component {
               type='text'
               name='content'
               placeholder='Your comment here...'
+              value={this.state.content}
               onChange={this.handleChange}
             />
             <button className='review-submit-button' type='submit'>

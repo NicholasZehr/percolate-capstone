@@ -8,7 +8,7 @@ import {
 import { collection, doc, setDoc, getDoc } from "firebase/firestore";
 import db from "../firebase";
 //https://firebase.google.com/docs/auth/web/manage-users
-const TOKEN = "token";
+//const TOKEN = "token";
 
 const SET_AUTH = "SET_AUTH";
 

@@ -101,15 +101,15 @@ const Home = (props) => {
   };
 
   return (
-    <div className="home">
-      <Modal className="modal" isOpen={write} onRequestClose={writePage}>
-        <div className="imageBox post">
+    <div className='home'>
+      <Modal className='modal' isOpen={write} onRequestClose={writePage}>
+        <div className='imageBox post'>
           <img
-            className="profPic"
-            alt="User Profile AVI"
+            className='profPic'
+            alt='User Profile AVI'
             src={user ? user.photoURL || "/guest.jpeg" : "/guest.jpeg"}
           />
-          <div className="username writepost">
+          <div className='username writepost'>
             {user ? (
               <p>{user.displayName + " " + loggedInUser.lastName}</p>
             ) : (
@@ -118,52 +118,58 @@ const Home = (props) => {
           </div>
         </div>
         <div>
-          <form className="form" onSubmit={handleSubmit}>
+          <form className='form' onSubmit={handleSubmit}>
             <textarea
-              rows="5"
-              className="textarea"
-              maxLength="500"
-              name="content"
+              rows='5'
+              className='textarea'
+              maxLength='500'
+              name='content'
               placeholder={`What's on your mind? ${
                 user ? user.displayName : ""
               }`}
             ></textarea>
-            <div className="signupBox">
-              <button className="signupPage">Post</button>
+            <div className='signupBox'>
+              <button className='signupPage'>Post</button>
             </div>
           </form>
         </div>
       </Modal>
-      <div className="leftSide">
-        <div className="self">
+      <div className='leftSide'>
+        <div className='self'>
           <h3>{`Welcome, ${
             loggedInUser ? loggedInUser.displayName : "Guest"
           }!`}</h3>
         </div>
-        <div className="self">
-          <span className="favoriteTitle">My favorite coffee:</span>
+        <div className='self'>
+          <span className='favoriteTitle'>My favorite coffee:</span>
           <img
-            className="favCoffee"
+            className='favCoffee'
             src={loggedInUser ? loggedInUser.coffeeURL : "whiteBack2.png"}
           />
         </div>
-        <div className="self">
-          <p className="favoriteTitle">You have:</p>
+        <div className='self'>
+          <p className='favoriteTitle'>You have:</p>
           <span>{followers.length} followers </span>
           <span>{following.length} followings </span>
         </div>
       </div>
 
-      <div className="centerBody">
+      <div className='centerBody'>
         {reviews.length > 0
-
-          ? reviews.map((each, index) => <FeedCard key={index} handleSubmit={handleSubmit}
-            writePage={writePage} review={each} user={user} loggedInUser={loggedInUser} />)
-
+          ? reviews.map((each, index) => (
+              <FeedCard
+                key={index}
+                handleSubmit={handleSubmit}
+                writePage={writePage}
+                review={each}
+                user={user}
+                loggedInUser={loggedInUser}
+              />
+            ))
           : ""}
       </div>
-      <div className="rightSide">
-        <div className="productAndBusiness">fdsafdsafsda</div>
+      <div className='rightSide'>
+        <div className='productAndBusiness'>fdsafdsafsda</div>
       </div>
     </div>
   );

@@ -41,6 +41,7 @@ const fetchSingleCoffee = (coffeeId) => {
       const docRef = doc(db, "coffees", coffeeId);
       const docSnap = await getDoc(docRef);
       const singleCoffee = docSnap.data();
+      console.log("Hello from fetchSingleCoffee");
       dispatch(dispatchSingleCoffee(singleCoffee, coffeeId));
     } catch (error) {
       return `Error ${error.message} fetch single coffee thunk`;

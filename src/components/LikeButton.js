@@ -13,22 +13,16 @@ class LikeButton extends Component {
   }
   handleLike() {
     const likeClick = this.props.likeClick;
-    const coffeeId = this.props.coffeeId;
+    const id = this.props.id;
+    const type = this.props.type;
     const { uid, displayName, photoURL } = this.state.user;
-    likeClick(
-      coffeeId,
-      this.props.reviewId,
-      uid,
-      displayName,
-      photoURL,
-      this.props.index
-    );
+    likeClick(id, this.props.reviewId, uid, displayName, photoURL, type);
   }
   render() {
     const likeCount = this.props.likeCount;
     const { handleLike } = this;
     return `${likeCount}` ? (
-      <div className='like_button' onClick={handleLike}>
+      <div className="like_button" onClick={handleLike}>
         Like {likeCount ? `(${likeCount})` : null}
       </div>
     ) : null;

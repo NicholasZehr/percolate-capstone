@@ -13,7 +13,7 @@ import SingleReview from "../reviews/SingleReview";
 import About from "../About";
 import Home from "../Home";
 import Feed from "../feed/Feed";
-import MapSearch from "../MapSearch"
+import MapSearch from "../MapSearch";
 
 class Routes extends Component {
   render() {
@@ -25,14 +25,14 @@ class Routes extends Component {
         <Route path="/about" component={About} />
         <Route path="/signup" component={Signup} />
         <Route exact path="/businesses" component={AllBusinesses} />
-        <Route exact path="/businesses/:businessId" component={Business} />
+        <Route exact path="/businesses/:id" component={Business} />
         <Route path="/addBusiness" component={AddBusiness} />
         <Route path="/users/:id" component={SingleUserPage} />
-        <Route exact path="/coffees/:coffeeId" component={SingleCoffee} />
+        <Route exact path="/coffees/:id" component={SingleCoffee} />
         <Route path="/Home" component={Home} />
         <Route exact path="/" component={Home} />
         <Route path="/feed" component={Feed} />
-        <Route exact path="/map" component={MapSearch}/>
+        <Route exact path="/map" component={MapSearch} />
       </Switch>
     );
   }

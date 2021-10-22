@@ -7,6 +7,7 @@ import ReviewPane from "../reviews/ReviewPane";
 class SingleCoffee extends Component {
   async componentDidMount() {
     const id = this.props.match.params.id;
+    console.log("id from componentDidMount", this.props.match.params);
     await this.props.fetchCoffee(id);
   }
 

@@ -1,19 +1,19 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router";
-import { Link } from "react-router-dom";
-import { fetchUser } from "../store/Actions/usersActions";
-import db from "../firebase";
-import {
-  doc,
-  setDoc,
-  getDoc,
-  updateDoc,
-  arrayRemove,
-  arrayUnion,
-} from "firebase/firestore";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import { fetchLoginUser } from "../store/auth";
+// import { useHistory } from "react-router";
+// import { Link } from "react-router-dom";
+// import { fetchUser } from "../store/Actions/usersActions";
+// import db from "../firebase";
+// import {
+//   doc,
+//   setDoc,
+//   getDoc,
+//   updateDoc,
+//   arrayRemove,
+//   arrayUnion,
+// } from "firebase/firestore";
+// import { getAuth, onAuthStateChanged } from "firebase/auth";
+// import { fetchLoginUser } from "../store/auth";
 import { fetchSingleCoffee } from "../store/singleCoffee";
 
 const FeedCard = (props) => {

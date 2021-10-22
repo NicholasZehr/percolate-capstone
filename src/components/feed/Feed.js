@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchFeedReviews } from "../../store/feed";
 
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+//import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { fetchLoginUser } from "../../store/auth";
 
 class Feed extends Component {

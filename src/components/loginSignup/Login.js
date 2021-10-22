@@ -16,7 +16,7 @@ const LoginPage = () => {
   return (
     <div className='login'>
       {isLoggedIn ? (
-        <Redirect to={`users/${auth.uid}`} />
+        <Redirect to={`/home`} />
       ) : (
         <div className='loginbodyBox'>
           <div className='loginbody'>

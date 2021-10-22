@@ -18,29 +18,37 @@ class SingleCoffee extends Component {
       this.props.singleCoffee;
     return (
       <>
-        <div className='single-coffee'>
-          <div className='single-coffee-container'>
-            <div className='coffee-title'>
+        <div className="single-coffee">
+          <div className="single-coffee-container">
+            <div className="coffee-title">
               <h2>{name}</h2>
               <h3>{brandName}</h3>
-              <hr className='solid' />
+              <hr className="solid" />
             </div>
-            <div className='image-details-row'>
-              <div className='single-coffee-image'>
+            <div className="image-details-row">
+              <div className="single-coffee-image">
                 <img
-                  id='single-coffee-img'
+                  id="single-coffee-img"
                   src={photoUrl}
                   alt={`${name} by ${brandName}`}
                 />
               </div>
-              <div className='single-coffee-info'>
+              <div className="single-coffee-info">
                 <p>Roast: {roast}</p>
                 <p>Roasted in {roasterCity}</p>
                 <p>User Rating: {avgRating}</p>
               </div>
             </div>
           </div>
-          <AddReview type={type} id={id} />
+          <AddReview
+            id={id}
+            type={type}
+            name={name}
+            brandName={brandName}
+            photoUrl={photoUrl}
+            roast={roast}
+            roasterCity={roasterCity}
+          />
           <ReviewPane type={type} id={id} arrReviews={reviews} />
         </div>
       </>

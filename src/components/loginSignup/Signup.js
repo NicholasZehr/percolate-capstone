@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { authenticateSignup } from "../../store";
+import { authenticateSignup, authenticate } from "../../store";
+import { getAuth } from "firebase/auth";
+import { useHistory } from "react-router";
 
 const Signup = () => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const isLoggedIn = useSelector((state) => state.auth.accessToken);
   const [userEmails] = useState({});
   const [userInput, setUserInput] = useState({
@@ -48,7 +51,9 @@ const Signup = () => {
       password: evt.target.password.value,
       photoURL: evt.target.photoURL.value,
     };
+
     dispatch(authenticateSignup(user, formName));
+    history.push(`/home`);
   };
   const handleChange = (evt) => {
     let errors = {
@@ -148,7 +153,7 @@ const Signup = () => {
                 )}
               </div>
               <div className="signupBox">
-                <button className="signupPage" name="button1">
+                  <button className="signupPage" name="button1">
                   sign up
                 </button>
               </div>

@@ -4,6 +4,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { addReview } from "../../store/reviewActions";
 import { getAuth } from "firebase/auth";
+import { serverTimestamp } from "firebase/firestore";
 const auth = getAuth();
 
 class AddReview extends React.Component {
@@ -11,8 +12,18 @@ class AddReview extends React.Component {
     super();
     this.errors = [];
     this.state = {
+      brandName: "",
+      photoUrl: "",
+      roast: "",
+      roasterCity: "",
+      name: "",
+      businessId: "",
+      coffeeId: "",
       rating: 0.0,
       content: "",
+      userId: "",
+      username: "",
+      time: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -24,6 +35,11 @@ class AddReview extends React.Component {
     const { ...review } = this.state;
     event.preventDefault();
     let newReview = {
+      brandName: this.props.brandName,
+      photoUrl: this.props.photoUrl,
+      roast: this.props.roast,
+      roasterCity: this.props.roasterCity,
+      name: this.props.name,
       type: this.props.type ? this.props.type : null,
       id: this.props.id ? this.props.id : null,
       likeCount: 0,
@@ -33,6 +49,7 @@ class AddReview extends React.Component {
       displayName: auth.currentUser.displayName
         ? auth.currentUser.displayName
         : null,
+      time: serverTimestamp(),
     };
     this.props.addR(newReview);
     this.setState({

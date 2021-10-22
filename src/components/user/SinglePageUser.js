@@ -142,138 +142,156 @@ const SingleUserPage = () => {
   }
 
   return (
-    <div className='singleUserPageBox'>
-      <Modal className='modal' isOpen={edit} onRequestClose={editPage}>
-        <EditProfileButton edit={edit} setEdit={setEdit} user={user} />
-      </Modal>
-      <div className='profileBox'>
-        <div className='profileCover'>
-          <div className='shadow'>
-            <img
-              className='cover'
-              alt='cover'
-              src={
-                currentPageUser ? currentPageUser.coverURL : "/whiteBack2.png"
-              }
-            />
-          </div>
-        </div>
-        <div className='profilePicNavBox'>
-          <div className='blank2'></div>
-          <div className='pictureBox'>
-            <img
-              className='profPic ownpage'
-              alt='your profile pic'
-              src={currentPageUser ? currentPageUser.photoURL : "/guest.jpeg"}
-            />
-          </div>
-          <div className='profileNavBar'>
-            {user ? (
-              id === user.uid ? (
-                <div onClick={editPage} className='editProfileButton'>
-                  Edit Profile
-                </div>
-              ) : alreadyFollowed ? (
-                <div onClick={unfollowUser} className='editProfileButton'>
-                  Unfollow
-                </div>
-              ) : (
-                <div onClick={followingUser} className='editProfileButton'>
-                  Follow
-                </div>
-              )
-            ) : (
-              <div
-                onClick={(_) => history.push("/login")}
-                className='editProfileButton'
-              >
-                Login to follow
+    <>
+      {currentPageUser && user && loginUser ? (
+        <div className="singleUserPageBox">
+          <Modal className="modal" isOpen={edit} onRequestClose={editPage}>
+            <EditProfileButton edit={edit} setEdit={setEdit} user={user} />
+          </Modal>
+          <div className="profileBox">
+            <div className="profileCover">
+              <div className="shadow">
+                <img
+                  className="cover"
+                  alt="cover"
+                  src={
+                    currentPageUser
+                      ? currentPageUser.coverURL
+                      : "/whiteBack2.png"
+                  }
+                />
               </div>
-            )}
+            </div>
+            <div className="profilePicNavBox">
+              <div className="blank2"></div>
+              <div className="pictureBox">
+                <img
+                  className="profPic ownpage"
+                  alt="your profile pic"
+                  src={
+                    currentPageUser ? currentPageUser.photoURL : "/guest.jpeg"
+                  }
+                />
+              </div>
+              <div className="profileNavBar">
+                {user ? (
+                  id === user.uid ? (
+                    <div onClick={editPage} className="editProfileButton">
+                      Edit Profile
+                    </div>
+                  ) : alreadyFollowed ? (
+                    <div onClick={unfollowUser} className="editProfileButton">
+                      Unfollow
+                    </div>
+                  ) : (
+                    <div onClick={followingUser} className="editProfileButton">
+                      Follow
+                    </div>
+                  )
+                ) : (
+                  <div
+                    onClick={(_) => history.push("/login")}
+                    className="editProfileButton"
+                  >
+                    Login to follow
+                  </div>
+                )}
 
-            <h2>
-              {currentPageUser
-                ? (currentPageUser.firstName || currentPageUser.displayName) +
-                  " " +
-                  currentPageUser.lastName
-                : ""}
-            </h2>
-            <hr className='divider' />
-            <div className='menu'>
-              <div>Reviews</div>
-              <div>About</div>
-              <div>Followers</div>
-              <div>Following</div>
+                <h2>
+                  {currentPageUser
+                    ? (currentPageUser.firstName ||
+                        currentPageUser.displayName) +
+                      " " +
+                      currentPageUser.lastName
+                    : ""}
+                </h2>
+                <hr className="divider" />
+                <div className="menu">
+                  <div>Reviews</div>
+                  <div>About</div>
+                  <div>Followers</div>
+                  <div>Following</div>
+                </div>
+              </div>
+              <div className="blank2"></div>
             </div>
           </div>
-          <div className='blank2'></div>
+          <div className="body">
+            <div className="blank2"></div>
+            <div className="leftBody">
+              <div className="intro">
+                <h2>Intro: </h2>
+                <span className="favoriteTitle">My favorite coffee:</span>
+                <img
+                  className="favCoffee"
+                  alt="favorite coffee"
+                  src={
+                    currentPageUser
+                      ? currentPageUser.coffeeURL
+                      : "whiteBack2.png"
+                  }
+                />
+              </div>
+              <div className="followers">
+                <h3>{followers.length} followers: </h3>
+                <div className="followerListBox">
+                  {followers.length > 0
+                    ? followers.map((each, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="followerIcon"
+                            onClick={() => history.push(`/users/${each.uid}`)}
+                          >
+                            <img
+                              className="profPic followerIcon"
+                              alt="follower icon"
+                              src={each.photoURL}
+                            />
+                            <span>{each.firstName}</span>
+                          </div>
+                        );
+                      })
+                    : "You have no followers"}
+                </div>
+              </div>
+              <div className="followers">
+                <h3>{following.length} following: </h3>
+                <div className="followerListBox">
+                  {following.length > 0
+                    ? following.map((each, index) => {
+                        return (
+                          <div
+                            key={index}
+                            className="followerIcon"
+                            onClick={() => history.push(`/users/${each.uid}`)}
+                          >
+                            <img
+                              alt="follower-icon"
+                              className="profPic followerIcon"
+                              src={each.photoURL}
+                            />
+                            <span>{each.firstName}</span>
+                          </div>
+                        );
+                      })
+                    : "You have no followers"}
+                </div>
+              </div>
+            </div>
+            <div className="rightBody"></div>
+            <div className="blank2"></div>
+          </div>
+
         </div>
-      </div>
-      <div className='body'>
-        <div className='blank2'></div>
-        <div className='leftBody'>
-          <div className='intro'>
-            <h2>Intro: </h2>
-            <span className='favoriteTitle'>My favorite coffee:</span>
-            <img
-              className='favCoffee'
-              alt='favorite coffee'
-              src={
-                currentPageUser ? currentPageUser.coffeeURL : "whiteBack2.png"
-              }
-            />
-          </div>
-          <div className='followers'>
-            <h3>{followers.length} followers: </h3>
-            <div className='followerListBox'>
-              {followers.length > 0
-                ? followers.map((each, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className='followerIcon'
-                        onClick={() => history.push(`/users/${each.uid}`)}
-                      >
-                        <img
-                          className='profPic followerIcon'
-                          alt='follower icon'
-                          src={each.photoURL}
-                        />
-                        <span>{each.firstName}</span>
-                      </div>
-                    );
-                  })
-                : "You have no followers"}
-            </div>
-          </div>
-          <div className='followers'>
-            <h3>{following.length} following: </h3>
-            <div className='followerListBox'>
-              {following.length > 0
-                ? following.map((each, index) => {
-                    return (
-                      <div
-                        key={index}
-                        className='followerIcon'
-                        onClick={() => history.push(`/users/${each.uid}`)}
-                      >
-                        <img
-                          alt='follower-icon'
-                          className='profPic followerIcon'
-                          src={each.photoURL}
-                        />
-                        <span>{each.firstName}</span>
-                      </div>
-                    );
-                  })
-                : "You have no followers"}
-            </div>
+      ) : (
+        <div className="home loading">
+          <div className="self loading">
+            <p>Loading ...</p>
           </div>
         </div>
-        <div className='rightBody'></div>
-        <div className='blank2'></div>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 export default SingleUserPage;

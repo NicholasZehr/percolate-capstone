@@ -165,12 +165,15 @@ export const likeClick = (
 ) => {
   return async (dispatch) => {
     try {
+      console.log("prior to query");
       const q = query(
         collection(db, "likeRelation"),
         where("reviewId", "==", reviewId),
         where("userId", "==", userId)
       );
+      console.log(id, reviewId, userId, displayName, photoURL, type);
       const docSnapLikeRelation = await getDocs(q);
+      console.log(docSnapLikeRelation);
       const docRefReviewLikeCount = doc(db, "reviews", reviewId);
       const docRefSubColLikeCount = doc(
         db,
@@ -179,6 +182,7 @@ export const likeClick = (
         `${type}Reviews`,
         reviewId
       );
+      console.log(docSnapLikeRelation.docs.length);
       if (docSnapLikeRelation.docs.length) {
         console.log("this user has already liked the review");
         await updateDoc(docRefReviewLikeCount, {
@@ -190,7 +194,7 @@ export const likeClick = (
         await deleteDoc(
           doc(db, "likeRelation", `${docSnapLikeRelation.docs[0].id}`)
         );
-        dispatch(_removeLike(type, id));
+        dispatch(_removeLike(type, reviewId));
       } else {
         console.log("this user has not yet liked the review");
         const likeRelation = {
@@ -207,7 +211,7 @@ export const likeClick = (
         await updateDoc(docRefSubColLikeCount, {
           likeCount: increment(1),
         });
-        dispatch(_addLike(type, id));
+        dispatch(_addLike(type, reviewId));
       }
     } catch (error) {
       console.error(error, "Failed to update like for review");

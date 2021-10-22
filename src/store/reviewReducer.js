@@ -24,6 +24,7 @@ export default function reviewReducer(state = initialState, action) {
       return { ...state, review: action.review };
     case ADD_LIKE:
       let addLike = state.reviews[action.reviewId];
+      console.log(addLike);
       addLike.likeCount += 1;
       return {
         ...state,
@@ -34,6 +35,7 @@ export default function reviewReducer(state = initialState, action) {
       };
     case REMOVE_LIKE:
       let removeLike = state.reviews[action.reviewId];
+      console.log(removeLike);
       removeLike.likeCount -= 1;
       return {
         ...state,

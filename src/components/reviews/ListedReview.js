@@ -18,6 +18,7 @@ class ListedReview extends Component {
             reviewId={reviewId}
             key={this.props.review.reviewId}
             likeCount={this.props.review.likeCount}
+            type={this.props.type}
           />
         </div>
         <hr className="solid" />

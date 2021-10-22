@@ -46,6 +46,7 @@ const fetchFeedReviews = (me) => {
     //   });
     // });
 
+    // this will only work if sheldon(in this case) has following with reviews posted. Otherwise no reviews.
     for await (const following of followingArr) {
       console.log("single following", following);
       let revQuery = query(feedRef, where("userId", "==", following.uid)); // where user is in my following list

@@ -60,9 +60,8 @@ const FeedCard = (props) => {
         props.reviewId,
         "comments"
       );
-      console.log(data, subCollection);
+      evt.target.content.value = "";
       await addDoc(subCollection, data);
-      console.log("done");
     }
   };
 
@@ -110,7 +109,7 @@ const FeedCard = (props) => {
               alt="User Profile AVI"
               src={
                 props.review
-                  ? props.review.userPhoto || "/guest.jpeg"
+                  ? props.review.photoURL || "/guest.jpeg"
                   : "/guest.jpeg"
               }
               onClick={(_) => history.push(`/users/${props.review.userId}`)}
@@ -137,7 +136,7 @@ const FeedCard = (props) => {
             className="favCoffee"
             alt="favorite coffee"
             onClick={(_) => history.push(`/coffees/${props.review.id}`)}
-            src={props.review ? props.review.photoUrl : "/whiteBack.png"}
+            src={props.review ? props.review.feedURL : "/whiteBack.png"}
           />
           <div className="coffeeInfo">
             <p>Roast: {props.review.roast} </p>

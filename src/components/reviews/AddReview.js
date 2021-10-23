@@ -50,7 +50,7 @@ class AddReview extends React.Component {
       displayName: auth.currentUser.displayName
         ? auth.currentUser.displayName
         : null,
-      userPhoto: auth.currentUser.photoURL ? auth.currentUser.photoURL : null,
+      feedURL: this.props.feedURL ? this.props.feedURL : null,
       time: serverTimestamp(),
     };
     console.log("testing new review", newReview);

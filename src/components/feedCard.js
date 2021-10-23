@@ -10,24 +10,29 @@ const FeedCard = (props) => {
   const [show, setShow] = useState(false);
   const textarea = document.getElementById("txt");
   const [cssShow, setCssShow] = useState("noShow");
-  const [allComments, setAllComents]= useState([])
+  const [allComments, setAllComents] = useState([]);
 
   useEffect(() => {
     if (show == true) {
-      const subCollection = collection(db, "reviews", props.reviewId, "comments");
+      const subCollection = collection(
+        db,
+        "reviews",
+        props.reviewId,
+        "comments"
+      );
       async function fetchComments() {
-        const response = await getDocs(subCollection)
-        const temp = []
-        response.forEach(doc => {
-          temp.push(doc.data())
-        })
-        setAllComents(temp)
+        const response = await getDocs(subCollection);
+        const temp = [];
+        response.forEach((doc) => {
+          temp.push(doc.data());
+        });
+        setAllComents(temp);
       }
-      fetchComments()
+      fetchComments();
     }
-  }, [show])
+  }, [show]);
 
-// auto extpand textarea fix it later
+  // auto extpand textarea fix it later
   if (textarea) {
     textarea.addEventListener("input", function (e) {
       this.style.height = "auto";
@@ -55,9 +60,9 @@ const FeedCard = (props) => {
         props.reviewId,
         "comments"
       );
-      console.log(data, subCollection)
+      console.log(data, subCollection);
       await addDoc(subCollection, data);
-      console.log('done')
+      console.log("done");
     }
   };
 
@@ -138,7 +143,8 @@ const FeedCard = (props) => {
             <p>Roast: {props.review.roast} </p>
             <p>Brand: {props.review.brandName} </p>
             <p>
-              <b>{props.review.displayName}'s </b>Rating: {props.review.rating}/5
+              <b>{props.review.displayName}'s </b>Rating: {props.review.rating}
+              /5
             </p>
             <p>" {props.review.content} "</p>
           </div>
@@ -167,16 +173,14 @@ const FeedCard = (props) => {
                     <img
                       className="profPic"
                       alt="User Profile AVI"
-                      src={
-                        props.user
-                          ? props.user.photoURL || "/guest.jpeg"
-                          : "/guest.jpeg"
-                      }
-                      onClick={(_) => history.push(`/users/${props.user.uid}`)}
+                      src={each.photoURL}
+                      onClick={(_) => history.push(`/users/${each.userId}`)}
                     />
                   </div>
                   <div className="post-input ">
-                    <span className="textarea commentPadding">{each.content}</span>
+                    <span className="textarea commentPadding">
+                      {each.content}
+                    </span>
                   </div>
                 </div>
               </div>

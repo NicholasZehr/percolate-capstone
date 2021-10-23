@@ -48,7 +48,7 @@ const FeedCard = (props) => {
               alt="User Profile AVI"
               src={
                 props.review
-                  ? props.review.photoURL || "/guest.jpeg"
+                  ? props.review.userPhoto || "/guest.jpeg"
                   : "/guest.jpeg"
               }
               onClick={(_) => history.push(`/users/${props.review.userId}`)}
@@ -82,7 +82,7 @@ const FeedCard = (props) => {
             <p>
               <b>{props.review.displayName}'s </b>Rating: {props.review.rating}/5
             </p>
-            <p>Location: {props.review.roasterCity}</p>
+            <p>" {props.review.content} "</p>
           </div>
         </div>
       </div>

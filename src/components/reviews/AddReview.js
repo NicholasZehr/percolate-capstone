@@ -6,7 +6,7 @@ import { addReview } from "../../store/reviewActions";
 import { getAuth } from "firebase/auth";
 import { serverTimestamp } from "firebase/firestore";
 const auth = getAuth();
-
+console.log("chekcing", auth.currentUser);
 class AddReview extends React.Component {
   constructor() {
     super();
@@ -24,6 +24,7 @@ class AddReview extends React.Component {
       userId: "",
       displayName: "",
       time: "",
+      userPhoto: "",
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -49,8 +50,10 @@ class AddReview extends React.Component {
       displayName: auth.currentUser.displayName
         ? auth.currentUser.displayName
         : null,
+      userPhoto: auth.currentUser.photoURL ? auth.currentUser.photoURL : null,
       time: serverTimestamp(),
     };
+    console.log("testing new review", newReview);
     this.props.addR(newReview);
     this.setState({
       rating: 0.0,

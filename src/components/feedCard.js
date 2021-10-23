@@ -47,15 +47,15 @@ const FeedCard = (props) => {
               className="profPic"
               alt="User Profile AVI"
               src={
-                props.user
-                  ? props.user.photoURL || "/guest.jpeg"
+                props.review
+                  ? props.review.userPhoto || "/guest.jpeg"
                   : "/guest.jpeg"
               }
-              onClick={(_) => history.push(`/users/${props.user.uid}`)}
+              onClick={(_) => history.push(`/users/${props.review.userId}`)}
             />
           </div>
           <div className="nameAndTime">
-            <span className="writepost">{props.user.displayName}: </span>
+            <span className="writepost">{props.review.displayName}: </span>
             {props.review.time ? (
               <span className="ago">{`${timeDifference(
                 props.review.time.seconds
@@ -80,9 +80,9 @@ const FeedCard = (props) => {
             <p>Roast: {props.review.roast}</p>
             <p>Brand: {props.review.brandName}</p>
             <p>
-              <b>{props.user.displayName}'s </b>Rating: {props.review.rating}/5
+              <b>{props.review.displayName}'s </b>Rating: {props.review.rating}/5
             </p>
-            <p>Location: {props.review.roasterCity}</p>
+            <p>" {props.review.content} "</p>
           </div>
         </div>
       </div>

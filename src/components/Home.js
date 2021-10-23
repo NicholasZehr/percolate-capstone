@@ -5,6 +5,7 @@ import Modal from "react-modal";
 import { fetchLoginUser } from "../store/auth";
 import FeedCard from "./feedCard";
 import { fetchReviews } from "../store/reviewActions";
+import { fetchFeedReviews } from "../store/feed";
 
 Modal.setAppElement("#root");
 
@@ -15,7 +16,8 @@ const Home = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-  const reviews = useSelector((state) => state.review.reviews);
+  // const reviews = useSelector((state) => state.review.reviews);
+  const reviews = useSelector((state) => state.feed);
   const [write, setWrite] = useState(false);
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -54,7 +56,8 @@ const Home = (props) => {
     }
     //fetching posts from firestore
     if (user) {
-      dispatch(fetchReviews("user", user.uid));
+      // dispatch(fetchReviews("user", user.uid));
+      dispatch(fetchFeedReviews(user.uid));
     }
     if (mounted) {
       setFollowers(list);
@@ -90,6 +93,7 @@ const Home = (props) => {
     // }
   };
 
+  console.log("n2o", props);
   return (
     <>
       {loggedInUser && user ? (

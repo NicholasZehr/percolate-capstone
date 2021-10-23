@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
 import { doc, collection, addDoc, setDoc } from "firebase/firestore";
 import db from "../firebase";
 
-
 const FeedCard = (props) => {
   const history = useHistory();
   //CSS textarea expanding
+  const [show, setShow] = useState(false);
   const textarea = document.getElementById("txt");
+  const [allComments, setAllComments] = useState("noShow");
   if (textarea) {
     textarea.addEventListener("input", function (e) {
       this.style.height = "auto";
@@ -66,8 +67,13 @@ const FeedCard = (props) => {
     }
   }
   function showComments() {
-      
+    setShow(!show);
+    if (allComments == "noShow") {
+      setAllComments("show");
+    } else {
+      setAllComments("noShow");
     }
+  }
   return (
     <>
       <div className="self feeding cardDown">
@@ -131,7 +137,9 @@ const FeedCard = (props) => {
           <p>Comments</p>
         </div>
       </div>
-      <div className="self feeding cardUp"></div>
+      <div className={`self feeding cardUp ${allComments}`}>
+        adsfdsahfjdhsafjk
+      </div>
       <div className="self feeding cardUptwo">
         <form className="form" onSubmit={handleSubmit}>
           <div className="headNPost">

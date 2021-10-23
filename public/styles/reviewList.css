@@ -18,13 +18,9 @@ a:hover {
 a:active {
   color: grey;
 }
-#content {
+.review-content {
   text-align: justify;
   padding: 10px;
-}
-.left {
-  top: 0;
-  left: 100%;
 }
 .review-details {
   display: flex;
@@ -43,6 +39,8 @@ a:active {
   height: auto;
   width: 100px;
 }
-.review-single-detail > h4 {
-  font-style: unset;
+.review-single-detail {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }

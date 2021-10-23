@@ -18,9 +18,7 @@ class ListedReview extends Component {
           <Link to={`/review/${reviewId}`}>
             <div className="review-info">
               <div className="review-single-detail">
-                <label className="left" htmlFor="review-username">
-                  Author:
-                </label>
+                <label htmlFor="review-username">Author:</label>
                 <h4 id="review-username">{displayName}</h4>
               </div>
               <div className="review-single-detail">

@@ -4,20 +4,29 @@ import { Link } from "react-router-dom";
 
 class ListedReview extends Component {
   render() {
-    const { displayName, rating, likeCount } = this.props.review;
+    const { displayName, rating, likeCount, userPhoto } = this.props.review;
     const reviewId = this.props.reviewId;
     const content = this.props.content;
     return (
       <div className="review-list-item">
         <div className="review-details">
+          <img
+            alt="review-Author"
+            src={userPhoto ? userPhoto : "/guest.jpeg"}
+            className="review-author-photo"
+          />
           <Link to={`/review/${reviewId}`}>
             <div className="review-info">
               <div className="review-single-detail">
-                <h4 id="review-username"> Author:{displayName} </h4>
+                <label className="left" htmlFor="review-username">
+                  Author:
+                </label>
+                <h4 id="review-username"> {displayName} </h4>
               </div>
               <div className="review-single-detail">
                 <h4 id="review-rating">Rating {rating}</h4>
-                <div className="review-single-detail"></div>
+              </div>
+              <div className="review-single-detail">
                 <h4 id="review-likeCount">Likes {likeCount}</h4>
               </div>
             </div>

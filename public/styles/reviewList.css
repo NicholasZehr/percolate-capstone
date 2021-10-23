@@ -4,6 +4,10 @@
   border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+label {
+  position: absolute;
+}
+
 a {
   text-decoration: none;
   color: black;
@@ -18,7 +22,10 @@ a:active {
   text-align: justify;
   padding: 10px;
 }
-
+.left {
+  top: 0;
+  left: 100%;
+}
 .review-details {
   display: flex;
   justify-content: flex-start;
@@ -32,4 +39,8 @@ a:active {
   justify-content: flex-start;
   padding: 10px;
   flex-wrap: wrap;
+}
+.review-author-photo {
+  max-inline-size: 10%;
+  border-radius: 50%;
 }

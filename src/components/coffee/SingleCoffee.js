@@ -60,7 +60,7 @@ class SingleCoffee extends Component {
               type={type}
               name={name}
               brandName={brandName}
-              photoUrl={coffeePhoto}
+              feedURL={coffeePhoto}
               roast={roast}
               roasterCity={roasterCity}
             />

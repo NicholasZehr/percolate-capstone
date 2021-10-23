@@ -10,24 +10,29 @@ const FeedCard = (props) => {
   const [show, setShow] = useState(false);
   const textarea = document.getElementById("txt");
   const [cssShow, setCssShow] = useState("noShow");
-  const [allComments, setAllComents]= useState([])
+  const [allComments, setAllComents] = useState([]);
 
   useEffect(() => {
     if (show == true) {
-      const subCollection = collection(db, "reviews", props.reviewId, "comments");
+      const subCollection = collection(
+        db,
+        "reviews",
+        props.reviewId,
+        "comments"
+      );
       async function fetchComments() {
-        const response = await getDocs(subCollection)
-        const temp = []
-        response.forEach(doc => {
-          temp.push(doc.data())
-        })
-        setAllComents(temp)
+        const response = await getDocs(subCollection);
+        const temp = [];
+        response.forEach((doc) => {
+          temp.push(doc.data());
+        });
+        setAllComents(temp);
       }
-      fetchComments()
+      fetchComments();
     }
-  }, [show])
+  }, [show]);
 
-// auto extpand textarea fix it later
+  // auto extpand textarea fix it later
   if (textarea) {
     textarea.addEventListener("input", function (e) {
       this.style.height = "auto";
@@ -55,6 +60,7 @@ const FeedCard = (props) => {
         props.reviewId,
         "comments"
       );
+      evt.target.content.value = "";
       await addDoc(subCollection, data);
     }
   };
@@ -103,7 +109,7 @@ const FeedCard = (props) => {
               alt="User Profile AVI"
               src={
                 props.review
-                  ? props.review.userPhoto || "/guest.jpeg"
+                  ? props.review.photoURL || "/guest.jpeg"
                   : "/guest.jpeg"
               }
               onClick={(_) => history.push(`/users/${props.review.userId}`)}
@@ -130,13 +136,14 @@ const FeedCard = (props) => {
             className="favCoffee"
             alt="favorite coffee"
             onClick={(_) => history.push(`/coffees/${props.review.id}`)}
-            src={props.review ? props.review.photoUrl : "/whiteBack.png"}
+            src={props.review ? props.review.feedURL : "/whiteBack.png"}
           />
           <div className="coffeeInfo">
             <p>Roast: {props.review.roast} </p>
             <p>Brand: {props.review.brandName} </p>
             <p>
-              <b>{props.review.displayName}'s </b>Rating: {props.review.rating}/5
+              <b>{props.review.displayName}'s </b>Rating: {props.review.rating}
+              /5
             </p>
             <p>" {props.review.content} "</p>
           </div>
@@ -155,31 +162,6 @@ const FeedCard = (props) => {
         <div onClick={showComments} className="comments">
           <p>Comments</p>
         </div>
-      </div>
-      <div className={`self feeding cardUp ${cssShow}`}>
-        {allComments.length > 0
-          ? allComments.map((each, index) => (
-              <div key={index} className="self feeding insideComment">
-                <div className="headNPost">
-                  <div className="imageBox commentImage">
-                    <img
-                      className="profPic"
-                      alt="User Profile AVI"
-                      src={
-                        props.user
-                          ? props.user.photoURL || "/guest.jpeg"
-                          : "/guest.jpeg"
-                      }
-                      onClick={(_) => history.push(`/users/${props.user.uid}`)}
-                    />
-                  </div>
-                  <div className="post-input ">
-                    <span className="textarea commentPadding">{each.content}</span>
-                  </div>
-                </div>
-              </div>
-            ))
-          : "no comments"}
       </div>
       <div className="self feeding cardUptwo">
         <form className="form" onSubmit={handleSubmit}>
@@ -211,6 +193,29 @@ const FeedCard = (props) => {
             </button>
           </div>
         </form>
+      </div>
+      <div className={`self feeding cardUp ${cssShow}`}>
+        {allComments.length > 0
+          ? allComments.map((each, index) => (
+              <div key={index} className="self feeding insideComment">
+                <div className="headNPost">
+                  <div className="imageBox commentImage">
+                    <img
+                      className="profPic"
+                      alt="User Profile AVI"
+                      src={each.photoURL}
+                      onClick={(_) => history.push(`/users/${each.userId}`)}
+                    />
+                  </div>
+                  <div className="post-input ">
+                    <span className="textarea commentPadding">
+                      {each.content}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))
+          : "no comments"}
       </div>
     </>
   );

@@ -34,7 +34,7 @@ const fetchFeedReviews = (me) => {
 
     // reviews
     const feedRef = collection(db, "reviews");
-    let reviewsArr = [];
+    let reviewsArr = {};
 
     // for each user in folliowing arr, get their reviews.
     // followingArr.forEach(async (following) => {
@@ -53,7 +53,8 @@ const fetchFeedReviews = (me) => {
       const reviews = await getDocs(revQuery);
       reviews.forEach((review) => {
         console.log("single review", review);
-        reviewsArr.push(review.data());
+        reviewsArr[review.id]=review.data()
+        // reviewsArr.push(review.data());
       });
     }
 

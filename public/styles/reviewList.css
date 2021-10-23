@@ -1,19 +1,35 @@
 .review-list-item {
   max-width: 50vw;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-
-#content{
-  text-align: justify;
-  padding: 10px
+a {
+  text-decoration: none;
+  color: black;
 }
-
-.review-user-rating {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+a:hover {
+  color: darkgray;
+}
+a:active {
+  color: grey;
+}
+#content {
+  text-align: justify;
   padding: 10px;
 }
 
+.review-details {
+  display: flex;
+  justify-content: flex-start;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+
+.review-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 10px;
+  flex-wrap: wrap;
+}

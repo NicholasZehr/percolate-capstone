@@ -1,11 +1,14 @@
 .like_button {
+  display: flex;
   color: #3b6064;
   background-color: #c9e4ca;
   border-radius: 5px;
   padding: 10px;
   max-height: 17px;
+  align-content: center;
 }
 
 .like_button:hover {
-  background-color: #7f4b3a;
+  background-color: #3b6064;
+  color: #c9e4ca;
 }

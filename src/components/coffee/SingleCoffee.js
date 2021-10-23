@@ -44,7 +44,7 @@ class SingleCoffee extends Component {
                 <div className="single-coffee-image">
                   <img
                     id="single-coffee-img"
-                    src={photoUrl}
+                    src={coffeePhoto}
                     alt={`${name} by ${brandName}`}
                   />
                 </div>
@@ -60,13 +60,13 @@ class SingleCoffee extends Component {
               type={type}
               name={name}
               brandName={brandName}
-              photoUrl={photoUrl}
+              photoUrl={coffeePhoto}
               roast={roast}
               roasterCity={roasterCity}
             />
             <ReviewPane type={type} id={id} arrReviews={reviews} />
           </div>
-        ) : (
+          ) : (
           <div className="home loading">
             <div className="self loading">
               <p>Loading ...</p>

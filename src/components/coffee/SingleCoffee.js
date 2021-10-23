@@ -15,17 +15,30 @@ class SingleCoffee extends Component {
     const reviews = this.props.reviews;
     const id = this.props.match.params.id;
     const type = "coffee";
-    const { name, brandName, photoUrl, roast, roasterCity, avgRating } =
-      this.props.singleCoffee;
+    const {
+      name,
+      brandName,
+      photoURL: coffeePhoto,
+      roast,
+      roasterCity,
+      avgRating,
+    } = this.props.singleCoffee;
     return (
       <>
-        { reviews ? (
-          <div className="single-coffee">
-            <div className="single-coffee-container">
-              <div className="coffee-title">
-                <h2>{name}</h2>
-                <h3>{brandName}</h3>
-                <hr className="solid" />
+        <div className="single-coffee">
+          <div className="single-coffee-container">
+            <div className="coffee-title">
+              <h2>{name}</h2>
+              <h3>{brandName}</h3>
+              <hr className="solid" />
+            </div>
+            <div className="image-details-row">
+              <div className="single-coffee-image">
+                <img
+                  id="single-coffee-img"
+                  src={coffeePhoto}
+                  alt={`${name} by ${brandName}`}
+                />
               </div>
               <div className="image-details-row">
                 <div className="single-coffee-image">
@@ -59,7 +72,16 @@ class SingleCoffee extends Component {
               <p>Loading ...</p>
             </div>
           </div>
-        )}
+          <AddReview
+            id={id}
+            type={type}
+            name={name}
+            brandName={brandName}
+            roast={roast}
+            roasterCity={roasterCity}
+          />
+          <ReviewPane type={type} id={id} arrReviews={reviews} />
+        </div>
       </>
     );
   }

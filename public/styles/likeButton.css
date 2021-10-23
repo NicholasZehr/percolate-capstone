@@ -1,11 +1,16 @@
 .like_button {
-  color: #c9e4ca;
-  background-color: #3b6064;
+  display: flex;
+  color: #3b6064;
+  background-color: #c9e4ca;
   border-radius: 5px;
   padding: 10px;
   max-height: 17px;
+  align-content: center;
 }
-
 .like_button:hover {
-  background-color: #7f4b3a;
+  background-color: #3b6064;
+  color: #c9e4ca;
+}
+.like-in-progress {
+  align-items: center;
 }

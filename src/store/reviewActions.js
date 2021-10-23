@@ -78,12 +78,15 @@ export const _removeLikeReview = (reviewId) => {
 // ------------------ Thunk creators -----------------------
 
 export const addReview = (review) => {
+  console.log(review);
   return async (dispatch) => {
     try {
+      console.log(review);
       // create the new review in the review collection
       const newDoc = await addDoc(collection(db, "reviews"), review);
       // This constructs what we want to put in the subcollection when we display
       // a singleCoffee or singleBusiness
+      console.log(review);
       const newReview = {
         content: review.content || null,
         displayName: review.displayName || null,

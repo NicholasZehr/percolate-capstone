@@ -13,7 +13,7 @@ class AddReview extends React.Component {
     this.errors = [];
     this.state = {
       brandName: "",
-      photoUrl: "",
+      photoURL: "",
       roast: "",
       roasterCity: "",
       name: "",
@@ -37,7 +37,7 @@ class AddReview extends React.Component {
     event.preventDefault();
     let newReview = {
       brandName: this.props.brandName,
-      photoUrl: this.props.photoUrl,
+      photoURL: auth.currentUser.photoURL,
       roast: this.props.roast,
       roasterCity: this.props.roasterCity,
       name: this.props.name,

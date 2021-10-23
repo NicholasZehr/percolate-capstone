@@ -21,7 +21,7 @@ class ListedReview extends Component {
                 <label className="left" htmlFor="review-username">
                   Author:
                 </label>
-                <h4 id="review-username"> {displayName} </h4>
+                <h4 id="review-username">{displayName}</h4>
               </div>
               <div className="review-single-detail">
                 <h4 id="review-rating">Rating {rating}</h4>
@@ -31,14 +31,17 @@ class ListedReview extends Component {
               </div>
             </div>
           </Link>
-          <LikeButton
-            id={this.props.id}
-            index={this.props.idx}
-            reviewId={reviewId}
-            key={this.props.review.reviewId}
-            likeCount={this.props.review.likeCount}
-            type={this.props.type}
-          />
+          <div className="review-like-area">
+            <LikeButton
+              id={this.props.id}
+              index={this.props.idx}
+              reviewId={reviewId}
+              key={this.props.review.reviewId}
+              likeCount={this.props.review.likeCount}
+              type={this.props.type}
+            />
+            <label className="">Liked by: {this.props.review.likeCount}</label>
+          </div>
         </div>
         <hr className="solid" />
         <p className="review-content">{content}</p>

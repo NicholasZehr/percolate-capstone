@@ -32,7 +32,6 @@ a:active {
   padding: 10px;
   flex-wrap: wrap;
 }
-
 .review-info {
   display: flex;
   flex-direction: row;
@@ -43,4 +42,7 @@ a:active {
 .review-author-photo {
   height: auto;
   width: 100px;
+}
+.review-single-detail > h4 {
+  font-style: unset;
 }

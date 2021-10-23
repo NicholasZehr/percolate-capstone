@@ -55,7 +55,9 @@ const FeedCard = (props) => {
         props.reviewId,
         "comments"
       );
+      console.log(data, subCollection)
       await addDoc(subCollection, data);
+      console.log('done')
     }
   };
 

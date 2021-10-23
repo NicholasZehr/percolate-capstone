@@ -163,29 +163,6 @@ const FeedCard = (props) => {
           <p>Comments</p>
         </div>
       </div>
-      <div className={`self feeding cardUp ${cssShow}`}>
-        {allComments.length > 0
-          ? allComments.map((each, index) => (
-              <div key={index} className="self feeding insideComment">
-                <div className="headNPost">
-                  <div className="imageBox commentImage">
-                    <img
-                      className="profPic"
-                      alt="User Profile AVI"
-                      src={each.photoURL}
-                      onClick={(_) => history.push(`/users/${each.userId}`)}
-                    />
-                  </div>
-                  <div className="post-input ">
-                    <span className="textarea commentPadding">
-                      {each.content}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            ))
-          : "no comments"}
-      </div>
       <div className="self feeding cardUptwo">
         <form className="form" onSubmit={handleSubmit}>
           <div className="headNPost">
@@ -216,6 +193,29 @@ const FeedCard = (props) => {
             </button>
           </div>
         </form>
+      </div>
+      <div className={`self feeding cardUp ${cssShow}`}>
+        {allComments.length > 0
+          ? allComments.map((each, index) => (
+              <div key={index} className="self feeding insideComment">
+                <div className="headNPost">
+                  <div className="imageBox commentImage">
+                    <img
+                      className="profPic"
+                      alt="User Profile AVI"
+                      src={each.photoURL}
+                      onClick={(_) => history.push(`/users/${each.userId}`)}
+                    />
+                  </div>
+                  <div className="post-input ">
+                    <span className="textarea commentPadding">
+                      {each.content}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            ))
+          : "no comments"}
       </div>
     </>
   );

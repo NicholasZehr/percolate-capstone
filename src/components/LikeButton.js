@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { likeClick } from "../store/reviewActions";
 import { getAuth } from "firebase/auth";
-import { trackPromise, promiseTrackerHoc } from "react-promise-tracker";
 const auth = getAuth();
 class LikeButton extends Component {
   constructor(props) {
@@ -25,6 +24,7 @@ class LikeButton extends Component {
     const { handleLike } = this;
     return `${likeCount}` && !this.state.loading ? (
       <div className="like_button" onClick={handleLike}>
+        <img className="heart" src="/Brown-heart.png" alt="Like Heart Icon" />
         Like {likeCount ? `(${likeCount})` : null}
       </div>
     ) : (

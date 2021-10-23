@@ -4,7 +4,7 @@
   border-radius: 7px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
-label {
+.review-list-item > label {
   position: absolute;
 }
 
@@ -41,6 +41,6 @@ a:active {
   flex-wrap: wrap;
 }
 .review-author-photo {
-  max-inline-size: 10%;
-  border-radius: 50%;
+  height: auto;
+  width: 100px;
 }

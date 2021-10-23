@@ -13,7 +13,7 @@ class ListedReview extends Component {
           <img
             alt="review-Author"
             src={userPhoto ? userPhoto : "/guest.jpeg"}
-            className="review-author-photo"
+            className="profPic review-author-photo"
           />
           <Link to={`/review/${reviewId}`}>
             <div className="review-info">

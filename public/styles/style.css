@@ -429,6 +429,11 @@ p strong {
 .noShow {
   display: none;
 }
+.insideComment {
+  margin:0;
+  pading:0;
+  width: auto;
+}
 #map {
   height: 80%;
   width: 80%;

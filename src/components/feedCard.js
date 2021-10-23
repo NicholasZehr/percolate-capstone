@@ -10,7 +10,7 @@ const FeedCard = (props) => {
   const [show, setShow] = useState(false);
   const textarea = document.getElementById("txt");
   const [cssShow, setCssShow] = useState("noShow");
-
+  const [allComments, setAllComents]= useState([])
 
   useEffect(() => {
     if (show == true) {
@@ -21,6 +21,7 @@ const FeedCard = (props) => {
         response.forEach(doc => {
           temp.push(doc.data())
         })
+        setAllComents(temp)
       }
       fetchComments()
     }
@@ -156,7 +157,26 @@ const FeedCard = (props) => {
         </div>
       </div>
       <div className={`self feeding cardUp ${cssShow}`}>
-        adsfdsahfjdhsafjk
+        {allComments.length>0? allComments.map((each, index) => (
+          <div key={index} className="self feeding insideComment">
+            <div className="headNPost">
+              <div className="imageBox commentImage">
+                <img
+                  className="profPic"
+                  alt="User Profile AVI"
+                  src={
+                    props.user
+                      ? props.user.photoURL || "/guest.jpeg"
+                      : "/guest.jpeg"
+                  }
+                />
+              </div>
+              <div className="post-input ">
+                <span className="textarea">{each.content}</span>
+              </div>
+            </div>
+          </div>
+        )):'no comments'}
       </div>
       <div className="self feeding cardUptwo">
         <form className="form" onSubmit={handleSubmit}>

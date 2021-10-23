@@ -7,8 +7,10 @@
   max-height: 17px;
   align-content: center;
 }
-
 .like_button:hover {
   background-color: #3b6064;
   color: #c9e4ca;
+}
+.like-in-progress {
+  align-items: center;
 }

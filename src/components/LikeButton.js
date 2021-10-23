@@ -25,10 +25,13 @@ class LikeButton extends Component {
     return `${likeCount}` && !this.state.loading ? (
       <div className="like_button" onClick={handleLike}>
         <img className="heart" src="/Brown-heart.png" alt="Like Heart Icon" />
-        Like {likeCount ? `(${likeCount})` : null}
+        Like
       </div>
     ) : (
-      <div>HelloWorld</div>
+      <div className="like_button like-in-progress" onClick={handleLike}>
+        <img className="heart" src="/Brown-heart.png" alt="Like Heart Icon" />
+        ...
+      </div>
     );
   }
 }

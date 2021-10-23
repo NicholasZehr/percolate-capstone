@@ -26,9 +26,6 @@ class ListedReview extends Component {
               <div className="review-single-detail">
                 <h4 id="review-rating">Rating {rating}</h4>
               </div>
-              <div className="review-single-detail">
-                <h4 id="review-likeCount">Likes {likeCount}</h4>
-              </div>
             </div>
           </Link>
           <div className="review-like-area">

@@ -1,5 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
+import { doc, collection, addDoc, setDoc } from "firebase/firestore";
+import db from "../firebase";
 
 const FeedCard = (props) => {
   const history = useHistory();
@@ -11,6 +13,30 @@ const FeedCard = (props) => {
       this.style.height = this.scrollHeight + "px";
     });
   }
+
+  const handleSubmit = async (evt) => {
+    evt.preventDefault();
+    if (props.loggedInUser) {
+      const content = evt.target.content.value;
+      const data = {
+        likeCount: 0,
+        reviewId: props.reviewId,
+        userId: props.loggedInUser.uid,
+        displayName: props.loggedInUser.displayName
+          ? props.loggedInUser.displayName
+          : null,
+        content: content,
+        photoURL: props.loggedInUser.photoURL,
+      };
+      const subCollection = collection(
+        db,
+        "reviews",
+        props.reviewId,
+        "comments"
+      );
+      await addDoc(subCollection, data);
+    }
+  };
 
   function timeDifference(input) {
     input *= 1000;
@@ -38,6 +64,9 @@ const FeedCard = (props) => {
       return "approximately " + Math.round(elapsed / msPerYear) + " years ago";
     }
   }
+  function showComments() {
+      
+    }
   return (
     <>
       <div className="self feeding cardDown">
@@ -65,7 +94,7 @@ const FeedCard = (props) => {
             )}
           </div>
           <div className="username writepost">
-            <p>{props.review.reviewContent}</p>
+            <p>{props.review.content}</p>
           </div>
         </div>
       </div>
@@ -77,8 +106,8 @@ const FeedCard = (props) => {
             src={props.review ? props.review.photoUrl : "/whiteBack.png"}
           />
           <div className="coffeeInfo">
-            <p>Roast: {props.review.roast}</p>
-            <p>Brand: {props.review.brandName}</p>
+            <p>Roast: {props.review.roast} </p>
+            <p>Brand: {props.review.brandName} </p>
             <p>
               <b>{props.user.displayName}'s </b>Rating: {props.review.rating}/5
             </p>
@@ -93,13 +122,13 @@ const FeedCard = (props) => {
           <img className="heart" src="/heart.png" alt="Like Heart Icon" />
           <p>Like</p>
         </div>
-        <i className="material-icons flip">chat</i>
-        <div className="comments">
-          <p>Comments</p>
-        </div>
+          <i onClick={showComments} className="material-icons flip">chat</i>
+        <div onClick={showComments} className="comments">
+            <p>Comments</p>
+          </div>
       </div>
       <div className="self feeding cardUptwo">
-        <form className="form" onSubmit={props.handleSubmit}>
+        <form className="form" onSubmit={handleSubmit}>
           <div className="headNPost">
             <div className="imageBox commentImage">
               <img
@@ -117,6 +146,7 @@ const FeedCard = (props) => {
               <textarea
                 className="textarea"
                 id="txt"
+                name="content"
                 maxLength="200"
                 placeholder="Write a comment..."
               ></textarea>

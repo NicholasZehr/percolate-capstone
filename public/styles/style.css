@@ -228,6 +228,10 @@ body {
   display: flex;
   flex-flow: column;
 }
+.postHead {
+  height: 50px;
+  width: 50px;
+}
 .postNow {
   flex-grow: 0.5;
   width: 60px;
@@ -423,7 +427,21 @@ p strong {
 .coffeeInfo {
   text-align: left;
 }
-
+.show {
+  display: block;
+}
+.noShow {
+  display: none;
+}
+.insideComment {
+  margin:0;
+  padding:0;
+  width: 600px;
+  word-wrap: break-word
+}
+.commentPadding {
+  padding:5px;
+}
 #map {
   height: 80%;
   width: 80%;

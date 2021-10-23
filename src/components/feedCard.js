@@ -3,6 +3,7 @@ import { useHistory } from "react-router";
 import { doc, collection, addDoc, setDoc } from "firebase/firestore";
 import db from "../firebase";
 
+
 const FeedCard = (props) => {
   const history = useHistory();
   //CSS textarea expanding
@@ -103,6 +104,7 @@ const FeedCard = (props) => {
           <img
             className="favCoffee"
             alt="favorite coffee"
+            onClick={(_) => history.push(`/coffees/${props.review.id}`)}
             src={props.review ? props.review.photoUrl : "/whiteBack.png"}
           />
           <div className="coffeeInfo">
@@ -122,11 +124,14 @@ const FeedCard = (props) => {
           <img className="heart" src="/heart.png" alt="Like Heart Icon" />
           <p>Like</p>
         </div>
-          <i onClick={showComments} className="material-icons flip">chat</i>
+        <i onClick={showComments} className="material-icons flip">
+          chat
+        </i>
         <div onClick={showComments} className="comments">
-            <p>Comments</p>
-          </div>
+          <p>Comments</p>
+        </div>
       </div>
+      <div className="self feeding cardUp"></div>
       <div className="self feeding cardUptwo">
         <form className="form" onSubmit={handleSubmit}>
           <div className="headNPost">

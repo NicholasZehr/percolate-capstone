@@ -99,7 +99,7 @@ const FeedCard = (props) => {
         <div className="headNPost">
           <div className="imageBox post">
             <img
-              className="profPic"
+              className="profPic postHead"
               alt="User Profile AVI"
               src={
                 props.user
@@ -157,26 +157,29 @@ const FeedCard = (props) => {
         </div>
       </div>
       <div className={`self feeding cardUp ${cssShow}`}>
-        {allComments.length>0? allComments.map((each, index) => (
-          <div key={index} className="self feeding insideComment">
-            <div className="headNPost">
-              <div className="imageBox commentImage">
-                <img
-                  className="profPic"
-                  alt="User Profile AVI"
-                  src={
-                    props.user
-                      ? props.user.photoURL || "/guest.jpeg"
-                      : "/guest.jpeg"
-                  }
-                />
+        {allComments.length > 0
+          ? allComments.map((each, index) => (
+              <div key={index} className="self feeding insideComment">
+                <div className="headNPost">
+                  <div className="imageBox commentImage">
+                    <img
+                      className="profPic"
+                      alt="User Profile AVI"
+                      src={
+                        props.user
+                          ? props.user.photoURL || "/guest.jpeg"
+                          : "/guest.jpeg"
+                      }
+                      onClick={(_) => history.push(`/users/${props.user.uid}`)}
+                    />
+                  </div>
+                  <div className="post-input ">
+                    <span className="textarea commentPadding">{each.content}</span>
+                  </div>
+                </div>
               </div>
-              <div className="post-input ">
-                <span className="textarea">{each.content}</span>
-              </div>
-            </div>
-          </div>
-        )):'no comments'}
+            ))
+          : "no comments"}
       </div>
       <div className="self feeding cardUptwo">
         <form className="form" onSubmit={handleSubmit}>
@@ -190,6 +193,7 @@ const FeedCard = (props) => {
                     ? props.user.photoURL || "/guest.jpeg"
                     : "/guest.jpeg"
                 }
+                onClick={(_) => history.push(`/users/${props.user.uid}`)}
               />
             </div>
 

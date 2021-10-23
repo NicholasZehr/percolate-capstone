@@ -93,7 +93,7 @@ export const addReview = (review) => {
         rating: review.rating,
         likeCount: review.likeCount,
         userId: review.userId,
-        photoURL: review.photoURL,
+        userPhoto: review.userPhoto,
       };
       const coffeeRef = doc(
         db,
@@ -118,12 +118,10 @@ export const fetchReviews = (type, id) => {
     try {
       const q = query(collection(db, "reviews"), where(`${type}Id`, "==", id));
       const docSnap = await getDocs(q);
-
-      const reviewsArr = [];
+      const reviewsArr = {};
       docSnap.forEach((doc) => {
-        reviewsArr.push(doc.data());
+        reviewsArr[doc.id] = doc.data();
       });
-
       dispatch(_fetchReviews(reviewsArr));
     } catch (error) {
       console.error(error);

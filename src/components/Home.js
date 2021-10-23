@@ -5,6 +5,8 @@ import Modal from "react-modal";
 import { fetchLoginUser } from "../store/auth";
 import FeedCard from "./feedCard";
 import { fetchReviews } from "../store/reviewActions";
+import { fetchFeedReviews } from "../store/feed";
+
 
 Modal.setAppElement("#root");
 
@@ -15,7 +17,8 @@ const Home = (props) => {
   const [user, setUser] = useState(getAuth().currentUser);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
-  const reviews = useSelector((state) => state.review.reviews);
+  // const reviews = useSelector((state) => state.review.reviews);
+  const reviews = useSelector((state) => state.feed);
   const [write, setWrite] = useState(false);
   onAuthStateChanged(auth, (u) => {
     setUser(u);
@@ -54,7 +57,8 @@ const Home = (props) => {
     }
     //fetching posts from firestore
     if (user) {
-      dispatch(fetchReviews("user", user.uid));
+      // dispatch(fetchReviews("user", user.uid));
+      dispatch(fetchFeedReviews(user.uid));
     }
     if (mounted) {
       setFollowers(list);
@@ -69,32 +73,14 @@ const Home = (props) => {
     setWrite(!write);
   }
 
-  const handleSubmit = async (evt) => {
-    evt.preventDefault();
-    console.log(evt);
-    // if (loggedInUser) {
-    //   const content = evt.target.content.value;
-    //   const userRef = doc(db, "comments", loggedInUser.uid);
-    //   await setDoc(
-    //     userRef,
-    //     {
-    //       coffeeId: null,
-    //       likeCount: 0,
-    //       rating: null,
-    //       userId: loggedInUser.uid,
-    //       username: loggedInUser.username ? loggedInUser.username : null,
-    //       reviews: arrayUnion(content),
-    //     },
-    //     { merge: true }
-    //   );
-    // }
-  };
+  
 
+  console.log("n2o", props);
   return (
     <>
       {loggedInUser && user ? (
         <div className="home">
-          <Modal className="modal" isOpen={write} onRequestClose={writePage}>
+          {/* <Modal className="modal" isOpen={write} onRequestClose={writePage}>
             <div className="imageBox post">
               <img
                 className="profPic"
@@ -125,7 +111,7 @@ const Home = (props) => {
                 </div>
               </form>
             </div>
-          </Modal>
+          </Modal> */}
           <div className="leftSide">
             <div className="self">
               <h3>{`Welcome, ${
@@ -148,13 +134,13 @@ const Home = (props) => {
           </div>
 
           <div className="centerBody">
-            {reviews.length > 0
-              ? reviews.map((each, index) => (
+            {Object.keys(reviews).length > 0
+              ? Object.keys(reviews).map((id, index) => (
                   <FeedCard
                     key={index}
-                    handleSubmit={handleSubmit}
                     writePage={writePage}
-                    review={each}
+                    reviewId={id}
+                    review = {reviews[id]}
                     user={user}
                     loggedInUser={loggedInUser}
                   />

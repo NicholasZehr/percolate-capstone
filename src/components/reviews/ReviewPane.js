@@ -10,7 +10,7 @@ class ReviewPane extends Component {
   }
 
   checkReview(content) {
-    let revWords = content.split(" ");
+    let revWords = content ? content.split(" ") : '';
     const length = revWords.length;
     let newReview = "";
     if (length >= 10) {
@@ -29,24 +29,34 @@ class ReviewPane extends Component {
     // const reviewArr = this.props.reviews.reviews;
     console.log(arrReviews);
     return (
-      <div>
-        <h2>Reviews</h2>
-        {arrReviews
-          ? arrReviews.map((review, idx) => {
-              //checkReview(review.content);
-              return (
-                <ListedReview
-                  id={id}
-                  type={type}
-                  key={review[0]}
-                  content={checkReview(review[1].content)}
-                  review={review[1]}
-                  reviewId={review[0]}
-                />
-              );
-            })
-          : null}
-      </div>
+      <>
+        {arrReviews.length > 0 ? (
+          <div>
+            <h2>Reviews</h2>
+            {arrReviews
+              ? arrReviews.map((review, idx) => {
+                  //checkReview(review.content);
+                  return (
+                    <ListedReview
+                      id={id}
+                      type={type}
+                      key={review[0]}
+                      content={checkReview(review[1].content)}
+                      review={review[1]}
+                      reviewId={review[0]}
+                    />
+                  );
+                })
+              : null}
+          </div>
+        ) : (
+          <div className="home loading">
+            <div className="self loading">
+              <p>Loading ...</p>
+            </div>
+          </div>
+        )}
+      </>
     );
   }
 }

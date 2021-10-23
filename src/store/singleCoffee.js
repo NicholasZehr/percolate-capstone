@@ -1,4 +1,4 @@
-import { getDoc, doc } from "firebase/firestore";
+import { getDoc, doc, updateDoc } from "firebase/firestore";
 import db from "../firebase";
 import { fetchSingleCoffeeReviews } from "./reviewActions";
 // action types
@@ -6,6 +6,7 @@ import { fetchSingleCoffeeReviews } from "./reviewActions";
 const GET_SINGLE_COFFEE = "GET_SINGLE_COFFEE";
 const ADD_LIKE_COFFEE = "ADD_LIKE_COFFEE";
 const REMOVE_LIKE_COFFEE = "REMOVE_LIKE_COFFEE";
+const UPDATE_AVERAGE = "UPDATE_AVERAGE";
 
 const dispatchSingleCoffee = (coffee, coffeeId) => {
   return (dispatch) => {
@@ -33,6 +34,13 @@ export const _removeLikeCoffee = (reviewId) => {
     reviewId,
   };
 };
+
+export const _updateAverage = (coffee) => {
+  return {
+    type: UPDATE_AVERAGE,
+    coffee,
+  };
+};
 // thunk
 
 const fetchSingleCoffee = (coffeeId) => {
@@ -45,6 +53,27 @@ const fetchSingleCoffee = (coffeeId) => {
       dispatch(dispatchSingleCoffee(singleCoffee, coffeeId));
     } catch (error) {
       return `Error ${error.message} fetch single coffee thunk`;
+    }
+  };
+};
+
+const updateAverage = (coffeeId, newRating) => {
+  return async (dispatch) => {
+    const coffeeRef = doc(db, "coffees", coffeeId);
+    const coffeeSnap = await getDoc(coffeeRef);
+    const reviews = coffeeSnap.data().reviews;
+    const currentRating = coffeeSnap.data().rating;
+
+    if (!reviews || !currentRating) {
+      await updateDoc(coffeeRef, { rating: newRating });
+    } else {
+      const length = reviews.length;
+
+      const sumReviews = currentRating * length;
+
+      const newSum = sumReviews + newRating;
+      const updatedAvg = newSum / (length + 1);
+      await updateDoc(coffeeRef, { rating: updatedAvg });
     }
   };
 };

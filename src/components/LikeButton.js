@@ -2,36 +2,36 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { likeClick } from "../store/reviewActions";
 import { getAuth } from "firebase/auth";
+import { trackPromise, promiseTrackerHoc } from "react-promise-tracker";
 const auth = getAuth();
 class LikeButton extends Component {
   constructor(props) {
     super(props);
-    this.state = { user: auth.currentUser, likeStatus: 0 };
+    this.state = { user: auth.currentUser, loading: false };
     this.handleLike = this.handleLike.bind(this);
   }
 
-  async componentWillUnmount() {
+  async handleLike() {
     const likeClick = this.props.likeClick;
     const id = this.props.id;
     const type = this.props.type;
     const { uid, displayName, photoURL } = this.state.user;
-    if (this.state.likeStatus) {
-      likeClick(id, this.props.reviewId, uid, displayName, photoURL, type);
-    }
-  }
-  handleLike() {
-    if (this.state.likeStatus) {
-      this.setState({ ...this.state, likeStatus: 1 });
-    }
+    this.setState({ ...this.state, loading: true });
+    console.log("loading now set to true");
+    await likeClick(id, this.props.reviewId, uid, displayName, photoURL, type);
+    this.setState({ ...this.state, loading: false });
+    console.log("loading now set to false");
   }
   render() {
     const likeCount = this.props.likeCount;
     const { handleLike } = this;
-    return `${likeCount}` ? (
+    return `${likeCount}` && !this.state.loading ? (
       <div className="like_button" onClick={handleLike}>
         Like {likeCount ? `(${likeCount})` : null}
       </div>
-    ) : null;
+    ) : (
+      <div>Hello World</div>
+    );
   }
 }
 const mapState = (state) => {
@@ -40,10 +40,8 @@ const mapState = (state) => {
   };
 };
 const mapDispatch = (dispatch) => ({
-  likeClick: (coffeeId, reviewId, userId, displayName, photoURL, index) =>
-    dispatch(
-      likeClick(coffeeId, reviewId, userId, displayName, photoURL, index)
-    ),
+  likeClick: (id, reviewId, userId, displayName, photoURL, type) =>
+    dispatch(likeClick(id, reviewId, userId, displayName, photoURL, type)),
 });
 
 export default connect(mapState, mapDispatch)(LikeButton);

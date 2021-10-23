@@ -4,25 +4,29 @@ import { Link } from "react-router-dom";
 
 class ListedReview extends Component {
   render() {
-    const { displayName, rating, likeCount, userPhoto } = this.props.review;
+    const { displayName, rating, likeCount, photoURL, userId } =
+      this.props.review;
     const reviewId = this.props.reviewId;
     const content = this.props.content;
     return (
       <div className="review-list-item">
         <div className="review-details">
-          <img
-            alt="review-Author"
-            src={userPhoto ? userPhoto : "/guest.jpeg"}
-            className="profPic review-author-photo"
-          />
+          <Link to={`/users/${userId}`}>
+            <img
+              alt="review-Author"
+              src={photoURL ? photoURL : "/guest.jpeg"}
+              className="profPic review-author-photo"
+            />
+          </Link>
           <Link to={`/review/${reviewId}`}>
             <div className="review-info">
               <div className="review-single-detail">
-                <label htmlFor="review-username">Author:</label>
-                <h4 id="review-username">{displayName}</h4>
+                <label htmlFor="review-username">Author: </label>
+                <h4 id="review-username"> {displayName}</h4>
               </div>
               <div className="review-single-detail">
-                <h4 id="review-rating">Rating {rating}</h4>
+                <label htmlFor="review-username">Rating: </label>
+                <h4 id="review-rating">{rating}</h4>
               </div>
             </div>
           </Link>
@@ -32,7 +36,7 @@ class ListedReview extends Component {
               index={this.props.idx}
               reviewId={reviewId}
               key={this.props.review.reviewId}
-              likeCount={this.props.review.likeCount}
+              likeCount={likeCount}
               type={this.props.type}
             />
             <label className="">Liked by: {this.props.review.likeCount}</label>

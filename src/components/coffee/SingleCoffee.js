@@ -15,8 +15,14 @@ class SingleCoffee extends Component {
     const reviews = this.props.reviews;
     const id = this.props.match.params.id;
     const type = "coffee";
-    const { name, brandName, photoUrl, roast, roasterCity, avgRating } =
-      this.props.singleCoffee;
+    const {
+      name,
+      brandName,
+      photoURL: coffeePhoto,
+      roast,
+      roasterCity,
+      avgRating,
+    } = this.props.singleCoffee;
     return (
       <>
         <div className="single-coffee">
@@ -30,7 +36,7 @@ class SingleCoffee extends Component {
               <div className="single-coffee-image">
                 <img
                   id="single-coffee-img"
-                  src={photoUrl}
+                  src={coffeePhoto}
                   alt={`${name} by ${brandName}`}
                 />
               </div>
@@ -46,7 +52,6 @@ class SingleCoffee extends Component {
             type={type}
             name={name}
             brandName={brandName}
-            photoUrl={photoUrl}
             roast={roast}
             roasterCity={roasterCity}
           />

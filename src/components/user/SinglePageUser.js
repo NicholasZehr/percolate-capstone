@@ -252,7 +252,7 @@ const SingleUserPage = () => {
                           </div>
                         );
                       })
-                    : "You have no followers"}
+                    : "No one is following you."}
                 </div>
               </div>
               <div className="followers">
@@ -275,7 +275,7 @@ const SingleUserPage = () => {
                           </div>
                         );
                       })
-                    : "You have no followers"}
+                    : "You are not following anyone."}
                 </div>
               </div>
             </div>

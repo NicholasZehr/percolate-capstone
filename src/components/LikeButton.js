@@ -17,10 +17,8 @@ class LikeButton extends Component {
     const type = this.props.type;
     const { uid, displayName, photoURL } = this.state.user;
     this.setState({ ...this.state, loading: true });
-    console.log("loading now set to true");
     await likeClick(id, this.props.reviewId, uid, displayName, photoURL, type);
     this.setState({ ...this.state, loading: false });
-    console.log("loading now set to false");
   }
   render() {
     const likeCount = this.props.likeCount;
@@ -30,7 +28,7 @@ class LikeButton extends Component {
         Like {likeCount ? `(${likeCount})` : null}
       </div>
     ) : (
-      <div>Hello World</div>
+      <div>HelloWorld</div>
     );
   }
 }

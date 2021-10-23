@@ -1,14 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router";
-import { doc, collection, addDoc, setDoc } from "firebase/firestore";
+import { doc, collection, addDoc, getDocs } from "firebase/firestore";
 import db from "../firebase";
+import { fetchSingleReview } from "../store/reviewActions";
 
 const FeedCard = (props) => {
   const history = useHistory();
   //CSS textarea expanding
   const [show, setShow] = useState(false);
   const textarea = document.getElementById("txt");
-  const [allComments, setAllComments] = useState("noShow");
+  const [cssShow, setCssShow] = useState("noShow");
+
+
+  useEffect(() => {
+    if (show == true) {
+      const subCollection = collection(db, "reviews", props.reviewId, "comments");
+      async function fetchComments() {
+        const response = await getDocs(subCollection)
+        const temp = []
+        response.forEach(doc => {
+          temp.push(doc.data())
+        })
+      }
+      fetchComments()
+    }
+  }, [show])
+
+// auto extpand textarea fix it later
   if (textarea) {
     textarea.addEventListener("input", function (e) {
       this.style.height = "auto";
@@ -68,10 +86,10 @@ const FeedCard = (props) => {
   }
   function showComments() {
     setShow(!show);
-    if (allComments == "noShow") {
-      setAllComments("show");
+    if (cssShow == "noShow") {
+      setCssShow("show");
     } else {
-      setAllComments("noShow");
+      setCssShow("noShow");
     }
   }
   return (
@@ -137,7 +155,7 @@ const FeedCard = (props) => {
           <p>Comments</p>
         </div>
       </div>
-      <div className={`self feeding cardUp ${allComments}`}>
+      <div className={`self feeding cardUp ${cssShow}`}>
         adsfdsahfjdhsafjk
       </div>
       <div className="self feeding cardUptwo">

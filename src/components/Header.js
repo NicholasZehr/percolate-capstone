@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { logout } from "../store/auth";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { Search } from "../components/Search";
 
 const Header = () => {
-  const history = useHistory();
+  const history = useNavigate();
   const login = getAuth();
   const dispatch = useDispatch();
   const [user, setUser] = useState(getAuth().currentUser);

@@ -3,26 +3,20 @@ import { connect } from "react-redux";
 
 import { fetchBusinesses } from "../../../store/businessActions";
 
-class Businesses extends Component {
-  componentDidMount() {
-    this.props.fetchBusinesses();
-  }
 
-  render() {
-    if (this.props.businesses.businesses.length) {
-      return (
-        <div>
-          {this.props.businesses.businesses.map((business) => (
-            <div>
-              {business.data().name} {business.id}
-            </div>
-          ))}
-        </div>
-      );
-    } else {
-      return <div>hiiii</div>;
-    }
-  }
+const Businesses = (props) => {
+  return ( 
+      props.businesses.businesses.length ? (
+          <div>
+            {this.props.businesses.businesses.map((business) => (
+              <div>
+                {business.data().name} {business.id}
+              </div>
+            ))}
+          </div>
+        )
+      : (<div>No bussineses to display.</div> )
+  )
 }
 
 const mapState = (state) => {

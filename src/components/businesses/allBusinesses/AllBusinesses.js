@@ -1,17 +1,15 @@
-import React, { useEffect, useRef } from "react";
-import { connect, useSelector, useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchBusinesses } from "../../../store/businessActions";
 
 
 
 const Businesses = (props) => {
   const businesses = useSelector((state) => state.businesses)
-  const hasFetchedData = useRef(false)
   const dispatch = useDispatch();
+
   useEffect(() => {
-    if (!hasFetchedData.current) {
-      dispatch(fetchBusinesses)
-    }
+      dispatch(fetchBusinesses())
   }, [dispatch])
   
   return ( 
@@ -28,16 +26,4 @@ const Businesses = (props) => {
   )
 }
 
-const mapState = (state) => {
-  return {
-    businesses: state.businesses,
-  };
-};
-
-const mapDispatch = (dispatch) => {
-  return {
-    fetchBusinesses: () => dispatch(fetchBusinesses()),
-  };
-};
-
-export default connect(mapState, mapDispatch)(Businesses);
+export default Businesses

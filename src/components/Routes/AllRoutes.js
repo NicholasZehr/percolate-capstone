@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router";
+import { Route, Routes} from "react-router";
 import AllBusinesses from "../businesses/allBusinesses/AllBusinesses";
 
 import AddBusiness from "../businesses/addBusiness/AddBusiness";
@@ -15,10 +15,10 @@ import Home from "../Home";
 import Feed from "../feed/Feed";
 import MapSearch from "../MapSearch";
 
-class Routes extends Component {
+class AllRoutes extends Component {
   render() {
     return (
-      <Switch>
+      <Routes>
         <Route exact path="/reviewPane" component={ReviewPane} />
         <Route path="/review/:reviewId" component={SingleReview} />
         <Route path="/login" component={LoginPage} />
@@ -33,9 +33,9 @@ class Routes extends Component {
         <Route exact path="/" component={Home} />
         <Route path="/feed" component={Feed} />
         <Route exact path="/map" component={MapSearch} />
-      </Switch>
+      </Routes>
     );
   }
 }
 
-export default Routes;
+export default AllRoutes;
